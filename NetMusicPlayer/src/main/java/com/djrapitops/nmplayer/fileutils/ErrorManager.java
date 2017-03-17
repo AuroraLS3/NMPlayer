@@ -24,7 +24,7 @@ public class ErrorManager {
      * @param source Name of the source class
      * @param e Thrown error
      */
-    public static void toLog(String source, Throwable e) throws IOException {
+    public static void toLog(String source, Throwable e) {
         // TODO Show error message to user.
         toLog(source + " Caught " + e);
         for (StackTraceElement x : e.getStackTrace()) {
@@ -39,7 +39,7 @@ public class ErrorManager {
      * @param source Class name the exception was caught in.
      * @param e Collection of Throwables, eg NullPointerException
      */
-    public static void toLog(String source, Collection<Throwable> e) throws IOException {
+    public static void toLog(String source, Collection<Throwable> e) {
         for (Throwable ex : e) {
             toLog(source, ex);
         }
@@ -50,16 +50,31 @@ public class ErrorManager {
      *
      * @param message Message to log to Errors.txt
      */
-    public static void toLog(String message) throws IOException {
-        File log = new File("Errors.txt");
-        if (!log.exists()) {
-            log.createNewFile();
-        }
-        FileWriter fw = new FileWriter(log, true);
-        try (PrintWriter pw = new PrintWriter(fw)) {
+    public static void toLog(String message) {
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        try {
+            File log = new File("Errors.txt");
+            if (!log.exists()) {
+                log.createNewFile();
+            }
+            fw = new FileWriter(log, true);
+            pw = new PrintWriter(fw);
             String timestamp = formatTimeStamp(new Date().getTime());
             pw.println("[" + timestamp + "] " + message);
             pw.flush();
+
+        } catch (IOException ex) {
+        } finally {
+            if (pw != null) {
+                pw.close();
+            }
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException ex) {
+                }
+            }            
         }
     }
 

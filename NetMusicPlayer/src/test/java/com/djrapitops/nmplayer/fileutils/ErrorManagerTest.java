@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Before;
+import org.junit.Ignore;
 
 /**
  *
@@ -24,31 +24,12 @@ import org.junit.Before;
 public class ErrorManagerTest {
 
     public ErrorManagerTest() {
-    }
-
-    @Before
-    public void setUp() throws IOException {
-        Files.deleteIfExists(new File("Errors.txt").toPath());
-    }
-    
-    @Test
-    public void testToLog_String_Throwable() throws IOException {
-        
-        System.out.println("ErrorManager.toLog throwable (single) test");
-        File errors = new File("Errors.txt");
-        String source = "package.TestSource";
-        Throwable e = new IllegalArgumentException("Test");
-        ErrorManager.toLog(source, e);        
-        List<String> errorlines = Files.lines(errors.toPath()).collect(Collectors.toList());
-        assertTrue("Errors.txt is empty-", errorlines.size() > 0);
-        assertTrue("First line doesn't contain package.", errorlines.get(0).contains("package.TestSource"));
-        assertTrue("First line doesn't contain exception name", errorlines.get(0).contains("IllegalArgumentException"));
-        assertTrue("Second line doesn't exist", errorlines.get(1) != null);        
-    }
+    }    
 
     @Test
     public void testToLog_String_Collection() throws IOException {
         System.out.println("ErrorManager.toLog throwable (collection) test");
+        Files.deleteIfExists(new File("Errors.txt").toPath());
         File errors = new File("Errors.txt");
         String source = "package.TestSource";
         Throwable e = new IllegalArgumentException("Test");
@@ -65,17 +46,6 @@ public class ErrorManagerTest {
         assertTrue("First line doesn't contain exception name", errorlines.get(0).contains("IllegalArgumentException"));
         assertTrue("Second line doesn't exist", errorlines.get(1) != null);
 
-    }
-
-    @Test
-    public void testToLog_String() throws IOException {
-        System.out.println("ErrorManager.toLog String (one line) test");
-        File errors = new File("Errors.txt");
-        String line = "test line";
-        ErrorManager.toLog(line);
-        List<String> errorlines = Files.lines(errors.toPath()).collect(Collectors.toList());
-        assertTrue("Errors.txt is empty.", errorlines.size() > 0);
-        assertTrue("Didn't contain package", errorlines.get(errorlines.size()-1).contains(line));
     }
 
     @Test

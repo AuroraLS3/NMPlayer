@@ -45,20 +45,6 @@ public class PlaylistFileManagerTest {
     public void tearDown() {
     }
 
-    @Ignore("Throws exception Käyttö estetty") @Test
-    public void testSave() throws IOException {
-        System.out.println("  Test save Method");
-        List<String> links = new ArrayList<>();
-        links.add("testlink");
-        String name = "test";
-        boolean expResult = true;
-        boolean result = PlaylistFileManager.save(links, name);
-        assertEquals(expResult, result);
-        assertTrue("Didn't create playlists folder", new File("playlists").exists());
-        assertTrue("Didn't create text file", new File("playlists" + File.separator + "test.txt").exists());
-        assertTrue("Didn't save to file", Files.lines((new File("playlists" + File.separator + "test.txt").toPath())).collect(Collectors.toList()).contains("testlink"));
-    }
-
     @Test
     public void testGetPlaylistFolder() {
         System.out.println("  Test getPlaylistFolder");
@@ -69,7 +55,7 @@ public class PlaylistFileManagerTest {
     }
 
     @Test
-    public void testLoad() {
+    public void testSaveAndLoad() {
         System.out.println("  Test load Method");
         String name = "test";
         List<String> expResult = new ArrayList<>();
