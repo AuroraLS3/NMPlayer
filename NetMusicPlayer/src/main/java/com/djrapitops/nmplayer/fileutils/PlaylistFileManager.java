@@ -5,6 +5,7 @@
  */
 package com.djrapitops.nmplayer.fileutils;
 
+import com.djrapitops.nmplayer.functionality.Track;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class PlaylistFileManager {
 
-    public static boolean save(List<String> links, String name) {
+    public static boolean save(List<String> filepath, String name) {
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
         try {
@@ -29,7 +30,7 @@ public class PlaylistFileManager {
             }
             FileWriter fw = new FileWriter(playlistFile, false);
             try (PrintWriter pw = new PrintWriter(fw)) {
-                for (String link : links) {
+                for (String link : filepath) {
                     pw.println(link);
                     pw.flush();
                 }
@@ -61,5 +62,9 @@ public class PlaylistFileManager {
             }
         }
         return playlist;
+    }
+
+    public static void save(List<Track> playlist, String name, boolean ok) {
+        save(playlist.stream().map(track -> track.getFilePath()).collect(Collectors.toList()), name);
     }
 }

@@ -10,14 +10,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -28,21 +26,9 @@ public class PlaylistFileManagerTest {
     public PlaylistFileManagerTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
     @Before
     public void setUp() throws IOException {
         Files.deleteIfExists(new File(PlaylistFileManager.getPlaylistFolder(), "test.txt").toPath());
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test

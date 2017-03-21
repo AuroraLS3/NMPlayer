@@ -5,6 +5,8 @@
  */
 package com.djrapitops.nmplayer;
 
+import com.djrapitops.nmplayer.functionality.MusicPlayer;
+
 /**
  *
  * @author Risto
@@ -15,7 +17,8 @@ public class NMPlayer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        MusicPlayer mp = new MusicPlayer();
+        mp.init();
     }
     
 }
