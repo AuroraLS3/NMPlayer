@@ -25,9 +25,7 @@ public class PlaylistFileManager {
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
         try {
-            if (!playlistFile.exists()) {
-                playlistFile.createNewFile();
-            }
+            playlistFile.createNewFile();
             FileWriter fw = new FileWriter(playlistFile, false);
             try (PrintWriter pw = new PrintWriter(fw)) {
                 for (String link : filepath) {
@@ -57,7 +55,7 @@ public class PlaylistFileManager {
         if (playlistFile.exists()) {
             try {
                 playlist.addAll(Files.lines(playlistFile.toPath()).collect(Collectors.toList()));
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", ex);
             }
         }

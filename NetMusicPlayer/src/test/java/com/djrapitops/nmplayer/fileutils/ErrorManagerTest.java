@@ -43,7 +43,7 @@ public class ErrorManagerTest {
         assertTrue("First line doesn't contain package.", errorlines.get(0).contains("package.TestSource"));
         assertTrue("First line doesn't contain exception name", errorlines.get(0).contains("IllegalArgumentException"));
         assertTrue("Second line doesn't exist", errorlines.get(1) != null);
-
+        Files.deleteIfExists(new File("Errors.txt").toPath());
     }
 
     @Test
