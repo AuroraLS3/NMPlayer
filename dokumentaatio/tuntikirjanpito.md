@@ -7,3 +7,4 @@ Päivä | Tunnit | Kuvaus
 17.03.2017 | 2.0h | Tominnallisuuden kirjoitusta .functionality, checkstyle lisäys
 21.03.2017 | 2.5h | .functionality Testien kirjoitusta, muutoksia toimimattomiin ratkaisuihin
 21.03.2017 | 0.5h | dokumentaation kirjoitusta (aiheaJaKuvaus, readme)
+23.03.2017 | 3.0h | Luokkakaavion luonti, raporttien generointi, muutaman testin korjausta ja parantelua (IOException tarkistus)
