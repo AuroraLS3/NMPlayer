@@ -5,6 +5,7 @@
  */
 package com.djrapitops.nmplayer.fileutils;
 
+import com.djrapitops.nmplayer.fileutils.downloading.YoutubeMp3Downloader;
 import com.djrapitops.nmplayer.functionality.Track;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -90,6 +91,8 @@ public class TrackFileManager {
     }
 
     public static Track download(String trackAddress) {
+        YoutubeMp3Downloader.downloadUrl(trackAddress);
+        /*
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
@@ -123,7 +126,7 @@ public class TrackFileManager {
                 } catch (IOException ex) {
                 }
             }
-        }
+        }*/
         return null;
     }
 }
