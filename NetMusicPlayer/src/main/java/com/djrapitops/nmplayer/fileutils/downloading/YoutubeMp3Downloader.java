@@ -16,7 +16,6 @@ public class YoutubeMp3Downloader {
     /*
     Does not always download, retrying after a couple mins or 30 seconds sometimes helps
      */
-
     /**
      * Used to prevent bad urls such as 403, 400 exceptions
      */
@@ -66,8 +65,7 @@ public class YoutubeMp3Downloader {
     /*public static void main(String[] args) {
         downloadUrl("http://m.youtube.com/watch?v=dvmlXsBzxb8");
     }*/
-
-    public static String STORAGE = new File("tracks").getAbsolutePath();
+    public static final String STORAGE = new File("tracks").getAbsolutePath();
     /**
      * Tested: 35, 5 Working: 5
      *
@@ -99,7 +97,8 @@ public class YoutubeMp3Downloader {
             boolean downloaded = false;
             for (String flv : flvUrls) {
                 int tag = getTag(flv);
-                if (tag == TARGET_QUALITY) {//Download only target to avoid issues
+                //Download only target to avoid issues
+                if (tag == TARGET_QUALITY) {
                     downloaded = downloadVideo(flv);
                 }
                 if (downloaded) {
@@ -185,7 +184,8 @@ public class YoutubeMp3Downloader {
         return null;
     }
 
-    private static boolean isValid(String url) {//kinda pointless lol
+    //kinda pointless lol
+    private static boolean isValid(String url) {
         return url.contains("signature=") && url.contains("factor=");
     }
 
@@ -284,7 +284,8 @@ public class YoutubeMp3Downloader {
         ErrorManager.toLog("com.djrapitops.fileutils.downloading.YoutubeMp3Downloader", ex);
     }
 
-    public static String getSaveFilePath(String name) {//TODO remove invalid chars from file name
+    public static String getSaveFilePath(String name) {
+        //TODO remove invalid chars from file name
         return STORAGE + "/" + decode(name).replace("?", "") + ".mp3";
     }
 

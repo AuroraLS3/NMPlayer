@@ -26,9 +26,17 @@ public class TrackFileManagerTest {
     }
     
     @Test
+    public void testGetFolder() {
+        File folder = TrackFileManager.getFolder();
+        assertTrue("Didn't create folder", folder.exists());
+        assertEquals(new File("tracks"), folder);
+    }
+    
+    @Test
     public void testTranslateToTracks() throws IOException {
         System.out.println("Test Saving of Register file and translation of Playlist paths from Register to Track Objects");
-        Files.deleteIfExists(new File(TrackFileManager.getFolder(), "register.txt").toPath());
+        File reg = TrackFileManager.createRegisterFile("testReg.txt");
+        Files.deleteIfExists(reg.toPath());
         List<Track> tracks = new ArrayList<>();
         tracks.add(new Track("Test1","1","Testpath1"));
         tracks.add(new Track("Test2","2","Testpath2"));
@@ -37,14 +45,14 @@ public class TrackFileManagerTest {
         tracks.add(new Track("Test5","5","Testpath5"));
         tracks.add(new Track("Test6","6","Testpath6"));        
         boolean expResult = true;
-        boolean result = TrackFileManager.saveRegisterFile(tracks);
+        boolean result = TrackFileManager.saveRegisterFile(tracks, "testreg.txt");
         assertEquals(expResult, result);
-        File reg = new File(TrackFileManager.getFolder(), "register.txt");
-        assertTrue("Did not create register.txt", reg.exists());
-        assertTrue("Did not write register", Files.lines(reg.toPath()).collect(Collectors.toList()).size() == tracks.size());
+        assertTrue("Did not create testreg.txt", reg.exists());
+        assertTrue("Did not write testreg", Files.lines(reg.toPath()).collect(Collectors.toList()).size() == tracks.size());
         List<String> playlist = tracks.stream().map(track -> track.getFilePath()).collect(Collectors.toList());
-        List<Track> resultTracks = TrackFileManager.translateToTracks(playlist);
+        List<Track> resultTracks = TrackFileManager.translateToTracks(playlist, "testreg.txt");
         assertTrue("Tracklist did not contain all track information: "+resultTracks.size()+"/"+tracks.size(), resultTracks.containsAll(tracks));
+        Files.deleteIfExists(reg.toPath());
     }
 
     @Ignore("Download method not ready") @Test

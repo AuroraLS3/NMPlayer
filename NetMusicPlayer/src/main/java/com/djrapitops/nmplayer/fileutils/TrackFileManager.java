@@ -8,13 +8,9 @@ package com.djrapitops.nmplayer.fileutils;
 import com.djrapitops.nmplayer.fileutils.downloading.YoutubeMp3Downloader;
 import com.djrapitops.nmplayer.functionality.Track;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +25,16 @@ public class TrackFileManager {
         File tracksFolder = new File("tracks");
         if (!tracksFolder.exists()) {
             tracksFolder.mkdir();
-        }
-        File regFile = new File(tracksFolder, "register.txt");
+        }        
+        return tracksFolder;
+    }
+
+    public static File createRegisterFile() {
+        return createRegisterFile("register.txt");
+    }
+
+    public static File createRegisterFile(String filename) {
+        File regFile = new File(getFolder(), filename);
         if (!regFile.exists()) {
             try {
                 regFile.createNewFile();
@@ -38,13 +42,17 @@ public class TrackFileManager {
                 ErrorManager.toLog(TrackFileManager.class.getName(), ex);
             }
         }
-        return tracksFolder;
+        return regFile;
     }
 
     public static List<Track> translateToTracks(List<String> playlist) {
+        return translateToTracks(playlist, "register.txt");
+    }
+
+    public static List<Track> translateToTracks(List<String> playlist, String registerFileName) {
         List<Track> tracks = new ArrayList<>();
         try {
-            Files.lines(new File(getFolder(), "register.txt").toPath())
+            Files.lines(createRegisterFile(registerFileName).toPath())
                     .map(line -> line.split(";"))
                     .forEach(splitLine -> {
                         if (splitLine.length >= 3) {
@@ -61,8 +69,11 @@ public class TrackFileManager {
     }
 
     public static boolean saveRegisterFile(List<Track> tracks) {
-        File tracksFolder = getFolder();
-        File regFile = new File(tracksFolder, "register.txt");
+        return saveRegisterFile(tracks, "register.txt");
+    }
+
+    public static boolean saveRegisterFile(List<Track> tracks, String name) {
+        File regFile = createRegisterFile(name);
         FileWriter fw = null;
         PrintWriter pw = null;
         try {

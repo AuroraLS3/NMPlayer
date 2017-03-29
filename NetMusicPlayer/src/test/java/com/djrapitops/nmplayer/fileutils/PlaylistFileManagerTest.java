@@ -7,14 +7,13 @@ package com.djrapitops.nmplayer.fileutils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -27,7 +26,6 @@ public class PlaylistFileManagerTest {
 
     @Before
     public void setUp() throws IOException {
-        Files.deleteIfExists(new File(PlaylistFileManager.getPlaylistFolder(), "test.txt").toPath());
     }
 
     @Test
@@ -49,9 +47,11 @@ public class PlaylistFileManagerTest {
             fail("Failed to save.");
         }
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
-        assertTrue("Didn't create playlist file", new File(PlaylistFileManager.getPlaylistFolder(), name+".txt").exists());
+        File testFile = new File(PlaylistFileManager.getPlaylistFolder(), name+".txt");
+        assertTrue("Didn't create playlist file", testFile.exists());
         List<String> result = PlaylistFileManager.load(name);
         assertEquals(expResult, result);
+        testFile.deleteOnExit();
     }
     
     @Test
@@ -64,15 +64,15 @@ public class PlaylistFileManagerTest {
         expResult.add("testlink");
         File errors = new File("Errors.txt");
         ErrorManager.toLog("Test");
-        int linesBefore = Files.lines(errors.toPath()).collect(Collectors.toList()).size();
+        long linesBefore = Files.lines(errors.toPath(),Charset.defaultCharset()).count();
         if (PlaylistFileManager.save(expResult, name)) {
             fail("Succeeded to save");
         }
-        int linesNow = Files.lines(errors.toPath()).collect(Collectors.toList()).size();
+        long linesNow = Files.lines(errors.toPath(),Charset.defaultCharset()).count();
         assertTrue("Did not catch IOException, is folder", linesBefore < linesNow);
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
         assertTrue("Didn't create playlist file", !new File(PlaylistFileManager.getPlaylistFolder(), name+".txt").isFile());
-        exceptionFolder.delete();
+        Files.deleteIfExists(exceptionFolder.toPath());
     }
     
     @Test
@@ -81,11 +81,11 @@ public class PlaylistFileManagerTest {
         String name = "testLoadException";
         File errors = new File("Errors.txt");
         ErrorManager.toLog("Test");
-        int linesBefore = Files.lines(errors.toPath()).collect(Collectors.toList()).size();
+        long linesBefore = Files.lines(errors.toPath(),Charset.defaultCharset()).count();
         File exceptionFile = new File(PlaylistFileManager.getPlaylistFolder(), name+".txt");
         exceptionFile.mkdir();
         PlaylistFileManager.load(name);
-        int linesNow = Files.lines(errors.toPath()).collect(Collectors.toList()).size();
+        long linesNow = Files.lines(errors.toPath(),Charset.defaultCharset()).count();
         assertTrue("Did not catch IOException, pathseparator", linesBefore < linesNow);
     }
 

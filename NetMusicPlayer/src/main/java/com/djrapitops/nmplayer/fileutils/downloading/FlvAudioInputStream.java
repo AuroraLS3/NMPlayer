@@ -16,7 +16,8 @@ public class FlvAudioInputStream extends InputStream {
     private boolean headRead = false;
     private boolean endOfStream = false;
     private long offset = 0L;
-    private int available = 0;//audio bytes
+    //audio bytes
+    private int available = 0;
 
     public FlvAudioInputStream(InputStream input) {
         this.input = input;
@@ -211,4 +212,3 @@ public class FlvAudioInputStream extends InputStream {
         return l;
     }
 }
-

@@ -10,3 +10,4 @@ Päivä | Tunnit | Kuvaus
 23.03.2017 | 3.0h | Luokkakaavion luonti, raporttien generointi, muutaman testin korjausta ja parantelua (IOException tarkistus)
 27.03.2017 | 1.75h | Youtube videon latauksen korjaus yritystä ja googlailua
 29.03.2017 | 2.0h | Käyttöliittymän luomisen aloitus
+29.03.2017 | 2.0h | Testien korjausta Windowsille, testien parantelua, korjauksia, 3 debug viestiä vaihdettu oikeiksi

@@ -6,7 +6,6 @@
 package com.djrapitops.nmplayer.ui;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import com.djrapitops.nmplayer.messaging.MessageSender;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -21,7 +20,6 @@ public class PlayButton extends Button {
         super.setStyle("-fx-background-color: White");
         super.setText("Play");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
-            MessageSender.getInstance().send("Test Output");
             MusicPlayer.getInstance().play();
         };
         super.setOnAction(h);

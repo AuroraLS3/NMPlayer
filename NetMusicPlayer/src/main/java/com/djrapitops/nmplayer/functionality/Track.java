@@ -57,6 +57,9 @@ public class Track {
         }
         return true;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return artist+" - "+name;
+    }
 }

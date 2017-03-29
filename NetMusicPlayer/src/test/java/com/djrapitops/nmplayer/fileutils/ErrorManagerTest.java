@@ -7,11 +7,11 @@ package com.djrapitops.nmplayer.fileutils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
+import java.util.stream.Collectors;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -32,18 +32,18 @@ public class ErrorManagerTest {
         String source = "package.TestSource";
         Throwable e = new IllegalArgumentException("Test");
         Throwable e2 = new IllegalStateException("Test2");
+        ErrorManager.toLog("Test");
         ErrorManager.toLog(source, Arrays.asList(new Throwable[]{e, e2}));
-        List<String> errorlines = new ArrayList<>();
-        Scanner s = new Scanner(errors);
-        while(s.hasNextLine()) {
-            errorlines.add(s.nextLine());
-        }
-//        List<String> errorlines = Files.lines(errors.toPath()).collect(Collectors.toList());
+//        List<String> errorlines = new ArrayList<>();
+//        Scanner s = new Scanner(errors);
+//        while(s.hasNextLine()) {
+//            errorlines.add(s.nextLine());
+//        }
+        List<String> errorlines = Files.lines(errors.toPath(), Charset.defaultCharset()).collect(Collectors.toList());
         assertTrue("Errors.txt is empty-", errorlines.size() > 0);
-        assertTrue("First line doesn't contain package.", errorlines.get(0).contains("package.TestSource"));
-        assertTrue("First line doesn't contain exception name", errorlines.get(0).contains("IllegalArgumentException"));
-        assertTrue("Second line doesn't exist", errorlines.get(1) != null);
-        Files.deleteIfExists(new File("Errors.txt").toPath());
+        assertTrue("First line doesn't contain package.", errorlines.get(1).contains("package.TestSource"));
+        assertTrue("First line doesn't contain exception name", errorlines.get(1).contains("IllegalArgumentException"));
+        assertTrue("Second line doesn't exist", errorlines.get(2) != null);
     }
 
     @Test

@@ -6,7 +6,6 @@
 package com.djrapitops.nmplayer.ui;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import com.djrapitops.nmplayer.messaging.MessageSender;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -30,7 +29,7 @@ public class UserInterface extends Application {
         BorderPane root = new BorderPane();
         root.setCenter(view);
         root.setBottom(toolbar());
-        root.setTop(console());
+        root.setRight(console());
         
         primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.show();

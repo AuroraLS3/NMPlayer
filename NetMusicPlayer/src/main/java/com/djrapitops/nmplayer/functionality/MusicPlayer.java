@@ -34,27 +34,32 @@ public class MusicPlayer {
     public void init() {
         playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load("playlist")));
         addTrackToPlaylist("https://www.youtube.com/watch?v=6RthZhyRmZ8");
-        selectTrack(0);    
+        selectTrack(0);
     }
 
     public void play() {
-        mp.play();
-        msg.send("Test msg for play");
+        if (mp != null) {
+            mp.play();
+            msg.send(Phrase.NOW_PLAYING.parse(currentTrack.toString()));
+        }        
     }
 
     public void pause() {
-        mp.pause();        
+        if (mp != null) {
+            mp.pause();
+        }
     }
 
     public void stop() {
-        mp.stop();
+        if (mp != null) {
+            mp.stop();
+        }
     }
 
     public void selectTrack(int i) {
         if (!playlist.getPlaylist().isEmpty()) {
             final String name = playlist.getPlaylist().get(0).getName();
-            selectTrack(name);
-            msg.send("Test msg: "+name);
+            selectTrack(name);            
         } else {
             msg.send(Phrase.PLAYLIST_EMPTY + "");
         }
@@ -65,6 +70,12 @@ public class MusicPlayer {
         if (track != null) {
             String mp3FileName = track.getFilePath();
             File trackFile = new File(TrackFileManager.getFolder(), mp3FileName);
+            if (!trackFile.exists()) {
+                MessageSender.getInstance().send("File doesn't exist! "+track);
+                return;
+            }            
+            currentTrack = track;
+            msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
             Media play = new Media(trackFile.toURI().toString());
             mp = new MediaPlayer(play);
         }
@@ -81,12 +92,13 @@ public class MusicPlayer {
     public MediaPlayer getMediaPlayer() {
         return mp;
     }
-    
+
     public static MusicPlayer getInstance() {
         return MusicPlayerSingletonHolder.INSTANCE;
     }
-    
+
     private static class MusicPlayerSingletonHolder {
+
         private static final MusicPlayer INSTANCE = new MusicPlayer();
     }
 }

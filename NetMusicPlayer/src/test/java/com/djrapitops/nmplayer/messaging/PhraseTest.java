@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.djrapitops.nmplayer.functionality.messaging;
+package com.djrapitops.nmplayer.messaging;
 
-import com.djrapitops.nmplayer.messaging.Phrase;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,5 +24,11 @@ public class PhraseTest {
         Phrase instance = Phrase.ERROR;
         instance.setText(text);
         assertEquals(Phrase.ERROR.toString(),"Test");
+    }
+    
+    @Test
+    public void testParse() {
+        System.out.println("Test Phrase.parse (Replace method)");
+        assertEquals(Phrase.SELECTED.parse("test"), "Selected Track: test");
     }
 }
