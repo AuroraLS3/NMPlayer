@@ -5,6 +5,7 @@
  */
 package com.djrapitops.nmplayer.functionality.messaging;
 
+import com.djrapitops.nmplayer.messaging.Phrase;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

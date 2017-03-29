@@ -1,0 +1,10 @@
+com/djrapitops/nmplayer/functionality/MusicPlayer.class
+com/djrapitops/nmplayer/fileutils/PlaylistFileManager.class
+com/djrapitops/nmplayer/functionality/messaging/MessageSender.class
+com/djrapitops/nmplayer/fileutils/ErrorManager.class
+com/djrapitops/nmplayer/functionality/messaging/Phrase.class
+com/djrapitops/nmplayer/functionality/Track.class
+com/djrapitops/nmplayer/fileutils/YoutubeMp3Downloader.class
+com/djrapitops/nmplayer/functionality/playlist/PlaylistManager.class
+com/djrapitops/nmplayer/NMPlayer.class
+com/djrapitops/nmplayer/fileutils/TrackFileManager.class
