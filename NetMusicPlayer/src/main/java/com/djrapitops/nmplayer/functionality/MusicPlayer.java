@@ -7,8 +7,8 @@ package com.djrapitops.nmplayer.functionality;
 
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.fileutils.TrackFileManager;
-import com.djrapitops.nmplayer.functionality.messaging.MessageSender;
-import com.djrapitops.nmplayer.functionality.messaging.Phrase;
+import com.djrapitops.nmplayer.messaging.MessageSender;
+import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
 import java.io.File;
 import javafx.scene.media.Media;
@@ -28,21 +28,22 @@ public class MusicPlayer {
 
     public MusicPlayer() {
         playlist = new PlaylistManager();
-        msg = new MessageSender();
+        msg = MessageSender.getInstance();
     }
 
     public void init() {
         playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load("playlist")));
         addTrackToPlaylist("https://www.youtube.com/watch?v=6RthZhyRmZ8");
-        selectTrack(0);
+        selectTrack(0);    
     }
 
     public void play() {
         mp.play();
+        msg.send("Test msg for play");
     }
 
     public void pause() {
-        mp.pause();
+        mp.pause();        
     }
 
     public void stop() {
@@ -51,7 +52,9 @@ public class MusicPlayer {
 
     public void selectTrack(int i) {
         if (!playlist.getPlaylist().isEmpty()) {
-            selectTrack(playlist.getPlaylist().get(0).getName());
+            final String name = playlist.getPlaylist().get(0).getName();
+            selectTrack(name);
+            msg.send("Test msg: "+name);
         } else {
             msg.send(Phrase.PLAYLIST_EMPTY + "");
         }
@@ -73,5 +76,17 @@ public class MusicPlayer {
             playlist.addFilePathToPlaylist(track);
         }
         PlaylistFileManager.save(playlist.getPlaylist(), "playlist", true);
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mp;
+    }
+    
+    public static MusicPlayer getInstance() {
+        return MusicPlayerSingletonHolder.INSTANCE;
+    }
+    
+    private static class MusicPlayerSingletonHolder {
+        private static final MusicPlayer INSTANCE = new MusicPlayer();
     }
 }
