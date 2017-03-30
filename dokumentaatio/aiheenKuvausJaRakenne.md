@@ -15,4 +15,4 @@ Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappale
 - Soittolista
 - Kappaleen tauottaminen (pause-nappi)
 
-![Luokkakaavio 22.03.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio30032016.jpg)
+![Luokkakaavio 22.03.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio300316.jpg)
