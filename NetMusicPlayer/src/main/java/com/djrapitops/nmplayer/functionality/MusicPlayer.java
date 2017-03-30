@@ -41,7 +41,7 @@ public class MusicPlayer {
         if (mp != null) {
             mp.play();
             msg.send(Phrase.NOW_PLAYING.parse(currentTrack.toString()));
-        }        
+        }
     }
 
     public void pause() {
@@ -59,7 +59,7 @@ public class MusicPlayer {
     public void selectTrack(int i) {
         if (!playlist.getPlaylist().isEmpty()) {
             final String name = playlist.getPlaylist().get(0).getName();
-            selectTrack(name);            
+            selectTrack(name);
         } else {
             msg.send(Phrase.PLAYLIST_EMPTY + "");
         }
@@ -71,9 +71,9 @@ public class MusicPlayer {
             String mp3FileName = track.getFilePath();
             File trackFile = new File(TrackFileManager.getFolder(), mp3FileName);
             if (!trackFile.exists()) {
-                MessageSender.getInstance().send("File doesn't exist! "+track);
+                MessageSender.getInstance().send("File doesn't exist! " + track);
                 return;
-            }            
+            }
             currentTrack = track;
             msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
             Media play = new Media(trackFile.toURI().toString());

@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 10,
-             Errors: 0,
+      <title>File: 14,
+             Errors: 7,
              Warnings: 0,
              Infos: 0
       </title>
@@ -47,6 +47,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.MusicPlayer.java">com/djrapitops/nmplayer/functionality/MusicPlayer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.messaging.Phrase.java">com/djrapitops/nmplayer/messaging/Phrase.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +102,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.messaging.Phrase.java">com/djrapitops/nmplayer/functionality/messaging/Phrase.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.fileutils.downloading.YoutubeMp3Downloader.java">com/djrapitops/nmplayer/fileutils/downloading/YoutubeMp3Downloader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.fileutils.downloading.FlvAudioInputStream.java">com/djrapitops/nmplayer/fileutils/downloading/FlvAudioInputStream.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.messaging.MessageSender.java">com/djrapitops/nmplayer/messaging/MessageSender.java</a>
                 </td>
                 <td>
                   0
@@ -116,6 +158,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.NMPlayer.java">com/djrapitops/nmplayer/NMPlayer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.Track.java">com/djrapitops/nmplayer/functionality/Track.java</a>
                 </td>
                 <td>
@@ -130,7 +186,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.NMPlayer.java">com/djrapitops/nmplayer/NMPlayer.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.TextConsole.java">com/djrapitops/nmplayer/ui/TextConsole.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.UserInterface.java">com/djrapitops/nmplayer/ui/UserInterface.java</a>
                 </td>
                 <td>
                   0
@@ -158,21 +228,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.messaging.MessageSender.java">com/djrapitops/nmplayer/functionality/messaging/MessageSender.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.fileutils.YoutubeMp3Downloader.java">com/djrapitops/nmplayer/fileutils/YoutubeMp3Downloader.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.PlayButton.java">com/djrapitops/nmplayer/ui/PlayButton.java</a>
                 </td>
                 <td>
                   0

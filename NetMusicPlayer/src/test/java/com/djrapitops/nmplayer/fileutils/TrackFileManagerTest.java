@@ -35,7 +35,7 @@ public class TrackFileManagerTest {
     @Test
     public void testTranslateToTracks() throws IOException {
         System.out.println("Test Saving of Register file and translation of Playlist paths from Register to Track Objects");
-        File reg = TrackFileManager.createRegisterFile("testReg.txt");
+        File reg = TrackFileManager.createRegisterFile("testreg.txt");
         Files.deleteIfExists(reg.toPath());
         List<Track> tracks = new ArrayList<>();
         tracks.add(new Track("Test1","1","Testpath1"));

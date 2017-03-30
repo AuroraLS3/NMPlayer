@@ -52,6 +52,7 @@ public class PlaylistFileManagerTest {
         List<String> result = PlaylistFileManager.load(name);
         assertEquals(expResult, result);
         testFile.deleteOnExit();
+        Files.deleteIfExists(new File("testFile.txt").toPath());
     }
     
     @Test
@@ -82,11 +83,12 @@ public class PlaylistFileManagerTest {
         File errors = new File("Errors.txt");
         ErrorManager.toLog("Test");
         long linesBefore = Files.lines(errors.toPath(),Charset.defaultCharset()).count();
-        File exceptionFile = new File(PlaylistFileManager.getPlaylistFolder(), name+".txt");
-        exceptionFile.mkdir();
+        File exceptionFolder = new File(PlaylistFileManager.getPlaylistFolder(), name+".txt");
+        exceptionFolder.mkdir();
         PlaylistFileManager.load(name);
         long linesNow = Files.lines(errors.toPath(),Charset.defaultCharset()).count();
         assertTrue("Did not catch IOException, pathseparator", linesBefore < linesNow);
+        Files.deleteIfExists(exceptionFolder.toPath());
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.Objects;
  * @author Risto
  */
 public class Track {
+
     private final String name;
     private final String artist;
     private final String fileName;
@@ -60,6 +61,6 @@ public class Track {
 
     @Override
     public String toString() {
-        return artist+" - "+name;
+        return artist + " - " + name;
     }
 }

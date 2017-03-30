@@ -5,6 +5,8 @@
  */
 package com.djrapitops.nmplayer.fileutils;
 
+import com.djrapitops.nmplayer.messaging.MessageSender;
+import com.djrapitops.nmplayer.messaging.Phrase;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,13 +21,13 @@ import java.util.Date;
 public class ErrorManager {
 
     /**
-     * Logs caugth Throwable to Errors.txt
+     * Logs caught Throwable to Errors.txt
      *
      * @param source Name of the source class
      * @param e Thrown error
      */
     public static void toLog(String source, Throwable e) {
-        // TODO Show error message to user.
+        MessageSender.getInstance().send(Phrase.ERROR+"");
         toLog(source + " Caught " + e);
         for (StackTraceElement x : e.getStackTrace()) {
             toLog("  " + x);
