@@ -44,15 +44,19 @@ public class MusicPlayer {
     }
 
     public void nextTrack() {
-        mp.stop();
-        selectTrack(currentTrackIndex + 1);
-        play();
+        if (currentTrack != null) {
+            mp.stop();
+            selectTrack(currentTrackIndex + 1);
+            play();
+        }
     }
 
     public void previousTrack() {
-        mp.stop();
-        selectTrack(currentTrackIndex - 1);
-        play();
+        if (currentTrack != null) {
+            mp.stop();
+            selectTrack(currentTrackIndex - 1);
+            play();
+        }
     }
 
     public void play() {
@@ -115,11 +119,12 @@ public class MusicPlayer {
     }
 
     public void addTrackToPlaylist(Track track) {
-        if (track == null) {            
+        if (track == null) {
             return;
         }
         playlist.addFilePathToPlaylist(track);
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
+        selectTrack(track.getName());
     }
 
     public MediaPlayer getMediaPlayer() {
