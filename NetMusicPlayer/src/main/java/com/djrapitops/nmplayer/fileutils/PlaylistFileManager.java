@@ -21,15 +21,15 @@ import java.util.stream.Collectors;
  */
 public class PlaylistFileManager {
 
-    public static boolean save(List<String> filepath, String name) {
+    public static boolean save(List<String> filepaths, String name) {
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
         try {
             playlistFile.createNewFile();
             FileWriter fw = new FileWriter(playlistFile, false);
             try (PrintWriter pw = new PrintWriter(fw)) {
-                for (String link : filepath) {
-                    pw.println(link);
+                for (String filepath : filepaths) {
+                    pw.println(filepath);
                     pw.flush();
                 }
             }

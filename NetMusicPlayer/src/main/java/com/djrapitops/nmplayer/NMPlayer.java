@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.djrapitops.nmplayer;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
@@ -25,7 +21,11 @@ public class NMPlayer {
                 javafx.application.Application.launch(UserInterface.class);
             }
         }.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+        }
         mp.init();
     }
-    
+
 }

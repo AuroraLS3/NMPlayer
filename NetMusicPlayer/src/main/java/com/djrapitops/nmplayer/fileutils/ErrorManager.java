@@ -27,7 +27,7 @@ public class ErrorManager {
      * @param e Thrown error
      */
     public static void toLog(String source, Throwable e) {
-        MessageSender.getInstance().send(Phrase.ERROR+"");
+        MessageSender.getInstance().send(Phrase.ERROR + "");
         toLog(source + " Caught " + e);
         for (StackTraceElement x : e.getStackTrace()) {
             toLog("  " + x);
@@ -76,7 +76,7 @@ public class ErrorManager {
                     fw.close();
                 } catch (IOException ex) {
                 }
-            }            
+            }
         }
     }
 

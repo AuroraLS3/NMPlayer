@@ -24,7 +24,9 @@ public class MusicPlayer {
     private final MessageSender msg;
 
     private Track currentTrack;
+    private int currentTrackIndex;
     private MediaPlayer mp;
+    private String selectedPlaylist;
 
     public MusicPlayer() {
         playlist = new PlaylistManager();
@@ -32,9 +34,25 @@ public class MusicPlayer {
     }
 
     public void init() {
-        playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load("playlist")));
-        addTrackToPlaylist("https://www.youtube.com/watch?v=6RthZhyRmZ8");
+        selectPlaylist("all");
+    }
+
+    public void selectPlaylist(String playlistName) {
+        selectedPlaylist = playlistName;
+        playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist)));
         selectTrack(0);
+    }
+
+    public void nextTrack() {
+        mp.stop();
+        selectTrack(currentTrackIndex + 1);
+        play();
+    }
+
+    public void previousTrack() {
+        mp.stop();
+        selectTrack(currentTrackIndex - 1);
+        play();
     }
 
     public void play() {
@@ -47,46 +65,61 @@ public class MusicPlayer {
     public void pause() {
         if (mp != null) {
             mp.pause();
+            msg.send(Phrase.PAUSE + "");
         }
     }
 
     public void stop() {
         if (mp != null) {
             mp.stop();
+            msg.send(Phrase.STOP + "");
         }
     }
 
     public void selectTrack(int i) {
-        if (!playlist.getPlaylist().isEmpty()) {
-            final String name = playlist.getPlaylist().get(0).getName();
+        final int tracks = playlist.getPlaylist().size();
+        if (playlist.isEmpty()) {
+            msg.send(Phrase.PLAYLIST_EMPTY + "");
+        } else if (i == -1) {
+            selectTrack(tracks - 1);
+        } else if (tracks > i && i >= 0) {
+            final String name = playlist.getPlaylist().get(i).getName();
+            currentTrackIndex = i;
             selectTrack(name);
         } else {
-            msg.send(Phrase.PLAYLIST_EMPTY + "");
+            selectTrack(0);
         }
     }
 
     public void selectTrack(String trackName) {
         Track track = playlist.getTrackByName(trackName);
         if (track != null) {
-            String mp3FileName = track.getFilePath();
-            File trackFile = new File(TrackFileManager.getFolder(), mp3FileName);
+            String mp3FilePath = track.getFilePath();
+            File trackFile = new File(mp3FilePath);
             if (!trackFile.exists()) {
                 MessageSender.getInstance().send("File doesn't exist! " + track);
                 return;
             }
+            currentTrackIndex = playlist.getPlaylist().indexOf(track);
             currentTrack = track;
             msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
             Media play = new Media(trackFile.toURI().toString());
             mp = new MediaPlayer(play);
+            mp.setOnEndOfMedia(new Runnable() {
+                @Override
+                public void run() {
+                    nextTrack();
+                }
+            });
         }
     }
 
-    public void addTrackToPlaylist(String trackAddress) {
-        Track track = TrackFileManager.download(trackAddress);
-        if (track != null) {
-            playlist.addFilePathToPlaylist(track);
+    public void addTrackToPlaylist(Track track) {
+        if (track == null) {            
+            return;
         }
-        PlaylistFileManager.save(playlist.getPlaylist(), "playlist", true);
+        playlist.addFilePathToPlaylist(track);
+        PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
     }
 
     public MediaPlayer getMediaPlayer() {

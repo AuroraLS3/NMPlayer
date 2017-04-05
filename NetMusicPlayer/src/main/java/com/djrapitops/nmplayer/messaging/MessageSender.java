@@ -27,7 +27,6 @@ public class MessageSender {
         } else {
             System.out.println(s);
         }
-        // TODO Change to use interface textbox.
     }
     
     public static MessageSender getInstance() {

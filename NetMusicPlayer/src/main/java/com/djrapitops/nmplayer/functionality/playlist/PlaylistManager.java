@@ -48,4 +48,8 @@ public class PlaylistManager {
         }
         return null;
     }
+    
+    public boolean isEmpty() {
+        return playlist.isEmpty();
+    }
 }

@@ -19,38 +19,44 @@ import javafx.stage.Stage;
  * @author ristolah
  */
 public class UserInterface extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("NMPlayer");
-        
+
         MediaView view = new MediaView(MusicPlayer.getInstance().getMediaPlayer());
-        
+
         BorderPane root = new BorderPane();
         root.setCenter(view);
-        root.setBottom(toolbar());
+        root.setBottom(toolbar(primaryStage));
         root.setRight(console());
-        
+
         primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.show();
     }
-    
+
     private HBox console() {
         HBox console = new HBox();
         console.setStyle("-fx-background-color: Grey");
-        console.getChildren().add(new TextConsole());        
+        console.getChildren().add(new TextConsole());
         return console;
     }
-    
-    private HBox toolbar() {
+
+    private HBox toolbar(Stage stage) {
         HBox toolbar = new HBox();
         toolbar.setAlignment(Pos.CENTER);
+        toolbar.alignmentProperty().isBound();
         toolbar.setSpacing(5);
         toolbar.setStyle("-fx-background-color: Black");
-        
-        toolbar.getChildren().add(new PlayButton());
-        
+        final PlayButton play = new PlayButton();
+
+        toolbar.getChildren().add(new AddTrackButton(play, stage));
+        toolbar.getChildren().add(new PreviousButton(play));
+        toolbar.getChildren().add(play);
+        toolbar.getChildren().add(new StopButton(play));
+        toolbar.getChildren().add(new NextButton(play));
+
         return toolbar;
     }
-    
+
 }

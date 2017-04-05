@@ -11,10 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -24,46 +22,119 @@ public class TrackFileManagerTest {
 
     public TrackFileManagerTest() {
     }
-    
+
     @Test
     public void testGetFolder() {
         File folder = TrackFileManager.getFolder();
         assertTrue("Didn't create folder", folder.exists());
         assertEquals(new File("tracks"), folder);
     }
+
+    @Test
+    public void testTranslateToTracks() {
+        List<String> paths = new ArrayList<>();
+        final String path1 = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3").getAbsolutePath();
+        paths.add(path1);
+        final String path2 = new File(TrackFileManager.getFolder(), "Dj Rapitops - Evacuate.mp3").getAbsolutePath();
+        paths.add(path2);
+        paths.add(new File("UnexistingTestFile").getAbsolutePath());
+        List<Track> result = TrackFileManager.translateToTracks(paths);
+        List<Track> exp = new ArrayList<>();
+        exp.add(new Track("Arrival", "Dj Rapitops", path1));
+        exp.add(new Track("Evacuate", "Dj Rapitops", path2));
+        assertEquals(exp, result);
+        
+    }
+
+    @Test
+    public void testProcessFileNull() {
+        Track result = TrackFileManager.processFile(null);
+        Track exp = null;
+        assertEquals(exp, result);
+    }
+
+    @Test
+    public void testProcessFileNonexistent() {
+        Track result = TrackFileManager.processFile(new File("UnexistingTestFile"));
+        Track exp = null;
+        assertEquals(exp, result);
+    }
+
+    @Test
+    public void testProcessFileUnreadable() throws IOException {
+        Files.deleteIfExists(new File("NonReadableTestFile").toPath());
+        final File testFile = new File("NonReadableTestFile");
+        testFile.createNewFile();
+        testFile.setReadable(false);
+        Track result = TrackFileManager.processFile(testFile);
+        Files.deleteIfExists(testFile.toPath());
+        Track exp = null;
+        assertEquals(exp, result);
+    }
+
+    @Test
+    public void testProcessFileNotMp3() throws IOException {
+        Files.deleteIfExists(new File("NonMp3TestFile.txt").toPath());
+        final File testFile = new File("NonMp3TestFile.txt");
+        testFile.createNewFile();
+        Track result = TrackFileManager.processFile(testFile);
+        Files.deleteIfExists(testFile.toPath());
+        Track exp = null;
+        assertEquals(exp, result);
+    }
+
+    @Test
+    public void testProcessFileExisting() {
+        File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
+        if (!testTrack.exists()) {
+            System.out.println("Testtrack doesn't exist");
+        }
+        Track result = TrackFileManager.processFile(testTrack);
+        Track exp = new Track("Arrival", "Dj Rapitops", testTrack.getAbsolutePath());
+        assertEquals(exp, result);
+    }
     
     @Test
-    public void testTranslateToTracks() throws IOException {
-        System.out.println("Test Saving of Register file and translation of Playlist paths from Register to Track Objects");
-        File reg = TrackFileManager.createRegisterFile("testreg.txt");
-        Files.deleteIfExists(reg.toPath());
-        List<Track> tracks = new ArrayList<>();
-        tracks.add(new Track("Test1","1","Testpath1"));
-        tracks.add(new Track("Test2","2","Testpath2"));
-        tracks.add(new Track("Test3","2","Testpath3"));
-        tracks.add(new Track("Test4","4","Testpath4"));
-        tracks.add(new Track("Test5","5","Testpath5"));
-        tracks.add(new Track("Test6","6","Testpath6"));        
-        boolean expResult = true;
-        boolean result = TrackFileManager.saveRegisterFile(tracks, "testreg.txt");
-        assertEquals(expResult, result);
-        assertTrue("Did not create testreg.txt", reg.exists());
-        assertTrue("Did not write testreg", Files.lines(reg.toPath()).collect(Collectors.toList()).size() == tracks.size());
-        List<String> playlist = tracks.stream().map(track -> track.getFilePath()).collect(Collectors.toList());
-        List<Track> resultTracks = TrackFileManager.translateToTracks(playlist, "testreg.txt");
-        assertTrue("Tracklist did not contain all track information: "+resultTracks.size()+"/"+tracks.size(), resultTracks.containsAll(tracks));
-        Files.deleteIfExists(reg.toPath());
+    public void testGetArtist() {
+        File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
+        if (!testTrack.exists()) {
+            System.out.println("Testtrack doesn't exist");
+        }
+        String result = TrackFileManager.getArtist(testTrack);
+        String exp = "Dj Rapitops";
+        assertEquals(exp, result);
+    }
+    
+    @Test
+    public void testGetArtistNotMp3() throws IOException {        
+        Files.deleteIfExists(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival").toPath());
+        File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival");
+        testTrack.createNewFile();        
+        String result = TrackFileManager.getArtist(testTrack);
+        String exp = "Artist";
+        Files.deleteIfExists(testTrack.toPath());
+        assertEquals(exp, result);
     }
 
-    @Ignore("Download method not ready") @Test
-    public void testDownload() {
-        System.out.println("download");
-        String trackAddress = "";
-        Track expResult = null;
-        Track result = TrackFileManager.download(trackAddress);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void testGetTrackName() {
+        File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
+        if (!testTrack.exists()) {
+            System.out.println("Testtrack doesn't exist");
+        }
+        String result = TrackFileManager.getTrackName(testTrack);
+        String exp = "Arrival";
+        assertEquals(exp, result);
     }
-
+    
+    @Test
+    public void testGetTrackNameNotMp3() throws IOException {
+        Files.deleteIfExists(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival").toPath());
+        File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival");
+        testTrack.createNewFile();
+        Files.deleteIfExists(testTrack.toPath());
+        String result = TrackFileManager.getTrackName(testTrack);
+        String exp = "Track";
+        assertEquals(exp, result);
+    }
 }

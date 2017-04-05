@@ -12,8 +12,12 @@ package com.djrapitops.nmplayer.messaging;
 public enum Phrase {
     PLAYLIST_EMPTY("The selected playlist is empty!"),
     ERROR("An Error has occurred. It has been logged to Errors.txt"),
-    SELECTED("Selected Track: REPLACE0"), 
-    NOW_PLAYING("Now Playing: REPLACE0");
+    WRONG_FILETYPE("Attempted to add wrong filetype! Only mp3s are supported"),
+    SELECTED("Selected Track: REPLACE0"),
+    NOW_PLAYING("Now Playing: REPLACE0"),
+    ADDED_TRACK("Added: REPLACE0"),
+    STOP("STOPPED"),
+    PAUSE("PAUSED");
 
     private String text;
 
