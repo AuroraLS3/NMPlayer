@@ -16,19 +16,15 @@ import javafx.scene.control.Button;
  */
 public class PlayButton extends Button {
 
-    private boolean showPlayButton;
-
     public PlayButton() {
         super.setStyle("-fx-background-color: White");
-        showPlayButton = true;
         this.update();
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
-            if (showPlayButton) {
-                MusicPlayer.getInstance().play();
-                showPlayButton = false;
+            MusicPlayer musicPlayer = MusicPlayer.getInstance();
+            if (!musicPlayer.isPlaying()) {
+                musicPlayer.play();
             } else {
-                MusicPlayer.getInstance().pause();
-                showPlayButton = true;
+                musicPlayer.pause();
             }
             update();
         };
@@ -36,19 +32,11 @@ public class PlayButton extends Button {
     }
 
     public void update() {
-        if (showPlayButton) {
+        if (!MusicPlayer.getInstance().isPlaying()) {
             super.setText("Play");
         } else {
             super.setText("Pause");
         }
-    }
-
-    public void setShowPlayButton(boolean playButton) {
-        this.showPlayButton = playButton;
-    }
-
-    public boolean showPlayButton() {
-        return showPlayButton;
     }
     
     

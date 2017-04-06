@@ -21,7 +21,6 @@ public class StopButton extends Button {
         super.setText("Stop");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             MusicPlayer.getInstance().stop();
-            play.setShowPlayButton(true);
             play.update();
         };
         super.setOnAction(h);

@@ -31,9 +31,8 @@ public class AddTrackButton extends Button {
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             final MusicPlayer musicPlayer = MusicPlayer.getInstance();
 
-            if (!play.showPlayButton()) {
+            if (musicPlayer.isPlaying()) {
                 musicPlayer.pause();
-                play.setShowPlayButton(true);
                 play.update();
             }
 

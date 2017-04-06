@@ -21,7 +21,6 @@ public class NextButton extends Button {
         super.setText(">>");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             MusicPlayer.getInstance().nextTrack();
-            play.setShowPlayButton(false);
             play.update();
         };
         super.setOnAction(h);

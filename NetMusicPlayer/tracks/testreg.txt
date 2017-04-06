@@ -1,6 +1,0 @@
-Test1;null;Testpath1
-Test2;null;Testpath2
-Test3;null;Testpath3
-Test4;null;Testpath4
-Test5;null;Testpath5
-Test6;null;Testpath6

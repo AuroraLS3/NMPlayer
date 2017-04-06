@@ -22,11 +22,12 @@ public class MusicPlayer {
 
     private final PlaylistManager playlist;
     private final MessageSender msg;
+    private MediaPlayer mp;
 
     private Track currentTrack;
-    private int currentTrackIndex;
-    private MediaPlayer mp;
+    private int currentTrackIndex;    
     private String selectedPlaylist;
+    private boolean playing;
 
     public MusicPlayer() {
         playlist = new PlaylistManager();
@@ -35,6 +36,7 @@ public class MusicPlayer {
 
     public void init() {
         selectPlaylist("all");
+        playing = false;
     }
 
     public void selectPlaylist(String playlistName) {
@@ -46,6 +48,7 @@ public class MusicPlayer {
     public void nextTrack() {
         if (currentTrack != null) {
             mp.stop();
+            playing = false;
             selectTrack(currentTrackIndex + 1);
             play();
         }
@@ -54,6 +57,7 @@ public class MusicPlayer {
     public void previousTrack() {
         if (currentTrack != null) {
             mp.stop();
+            playing = false;
             selectTrack(currentTrackIndex - 1);
             play();
         }
@@ -61,20 +65,23 @@ public class MusicPlayer {
 
     public void play() {
         if (mp != null) {
+            playing = true;
             mp.play();
             msg.send(Phrase.NOW_PLAYING.parse(currentTrack.toString()));
         }
     }
 
     public void pause() {
-        if (mp != null) {
+        if (mp != null && playing) {
+            playing = false;
             mp.pause();
             msg.send(Phrase.PAUSE + "");
         }
     }
 
     public void stop() {
-        if (mp != null) {
+        if (mp != null && playing) {
+            playing = false;
             mp.stop();
             msg.send(Phrase.STOP + "");
         }
@@ -131,6 +138,10 @@ public class MusicPlayer {
         return mp;
     }
 
+    public boolean isPlaying() {
+        return playing;
+    }
+    
     public static MusicPlayer getInstance() {
         return MusicPlayerSingletonHolder.INSTANCE;
     }
