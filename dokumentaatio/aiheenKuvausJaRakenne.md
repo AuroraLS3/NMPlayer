@@ -1,11 +1,12 @@
 # Aihe
-**Aihe:** Musiikkisoitin. Luodaan java pohjainen musiikkisoitin johon voi lisätä mm. youtube linkeillä musiikkia.
+**Aihe:** Musiikkisoitin. Luodaan java pohjainen musiikkisoitin johon voi lisätä mp3 tiedostoja
 
-Musiikkisoittimen soittolistaan voi lisätä biisin plus napilla syötettyä linkin. Linkin videon ääniraita ladataan, ja sitä voidaan sitten soittaa tällä soittimella. Usean soittolistan luominen on mahdollista.
+Musiikkisoittimen soittolistaan voi lisätä biisin plus napilla.
+Usean soittolistan luominen on mahdollista.
 Soittimessa näkyy nykyisen kappaleen nimi ja pituus.
 Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappaletta soitetaan.
 
-**Käyttäjät:** Musiikin kuuntelijat, Youtube musiikkivideoiden lataajat
+**Käyttäjät:** Musiikin kuuntelijat
 
 **Toiminnot:**
 - Kappaleen lisäys
@@ -15,4 +16,4 @@ Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappale
 - Soittolista
 - Kappaleen tauottaminen (pause-nappi)
 
-![Luokkakaavio 22.03.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio300316.jpg)
+![Luokkakaavio 06.04.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio06042017.jpg)
