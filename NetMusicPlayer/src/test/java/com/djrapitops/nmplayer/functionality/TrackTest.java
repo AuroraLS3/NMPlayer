@@ -18,6 +18,12 @@ public class TrackTest {
     }
 
     @Test
+    public void testGetArtist() {
+        Track t = new Track("1", "2", "3");
+        assertEquals(t.getArtist(), "2");
+    }
+    
+    @Test
     public void testEquals() {
         System.out.println("Test Track.equals");
         Object obj = new Track("1", "2", "3");

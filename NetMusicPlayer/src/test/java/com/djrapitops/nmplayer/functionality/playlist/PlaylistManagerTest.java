@@ -107,4 +107,11 @@ public class PlaylistManagerTest {
         assertEquals(expResult, result);
     }
 
+    @Test
+    public void testIsEmpty() {
+        PlaylistManager instance = new PlaylistManager();
+        assertTrue("Not empty", instance.isEmpty());
+        instance.addFilePathToPlaylist(new Track("1", "2", "3"));
+        assertTrue("Empty", !instance.isEmpty());
+    }
 }

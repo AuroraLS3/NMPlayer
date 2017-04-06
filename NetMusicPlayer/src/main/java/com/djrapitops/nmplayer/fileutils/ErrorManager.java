@@ -61,10 +61,9 @@ public class ErrorManager {
                 log.createNewFile();
             }
             fw = new FileWriter(log, true);
-            pw = new PrintWriter(fw);
+            pw = new PrintWriter(fw, true);
             String timestamp = formatTimeStamp(new Date().getTime());
             pw.println("[" + timestamp + "] " + message);
-            pw.flush();
 
         } catch (IOException ex) {
         } finally {

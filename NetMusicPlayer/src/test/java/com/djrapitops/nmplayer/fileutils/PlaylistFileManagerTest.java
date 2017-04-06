@@ -5,6 +5,7 @@
  */
 package com.djrapitops.nmplayer.fileutils;
 
+import com.djrapitops.nmplayer.functionality.Track;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -42,8 +43,10 @@ public class PlaylistFileManagerTest {
         System.out.println("  Test load Method");
         String name = "testFile";
         List<String> expResult = new ArrayList<>();
-        expResult.add("testlink");
-        if (!PlaylistFileManager.save(expResult, name)) {
+        expResult.add("ST");
+        List<Track> testTracks = new ArrayList<>();
+        testTracks.add(new Track("T", "E", "ST"));
+        if (!PlaylistFileManager.save(testTracks, name, true)) {
             fail("Failed to save.");
         }
         assertTrue("Didn't create playlists folder", new File("playlists").exists());

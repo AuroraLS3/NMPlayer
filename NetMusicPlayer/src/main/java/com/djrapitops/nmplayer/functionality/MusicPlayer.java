@@ -25,7 +25,7 @@ public class MusicPlayer {
     private MediaPlayer mp;
 
     private Track currentTrack;
-    private int currentTrackIndex;    
+    private int currentTrackIndex;
     private String selectedPlaylist;
     private boolean playing;
 
@@ -80,7 +80,7 @@ public class MusicPlayer {
     }
 
     public void stop() {
-        if (mp != null && playing) {
+        if (mp != null) {
             playing = false;
             mp.stop();
             msg.send(Phrase.STOP + "");
@@ -95,7 +95,6 @@ public class MusicPlayer {
             selectTrack(tracks - 1);
         } else if (tracks > i && i >= 0) {
             final String name = playlist.getPlaylist().get(i).getName();
-            currentTrackIndex = i;
             selectTrack(name);
         } else {
             selectTrack(0);
@@ -141,7 +140,7 @@ public class MusicPlayer {
     public boolean isPlaying() {
         return playing;
     }
-    
+
     public static MusicPlayer getInstance() {
         return MusicPlayerSingletonHolder.INSTANCE;
     }

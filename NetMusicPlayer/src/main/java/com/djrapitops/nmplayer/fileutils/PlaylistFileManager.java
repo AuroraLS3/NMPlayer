@@ -62,7 +62,7 @@ public class PlaylistFileManager {
         return playlist;
     }
 
-    public static void save(List<Track> playlist, String name, boolean ok) {
-        save(playlist.stream().map(track -> track.getFilePath()).collect(Collectors.toList()), name);
+    public static boolean save(List<Track> playlist, String name, boolean ok) {
+        return save(playlist.stream().map(track -> track.getFilePath()).collect(Collectors.toList()), name);
     }
 }

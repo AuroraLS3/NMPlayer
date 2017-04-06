@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi_FI" lang="fi_FI">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_GB" lang="en_GB">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>AddTrackButton xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -39,19 +39,18 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>          EventHandler h = (EventHandler&lt;ActionEvent&gt;) (ActionEvent event) -&gt; {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/djrapitops/nmplayer/functionality/MusicPlayer.html">MusicPlayer</a> musicPlayer = MusicPlayer.getInstance();
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>              <strong class="jxr_keyword">if</strong> (!play.showPlayButton()) {
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>              <strong class="jxr_keyword">if</strong> (musicPlayer.isPlaying()) {
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>                  musicPlayer.pause();
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>                  play.setShowPlayButton(<strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>                  play.update();
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>              }
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>              File selectedFile = fileChooser.showOpenDialog(stage);
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>              musicPlayer.addTrackToPlaylist(TrackFileManager.processFile(selectedFile));
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>          };
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>          <strong class="jxr_keyword">super</strong>.setOnAction(h);
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>      }
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  }
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>                  play.update();
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>              File selectedFile = fileChooser.showOpenDialog(stage);
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>              musicPlayer.addTrackToPlaylist(TrackFileManager.processFile(selectedFile));
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>          };
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>          <strong class="jxr_keyword">super</strong>.setOnAction(h);
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      }
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2017. All rights reserved.</div>

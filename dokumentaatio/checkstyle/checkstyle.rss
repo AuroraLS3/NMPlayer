@@ -144,7 +144,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.Track.java">com/djrapitops/nmplayer/functionality/Track.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.NMPlayer.java">com/djrapitops/nmplayer/NMPlayer.java</a>
                 </td>
                 <td>
                   0
@@ -158,7 +158,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.NMPlayer.java">com/djrapitops/nmplayer/NMPlayer.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.Track.java">com/djrapitops/nmplayer/functionality/Track.java</a>
                 </td>
                 <td>
                   0

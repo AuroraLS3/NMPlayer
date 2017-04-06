@@ -5,9 +5,14 @@
  */
 package com.djrapitops.nmplayer.functionality;
 
+import com.djrapitops.nmplayer.fileutils.TrackFileManager;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.media.MediaPlayer;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -46,11 +51,11 @@ public class MusicPlayerTest {
     public void testStop() {
     }
 
-    @Test
+    @Ignore("User Interface needs to be started") @Test
     public void testSelectTrack_int() {
     }
 
-    @Test
+    @Ignore("User Interface needs to be started") @Test
     public void testSelectTrack_String() {
     }
 
