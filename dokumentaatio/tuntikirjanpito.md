@@ -13,3 +13,4 @@ Päivä | Tunnit | Kuvaus
 29.03.2017 | 2.0h | Testien korjausta Windowsille, testien parantelua, korjauksia, 3 debug viestiä vaihdettu oikeiksi
 30.03.2017 | 1.5h | Pikku korjaus testiin, raportit ja luokkakaavio päivitetty
 05.04.2017 | 3,5h | Tiedostojen lisäys, muutoksia, raportit, testit päivitetty
+06.04.2017 | 1.0h | Luokkakaavion päivitys, muutos erään arvon säilytykseen
