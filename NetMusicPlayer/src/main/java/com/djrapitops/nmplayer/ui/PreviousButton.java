@@ -20,7 +20,7 @@ public class PreviousButton extends Button {
         super.setStyle("-fx-background-color: White");
         super.setText("<<");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
-            MusicPlayer.getInstance().nextTrack();
+            MusicPlayer.getInstance().previousTrack();
             play.update();
         };
         super.setOnAction(h);
