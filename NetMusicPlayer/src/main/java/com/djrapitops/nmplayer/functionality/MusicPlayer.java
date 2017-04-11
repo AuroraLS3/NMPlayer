@@ -25,7 +25,7 @@ import javafx.scene.media.MediaPlayer;
  * The class contains information about the current state of the player, as well
  * as a PlaylistManager
  *
- * @author Risto
+ * @author Rsl1122
  * @see PlaylistManager
  */
 public class MusicPlayer {
@@ -96,7 +96,12 @@ public class MusicPlayer {
     public void selectPlaylist(String playlistName) throws IllegalStateException {
         selectedPlaylist = playlistName;
         playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist)));
-        selectTrack(0);
+        currentTrackIndex = 0;
+        if (playlist.isEmpty()) {
+            msg.send(Phrase.PLAYLIST_EMPTY + "");            
+            return;
+        }
+        selectTrack(playlist.selectTrack(currentTrackIndex));
     }
 
     /**
@@ -113,9 +118,12 @@ public class MusicPlayer {
      */
     public void nextTrack() throws IllegalStateException {
         if (currentTrack != null) {
+            if (playlist.isEmpty()) {
+                return;
+            }
             mp.stop();
             playing = false;
-            selectTrack(currentTrackIndex + 1);
+            selectTrack(playlist.selectTrack(currentTrackIndex + 1));
             play();
         }
     }
@@ -134,9 +142,12 @@ public class MusicPlayer {
      */
     public void previousTrack() throws IllegalStateException {
         if (currentTrack != null) {
+            if (playlist.isEmpty()) {
+                return;
+            }
             mp.stop();
             playing = false;
-            selectTrack(currentTrackIndex - 1);
+            selectTrack(playlist.selectTrack(currentTrackIndex - 1));
             play();
         }
     }
@@ -197,35 +208,6 @@ public class MusicPlayer {
     }
 
     /**
-     * Used get a Track object from the playlist for the selectTrack(Track)
-     * method.
-     *
-     * <p>
-     * If the playlist is empty, a message will be sent with the MessageSender.
-     *
-     *
-     * @param i Index of the track in the playlist.
-     * @throws IllegalStateException If a javafx Application is has not been
-     * started yet.
-     * @see selectTrack
-     * @see PlaylistManager
-     * @see MessageSender
-     *
-     */
-    public void selectTrack(int i) throws IllegalStateException {
-        final int tracks = playlist.getPlaylist().size();
-        if (playlist.isEmpty()) {
-            msg.send(Phrase.PLAYLIST_EMPTY + "");
-        } else if (i == -1) {
-            selectTrack(tracks - 1);
-        } else if (tracks > i && i >= 0) {
-            selectTrack(playlist.getPlaylist().get(i));
-        } else {
-            selectTrack(0);
-        }
-    }
-
-    /**
      * Used to change the MediaPlayer object to play the Track.
      *
      * <p>
@@ -265,7 +247,7 @@ public class MusicPlayer {
                     nextTrack();
                 }
             });
-            currentTrackIndex = playlist.getPlaylist().indexOf(track);
+            currentTrackIndex = playlist.getIndexOf(track);
             currentTrack = track;
             msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
         }

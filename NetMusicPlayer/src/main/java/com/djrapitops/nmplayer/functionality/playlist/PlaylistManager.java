@@ -1,6 +1,7 @@
 package com.djrapitops.nmplayer.functionality.playlist;
 
 import com.djrapitops.nmplayer.functionality.Track;
+import com.djrapitops.nmplayer.messaging.Phrase;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * This class is used to manipulate the List containing Track objects called
  * playlist.
  *
- * @author Risto
+ * @author Rsl1122
  * @see Track
  */
 public class PlaylistManager {
@@ -96,11 +97,36 @@ public class PlaylistManager {
     }
 
     /**
+     * Used get a Track object from the playlist for the selectTrack(Track)
+     * method.
+     *
+     * @param i Index of the track in the playlist.
+     * @return appropriate track object that is on the list.
+     *
+     */
+    public Track selectTrack(int i) {
+        final int tracks = playlist.size();
+        if (playlist.isEmpty()) {
+            return null;
+        } else if (i == -1) {
+            return selectTrack(tracks - 1);
+        } else if (tracks > i && i >= 0) {
+            return playlist.get(i);
+        } else {
+            return selectTrack(0);
+        }
+    }
+    
+    /**
      * Check whether or not the playlist is empty.
      *
      * @return Emptiness state of the playlist.
      */
     public boolean isEmpty() {
         return playlist.isEmpty();
+    }
+
+    public int getIndexOf(Track track) {
+        return playlist.indexOf(track);
     }
 }

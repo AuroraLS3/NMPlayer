@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * This class is used to store information of mp3 file in a single object.
  *
- * @author Risto
+ * @author Rsl1122
  */
 public class Track {
 

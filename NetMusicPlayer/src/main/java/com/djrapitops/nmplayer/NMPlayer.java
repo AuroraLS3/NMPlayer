@@ -12,7 +12,7 @@ import com.djrapitops.nmplayer.ui.UserInterface;
  * This class is used to start the logic of the Music Player, and to launch the
  * user interface.
  *
- * @author Risto
+ * @author Rsl1122
  */
 public class NMPlayer {
 

@@ -14,7 +14,7 @@ import javafx.scene.control.TextArea;
  * <p>
  * When initialized sets itself as the output of MessageSender
  *
- * @author ristolah
+ * @author Rsl1122
  * @see TextArea
  * @see MessageSender
  */

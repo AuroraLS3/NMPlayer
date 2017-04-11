@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * When started, initialises multiple UI components and sets them to be on a
  * certain part of the program.
  *
- * @author ristolah
+ * @author Rsl1122
  * @see Application
  * @see Stage
  */

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * <p>
  * All the methods are static.
  *
- * @author Risto
+ * @author Rsl1122
  */
 public class PlaylistFileManager {
 
@@ -51,10 +51,9 @@ public class PlaylistFileManager {
         try {
             playlistFile.createNewFile();
             FileWriter fw = new FileWriter(playlistFile, false);
-            try (PrintWriter pw = new PrintWriter(fw)) {
+            try (PrintWriter pw = new PrintWriter(fw, true)) {
                 for (String filepath : filepaths) {
                     pw.println(filepath);
-                    pw.flush();
                 }
             }
         } catch (IOException e) {

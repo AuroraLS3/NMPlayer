@@ -16,7 +16,7 @@ import com.djrapitops.nmplayer.ui.TextConsole;
  * JavaFx TextConsole can be set as output for the Messages. Old text will not
  * be overwritten in the TextConsole.
  *
- * @author Risto
+ * @author Rsl1122
  * @see Phrase
  * @see TextConsole
  */

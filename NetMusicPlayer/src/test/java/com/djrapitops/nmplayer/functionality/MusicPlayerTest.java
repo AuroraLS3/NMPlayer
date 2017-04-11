@@ -5,21 +5,35 @@
  */
 package com.djrapitops.nmplayer.functionality;
 
+import java.lang.reflect.Field;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Ignore;
 
 /**
  *
- * @author Risto
+ * @author Rsl1122
  */
 public class MusicPlayerTest {
-    
+
+    private MediaPlayer mockMp;
+
     /**
      *
      */
     public MusicPlayerTest() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
     }
 
     /**
@@ -55,6 +69,7 @@ public class MusicPlayerTest {
      */
     @Test
     public void testPlay() {
+        
     }
 
     /**
@@ -74,14 +89,14 @@ public class MusicPlayerTest {
     /**
      *
      */
-    @Ignore("User Interface needs to be started") @Test
+    @Test
     public void testSelectTrack_int() {
     }
 
     /**
      *
      */
-    @Ignore("User Interface needs to be started") @Test
+    @Test
     public void testSelectTrack_String() {
     }
 
@@ -110,5 +125,4 @@ public class MusicPlayerTest {
         MusicPlayer result = MusicPlayer.getInstance();
         assertTrue("Result is null", result != null);
     }
-    
 }

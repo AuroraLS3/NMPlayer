@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author ristolah
+ * @author Rsl1122
  */
 public class MessageSenderTest {
 

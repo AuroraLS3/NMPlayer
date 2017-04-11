@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * Playbutton is needed to update the pause status text if this button is
  * pressed.
  *
- * @author ristolah
+ * @author Rsl1122
  * @see PlaylistFileManager
  * @see PlaylistManager
  * @see MusicPlayer

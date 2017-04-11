@@ -6,7 +6,9 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
+import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
+import com.djrapitops.nmplayer.ui.TextConsole;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +22,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Risto
+ * @author Rsl1122
  */
 public class TrackFileManagerTest {
 
@@ -118,16 +120,13 @@ public class TrackFileManagerTest {
      */
     @Test
     public void testProcessFileExisting() {
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
         File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
         if (!testTrack.exists()) {
             System.out.println("Testtrack doesn't exist");
         }
-        Track result = TrackFileManager.processFile(testTrack);
         Track exp = new Track("Arrival", "Dj Rapitops", testTrack.getAbsolutePath());
+        Track result = TrackFileManager.processFile(testTrack);
         assertEquals(exp, result);
-        assertTrue("Didn't notify about wrong filetype", outContent.toString().contains(Phrase.ADDED_TRACK.parse(exp.toString())));
     }
 
     /**

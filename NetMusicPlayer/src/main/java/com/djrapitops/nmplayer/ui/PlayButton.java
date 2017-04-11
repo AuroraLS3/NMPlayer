@@ -13,7 +13,7 @@ import javafx.scene.control.Button;
 /**
  * JavaFx UI component, a Button used to play/pause the currently playing track.
  *
- * @author ristolah
+ * @author Rsl1122
  * @see MusicPlayer
  */
 public class PlayButton extends Button {

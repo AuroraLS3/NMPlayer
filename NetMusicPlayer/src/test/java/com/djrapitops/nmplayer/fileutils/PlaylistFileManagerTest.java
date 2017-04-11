@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Risto
+ * @author Rsl1122
  */
 public class PlaylistFileManagerTest {
 

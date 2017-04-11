@@ -15,7 +15,7 @@ package com.djrapitops.nmplayer.messaging;
  * Messages can hold placeholders such as REPLACE0 or REPLACE1, and they will be
  * replaced with given parameters for Phrase.parse(String...).
  *
- * @author Risto
+ * @author Rsl1122
  * @see MessageSender
  */
 public enum Phrase {
