@@ -138,8 +138,7 @@ public class MusicPlayer {
         } else if (i == -1) {
             selectTrack(tracks - 1);
         } else if (tracks > i && i >= 0) {
-            final String name = playlist.getPlaylist().get(i).getName();
-            selectTrack(name);
+            selectTrack(playlist.getPlaylist().get(i));
         } else {
             selectTrack(0);
         }
@@ -147,10 +146,9 @@ public class MusicPlayer {
 
     /**
      *
-     * @param trackName
+     * @param track
      */
-    public void selectTrack(String trackName) {
-        Track track = playlist.getTrackByName(trackName);
+    public void selectTrack(Track track) {
         if (track != null) {
             String mp3FilePath = track.getFilePath();
             File trackFile = new File(mp3FilePath);
@@ -162,6 +160,9 @@ public class MusicPlayer {
             currentTrack = track;
             msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
             Media play = new Media(trackFile.toURI().toString());
+            if (mp != null) {
+                mp.dispose();
+            }
             mp = new MediaPlayer(play);
             mp.setOnEndOfMedia(new Runnable() {
                 @Override
@@ -183,7 +184,7 @@ public class MusicPlayer {
         playlist.addFilePathToPlaylist(track);
         MessageSender.getInstance().send(Phrase.ADDED_TRACK.parse(track.getArtist() + " - " + track.getName()));
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
-        selectTrack(track.getName());
+        selectTrack(track);
     }
 
     /**

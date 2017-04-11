@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,7 @@ public class PlaylistFileManager {
         File playlistFile = new File(playlistFolder, name + ".txt");
         if (playlistFile.exists()) {
             try {
-                playlist.addAll(Files.lines(playlistFile.toPath()).collect(Collectors.toList()));
+                playlist.addAll(Files.lines(playlistFile.toPath(), Charset.defaultCharset()).collect(Collectors.toList()));
             } catch (Exception ex) {
                 ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", ex);
             }
