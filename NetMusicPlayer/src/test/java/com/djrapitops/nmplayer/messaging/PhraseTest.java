@@ -14,9 +14,15 @@ import static org.junit.Assert.*;
  */
 public class PhraseTest {
     
+    /**
+     *
+     */
     public PhraseTest() {
     }    
 
+    /**
+     *
+     */
     @Test
     public void testSetText() {
         System.out.println("Test Phrase.setText (Locale method)");
@@ -26,6 +32,9 @@ public class PhraseTest {
         assertEquals(Phrase.ERROR.toString(),"Test");
     }
     
+    /**
+     *
+     */
     @Test
     public void testParse() {
         System.out.println("Test Phrase.parse (Replace method)");

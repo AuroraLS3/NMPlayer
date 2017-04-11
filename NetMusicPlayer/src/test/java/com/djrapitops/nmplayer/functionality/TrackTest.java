@@ -14,15 +14,24 @@ import static org.junit.Assert.*;
  */
 public class TrackTest {
 
+    /**
+     *
+     */
     public TrackTest() {
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetArtist() {
         Track t = new Track("1", "2", "3");
         assertEquals(t.getArtist(), "2");
     }
     
+    /**
+     *
+     */
     @Test
     public void testEquals() {
         System.out.println("Test Track.equals");
@@ -31,6 +40,9 @@ public class TrackTest {
         assertTrue("Not Equals!", instance.equals(obj));
     }
 
+    /**
+     *
+     */
     @Test
     public void testEquals2() {
         System.out.println("Test Track.equals (not equal)");
@@ -39,6 +51,9 @@ public class TrackTest {
         assertTrue("Equals!", !instance.equals(obj));
     }
 
+    /**
+     *
+     */
     @Test
     public void testEquals3() {
         System.out.println("Test Track.equals (Same object)");
@@ -47,6 +62,9 @@ public class TrackTest {
         assertTrue("Not Equals!", instance.equals(obj));
     }
 
+    /**
+     *
+     */
     @Test
     public void testEquals4() {
         System.out.println("Test Track.equals (null)");
@@ -55,6 +73,9 @@ public class TrackTest {
         assertTrue("Equals!", !instance.equals(obj));
     }
 
+    /**
+     *
+     */
     @Test
     public void testEquals5() {
         System.out.println("Test Track.equals (not equal)");
@@ -63,6 +84,9 @@ public class TrackTest {
         assertTrue("Equals!", !instance.equals(obj));
     }
 
+    /**
+     *
+     */
     @Test
     public void testEquals6() {
         System.out.println("Test Track.equals (not equal)");
@@ -71,6 +95,9 @@ public class TrackTest {
         assertTrue("Equals!", !instance.equals(obj));
     }
 
+    /**
+     *
+     */
     @Test
     public void testEquals7() {
         System.out.println("Test Track.equals (Wrong object)");
@@ -79,6 +106,9 @@ public class TrackTest {
         assertTrue("Equals!", !instance.equals(obj));
     }
     
+    /**
+     *
+     */
     @Test
     public void testToString() {
         System.out.println("Test Track.toString");

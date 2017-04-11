@@ -17,9 +17,15 @@ import static org.junit.Assert.*;
  */
 public class PlaylistManagerTest {
 
+    /**
+     *
+     */
     public PlaylistManagerTest() {
     }
 
+    /**
+     *
+     */
     @Test
     public void testAddFilePathToPlaylist() {
         System.out.println("Test PlaylistManager.addFilePathToPlaylist");
@@ -30,6 +36,9 @@ public class PlaylistManagerTest {
         assertTrue("Did not add correct path", instance.getPlaylist().get(0).getFilePath().equals("3"));
     }
 
+    /**
+     *
+     */
     @Test
     public void testRemoveFilePathFromPlaylist() {
         System.out.println("Test PlaylistManager.removeFilePathFromPlaylist");
@@ -42,6 +51,9 @@ public class PlaylistManagerTest {
         assertTrue("Did not remove track", instance.getPlaylist().isEmpty());
     }
 
+    /**
+     *
+     */
     @Test
     public void testClearPlaylist() {
         System.out.println("Test PlaylistManager.clearPlaylist");
@@ -53,6 +65,9 @@ public class PlaylistManagerTest {
         assertTrue("Did not remove track", instance.getPlaylist().isEmpty());
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetPlaylist() {
         System.out.println("Test PlaylistManager.getPlaylist");
@@ -62,6 +77,9 @@ public class PlaylistManagerTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testSetPlaylist() {
         System.out.println("Test PlaylistManager.setPlaylist");
@@ -77,6 +95,9 @@ public class PlaylistManagerTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetTrackByName() {
         System.out.println("Test PlaylistManager.getTrackByName");
@@ -92,6 +113,9 @@ public class PlaylistManagerTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetTrackByName2() {
         System.out.println("Test PlaylistManager.getTrackByName when track doesn't exist");
@@ -107,6 +131,9 @@ public class PlaylistManagerTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testIsEmpty() {
         PlaylistManager instance = new PlaylistManager();

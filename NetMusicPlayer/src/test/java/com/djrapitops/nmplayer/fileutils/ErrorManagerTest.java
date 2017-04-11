@@ -24,9 +24,16 @@ import static org.junit.Assert.*;
  */
 public class ErrorManagerTest {
 
+    /**
+     *
+     */
     public ErrorManagerTest() {
     }    
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testToLog_String_Collection() throws IOException {
         System.out.println("ErrorManager.toLog throwable (collection) test");
@@ -54,6 +61,10 @@ public class ErrorManagerTest {
 //        assertEquals(18, errorlines.get(32).length());
     }
     
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testToLog_IOException() throws IOException {
         Files.deleteIfExists(new File("Errors.txt").toPath());
@@ -64,6 +75,9 @@ public class ErrorManagerTest {
         Files.deleteIfExists(new File("Errors.txt").toPath());
     }
 
+    /**
+     *
+     */
     @Test
     public void testFormatTimeStamp() {
         System.out.println("ErrorManager.formatTimeStamp test");

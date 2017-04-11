@@ -16,6 +16,10 @@ import javafx.scene.control.Button;
  */
 public class StopButton extends Button {
 
+    /**
+     *
+     * @param play
+     */
     public StopButton(PlayButton play) {
         super.setStyle("-fx-background-color: White");
         super.setText("Stop");

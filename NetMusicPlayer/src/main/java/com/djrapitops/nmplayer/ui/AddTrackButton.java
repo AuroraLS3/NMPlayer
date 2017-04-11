@@ -24,6 +24,11 @@ public class AddTrackButton extends Button {
 
     private final FileChooser fileChooser = new FileChooser();
 
+    /**
+     *
+     * @param play
+     * @param stage
+     */
     public AddTrackButton(PlayButton play, Stage stage) {
         super.setStyle("-fx-background-color: White");
         super.setText("Add Track");

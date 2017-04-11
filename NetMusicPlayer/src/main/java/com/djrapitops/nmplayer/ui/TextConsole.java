@@ -14,6 +14,9 @@ import javafx.scene.control.TextArea;
  */
 public class TextConsole extends TextArea {
 
+    /**
+     *
+     */
     public TextConsole() {
         super.setEditable(false);
         super.setMouseTransparent(true);

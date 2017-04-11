@@ -15,8 +15,15 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 /**
+ * This class contains all the logic used to change the playback (sound that is
+ * coming out of the speakers).
+ *
+ * <p>
+ * The class contains information about the current state of the player, as well
+ * as a PlaylistManager
  *
  * @author Risto
+ * @see PlaylistManager
  */
 public class MusicPlayer {
 
@@ -29,22 +36,43 @@ public class MusicPlayer {
     private String selectedPlaylist;
     private boolean playing;
 
+    /**
+     * Class constructor.
+     *
+     * <p>
+     * Creates a new PlaylistManager and grabs the instance of MessageSender for
+     * easier access to sending messages.
+     *
+     * @see MessageSender
+     */
     public MusicPlayer() {
         playlist = new PlaylistManager();
         msg = MessageSender.getInstance();
     }
 
-    public void init() {
+    /**
+     * Method used to start the playback logic.
+     * 
+     * @throws IllegalStateException If a javafx Application is has not been started yet.
+     */
+    public void init() throws IllegalStateException {
         selectPlaylist("all");
         playing = false;
     }
 
-    public void selectPlaylist(String playlistName) {
+    /**
+     *
+     * @param playlistName
+     */
+    public void selectPlaylist(String playlistName) throws IllegalStateException {
         selectedPlaylist = playlistName;
         playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist)));
         selectTrack(0);
     }
 
+    /**
+     *
+     */
     public void nextTrack() {
         if (currentTrack != null) {
             mp.stop();
@@ -54,6 +82,9 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     *
+     */
     public void previousTrack() {
         if (currentTrack != null) {
             mp.stop();
@@ -63,6 +94,9 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     *
+     */
     public void play() {
         if (mp != null) {
             playing = true;
@@ -71,6 +105,9 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     *
+     */
     public void pause() {
         if (mp != null && playing) {
             playing = false;
@@ -79,6 +116,9 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     *
+     */
     public void stop() {
         if (mp != null) {
             playing = false;
@@ -87,7 +127,11 @@ public class MusicPlayer {
         }
     }
 
-    public void selectTrack(int i) {
+    /**
+     *
+     * @param i
+     */
+    public void selectTrack(int i) throws IllegalStateException {
         final int tracks = playlist.getPlaylist().size();
         if (playlist.isEmpty()) {
             msg.send(Phrase.PLAYLIST_EMPTY + "");
@@ -101,6 +145,10 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     *
+     * @param trackName
+     */
     public void selectTrack(String trackName) {
         Track track = playlist.getTrackByName(trackName);
         if (track != null) {
@@ -124,23 +172,40 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     *
+     * @param track
+     */
     public void addTrackToPlaylist(Track track) {
         if (track == null) {
             return;
         }
         playlist.addFilePathToPlaylist(track);
+        MessageSender.getInstance().send(Phrase.ADDED_TRACK.parse(track.getArtist() + " - " + track.getName()));
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
         selectTrack(track.getName());
     }
 
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getMediaPlayer() {
         return mp;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPlaying() {
         return playing;
     }
 
+    /**
+     *
+     * @return
+     */
     public static MusicPlayer getInstance() {
         return MusicPlayerSingletonHolder.INSTANCE;
     }

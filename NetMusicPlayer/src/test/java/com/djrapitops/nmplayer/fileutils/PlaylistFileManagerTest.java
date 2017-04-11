@@ -22,13 +22,23 @@ import static org.junit.Assert.*;
  */
 public class PlaylistFileManagerTest {
 
+    /**
+     *
+     */
     public PlaylistFileManagerTest() {
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Before
     public void setUp() throws IOException {
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetPlaylistFolder() {
         System.out.println("  Test getPlaylistFolder");
@@ -38,6 +48,10 @@ public class PlaylistFileManagerTest {
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testSaveAndLoad() throws IOException {
         System.out.println("  Test load Method");
@@ -58,6 +72,10 @@ public class PlaylistFileManagerTest {
         Files.deleteIfExists(new File("testFile.txt").toPath());
     }
     
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testSaveException() throws IOException {
         System.out.println("  Test save for exception");
@@ -79,6 +97,10 @@ public class PlaylistFileManagerTest {
         Files.deleteIfExists(exceptionFolder.toPath());
     }
     
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testLoadException() throws IOException {
         System.out.println("  Test load for exception");

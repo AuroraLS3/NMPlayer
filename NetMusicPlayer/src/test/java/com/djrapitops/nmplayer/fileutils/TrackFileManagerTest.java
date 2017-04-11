@@ -24,9 +24,15 @@ import static org.junit.Assert.*;
  */
 public class TrackFileManagerTest {
 
+    /**
+     *
+     */
     public TrackFileManagerTest() {
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetFolder() {
         File folder = TrackFileManager.getFolder();
@@ -34,6 +40,9 @@ public class TrackFileManagerTest {
         assertEquals(new File("tracks"), folder);
     }
 
+    /**
+     *
+     */
     @Test
     public void testTranslateToTracks() {
         List<String> paths = new ArrayList<>();
@@ -50,6 +59,9 @@ public class TrackFileManagerTest {
 
     }
 
+    /**
+     *
+     */
     @Test
     public void testProcessFileNull() {
         Track result = TrackFileManager.processFile(null);
@@ -57,6 +69,9 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testProcessFileNonexistent() {
         Track result = TrackFileManager.processFile(new File("UnexistingTestFile"));
@@ -64,6 +79,10 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testProcessFileUnreadable() throws IOException {
         Files.deleteIfExists(new File("NonReadableTestFile").toPath());
@@ -76,6 +95,10 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testProcessFileNotMp3() throws IOException {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -90,6 +113,9 @@ public class TrackFileManagerTest {
         assertTrue("Didn't notify about wrong filetype", outContent.toString().contains(Phrase.WRONG_FILETYPE + ""));
     }
 
+    /**
+     *
+     */
     @Test
     public void testProcessFileExisting() {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -104,6 +130,9 @@ public class TrackFileManagerTest {
         assertTrue("Didn't notify about wrong filetype", outContent.toString().contains(Phrase.ADDED_TRACK.parse(exp.toString())));
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetArtist() {
         File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
@@ -115,6 +144,10 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testGetArtistException() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "ExceptionFolder.mp3").toPath());
@@ -131,6 +164,10 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testGetArtistNotMp3() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival").toPath());
@@ -142,6 +179,9 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetTrackName() {
         File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
@@ -153,6 +193,10 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testGetTrackNameException() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "ExceptionFolder.mp3").toPath());
@@ -169,6 +213,10 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testGetTrackNameNotMp3() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival").toPath());

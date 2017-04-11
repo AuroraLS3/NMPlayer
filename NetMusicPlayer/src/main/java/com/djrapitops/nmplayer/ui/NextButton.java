@@ -16,6 +16,10 @@ import javafx.scene.control.Button;
  */
 public class NextButton extends Button {
 
+    /**
+     *
+     * @param play
+     */
     public NextButton(PlayButton play) {
         super.setStyle("-fx-background-color: White");
         super.setText(">>");

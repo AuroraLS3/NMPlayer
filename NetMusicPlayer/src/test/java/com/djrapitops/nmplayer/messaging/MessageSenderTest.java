@@ -16,9 +16,15 @@ import static org.junit.Assert.*;
  */
 public class MessageSenderTest {
 
+    /**
+     *
+     */
     public MessageSenderTest() {
     }
 
+    /**
+     *
+     */
     @Test
     public void testSend() {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream(); 
@@ -28,6 +34,9 @@ public class MessageSenderTest {
         assertTrue("Didn't contain test message",outContent.toString().contains(exp));
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetInstance() {
         assertTrue("Was null", MessageSender.getInstance() != null);

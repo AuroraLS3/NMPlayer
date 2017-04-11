@@ -16,6 +16,9 @@ import javafx.scene.control.Button;
  */
 public class PlayButton extends Button {
 
+    /**
+     *
+     */
     public PlayButton() {
         super.setStyle("-fx-background-color: White");
         this.update();
@@ -31,6 +34,9 @@ public class PlayButton extends Button {
         super.setOnAction(h);
     }
 
+    /**
+     *
+     */
     public void update() {
         if (!MusicPlayer.getInstance().isPlaying()) {
             super.setText("Play");

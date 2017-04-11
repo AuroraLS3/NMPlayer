@@ -15,9 +15,16 @@ public class MessageSender {
     
     TextConsole con;
 
+    /**
+     *
+     */
     public MessageSender() {
     }
     
+    /**
+     *
+     * @param s
+     */
     public void send(String s) {
         if (con != null) {
             if (!con.getText().isEmpty()) {
@@ -29,10 +36,18 @@ public class MessageSender {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public static MessageSender getInstance() {
         return MessageSenderSingletonHolder.INSTANCE;
     }
 
+    /**
+     *
+     * @param console
+     */
     public void setOutput(TextConsole console) {
         con = console;
     }

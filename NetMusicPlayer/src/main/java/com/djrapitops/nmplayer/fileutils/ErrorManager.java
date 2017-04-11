@@ -15,6 +15,11 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
+ * This class is used to write caught <tt>Throwable</tt> objects to Errors.txt
+ * in the folder the .jar resides in.
+ *
+ * <p>
+ * All of the methods are static.
  *
  * @author Rsl1122
  */
@@ -23,8 +28,8 @@ public class ErrorManager {
     /**
      * Logs caught Throwable to Errors.txt
      *
-     * @param source Name of the source class
-     * @param e Thrown error
+     * @param source Name of the source class.
+     * @param e Throwable that was caught by the program.
      */
     public static void toLog(String source, Throwable e) {
         MessageSender.getInstance().send(Phrase.ERROR + "");
@@ -39,7 +44,7 @@ public class ErrorManager {
      * Logs multiple caught Throwables to Errors.txt.
      *
      * @param source Class name the exception was caught in.
-     * @param e Collection of Throwables, eg NullPointerException
+     * @param e Collection of caught Throwables, eg NullPointerException
      */
     public static void toLog(String source, Collection<Throwable> e) {
         for (Throwable ex : e) {
@@ -50,7 +55,8 @@ public class ErrorManager {
     /**
      * Logs a message to the Errors.txt with a timestamp.
      *
-     * @param message Message to log to Errors.txt
+     * @param message A line that will be written to the Errors.txt as a new
+     * line.
      */
     public static void toLog(String message) {
         FileWriter fw = null;
@@ -80,8 +86,7 @@ public class ErrorManager {
     }
 
     /**
-     * Format a long value into human readable format of (month) (day)
-     * (hh:mm:ss).
+     * Format a long value into readable format of (month) (day) (hh:mm:ss).
      *
      * @param ms ms since Epoch Date 1970
      * @return String of format (month) (day) (hh:mm:ss)

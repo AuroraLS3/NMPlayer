@@ -17,20 +17,38 @@ public class Track {
     private final String artist;
     private final String fileName;
 
+    /**
+     *
+     * @param name
+     * @param artist
+     * @param filePath
+     */
     public Track(String name, String artist, String filePath) {
         this.name = name;
         this.artist = artist;
         this.fileName = filePath;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getArtist() {
         return artist;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFilePath() {
         return fileName;
     }
