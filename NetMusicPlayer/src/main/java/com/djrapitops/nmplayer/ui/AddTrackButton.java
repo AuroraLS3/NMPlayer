@@ -17,22 +17,38 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
+ * JavaFx UI component, a Button used to add tracks to the playlist.
+ * <p>
+ * Pauses the playback when pressed, and opens a new file selection window.
+ * <p>
+ * Playbutton is needed to update the pause status text if this button is
+ * pressed.
  *
  * @author ristolah
+ * @see PlaylistFileManager
+ * @see PlaylistManager
+ * @see MusicPlayer
  */
 public class AddTrackButton extends Button {
 
     private final FileChooser fileChooser = new FileChooser();
 
     /**
+     * Constructor for the button.
+     * <p>
+     * Sets the click event response to open a new FileChooser and add a new
+     * track to the playlist that contains information of the file.
      *
-     * @param play
-     * @param stage
+     * @param play Already initialized PlayButton.
+     * @param stage Stage used by the UserInterface.
+     * @see FileChooser
+     * @see UserInterface
+     * @see Application
      */
     public AddTrackButton(PlayButton play, Stage stage) {
         super.setStyle("-fx-background-color: White");
         super.setText("Add Track");
-        fileChooser.setSelectedExtensionFilter(new ExtensionFilter("mp3 and wav", Arrays.asList(new String[]{"mp3", "wav"})));
+        fileChooser.setSelectedExtensionFilter(new ExtensionFilter("mp3", Arrays.asList(new String[]{".mp3"})));
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             final MusicPlayer musicPlayer = MusicPlayer.getInstance();
 

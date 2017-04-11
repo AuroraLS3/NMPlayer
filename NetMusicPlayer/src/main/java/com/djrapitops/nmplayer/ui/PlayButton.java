@@ -11,13 +11,20 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 /**
+ * JavaFx UI component, a Button used to play/pause the currently playing track.
  *
  * @author ristolah
+ * @see MusicPlayer
  */
 public class PlayButton extends Button {
 
     /**
+     * Constructor for the Button.
+     * <p>
+     * Sets the click event response to either pause or play the playback with
+     * MusicPlayer and update the text on the button.
      *
+     * @see MusicPlayer
      */
     public PlayButton() {
         super.setStyle("-fx-background-color: White");
@@ -35,7 +42,10 @@ public class PlayButton extends Button {
     }
 
     /**
+     * Updates the text on the button according to the playing status of the
+     * MusicPlayer.
      *
+     * @see MusicPlayer
      */
     public void update() {
         if (!MusicPlayer.getInstance().isPlaying()) {
@@ -44,6 +54,5 @@ public class PlayButton extends Button {
             super.setText("Pause");
         }
     }
-    
-    
+
 }

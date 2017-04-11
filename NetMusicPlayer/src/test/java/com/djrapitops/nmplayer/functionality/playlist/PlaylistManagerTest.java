@@ -31,7 +31,7 @@ public class PlaylistManagerTest {
         System.out.println("Test PlaylistManager.addFilePathToPlaylist");
         Track t = new Track("1", "2", "3");
         PlaylistManager instance = new PlaylistManager();
-        instance.addFilePathToPlaylist(t);
+        instance.addTrackToPlaylist(t);
         assertTrue("Did not add track", instance.getPlaylist().size() > 0);
         assertTrue("Did not add correct path", instance.getPlaylist().get(0).getFilePath().equals("3"));
     }
@@ -44,10 +44,10 @@ public class PlaylistManagerTest {
         System.out.println("Test PlaylistManager.removeFilePathFromPlaylist");
         Track t = new Track("1", "2", "3");
         PlaylistManager instance = new PlaylistManager();
-        instance.addFilePathToPlaylist(t);
+        instance.addTrackToPlaylist(t);
         assertTrue("Did not add track", instance.getPlaylist().size() > 0);
         t = new Track("1", "2", "3");
-        instance.removeFilePathFromPlaylist(t);
+        instance.removeTrackFromPlaylist(t);
         assertTrue("Did not remove track", instance.getPlaylist().isEmpty());
     }
 
@@ -59,7 +59,7 @@ public class PlaylistManagerTest {
         System.out.println("Test PlaylistManager.clearPlaylist");
         Track t = new Track("1", "2", "3");
         PlaylistManager instance = new PlaylistManager();
-        instance.addFilePathToPlaylist(t);
+        instance.addTrackToPlaylist(t);
         assertTrue("Did not add track", instance.getPlaylist().size() > 0);
         instance.clearPlaylist();
         assertTrue("Did not remove track", instance.getPlaylist().isEmpty());
@@ -103,11 +103,11 @@ public class PlaylistManagerTest {
         System.out.println("Test PlaylistManager.getTrackByName");
         String trackName = "3";
         PlaylistManager instance = new PlaylistManager();
-        instance.addFilePathToPlaylist(new Track("1", "2", "3"));
-        instance.addFilePathToPlaylist(new Track("2", "4", "5"));
-        instance.addFilePathToPlaylist(new Track("3", "7", "6"));
-        instance.addFilePathToPlaylist(new Track("5", "32", "345"));
-        instance.addFilePathToPlaylist(new Track("1", "Unknown", "3437"));
+        instance.addTrackToPlaylist(new Track("1", "2", "3"));
+        instance.addTrackToPlaylist(new Track("2", "4", "5"));
+        instance.addTrackToPlaylist(new Track("3", "7", "6"));
+        instance.addTrackToPlaylist(new Track("5", "32", "345"));
+        instance.addTrackToPlaylist(new Track("1", "Unknown", "3437"));
         Track expResult = new Track("3", "7", "6");
         Track result = instance.getTrackByName(trackName);
         assertEquals(expResult, result);
@@ -121,11 +121,11 @@ public class PlaylistManagerTest {
         System.out.println("Test PlaylistManager.getTrackByName when track doesn't exist");
         String trackName = "4";
         PlaylistManager instance = new PlaylistManager();
-        instance.addFilePathToPlaylist(new Track("1", "2", "3"));
-        instance.addFilePathToPlaylist(new Track("2", "4", "5"));
-        instance.addFilePathToPlaylist(new Track("3", "7", "6"));
-        instance.addFilePathToPlaylist(new Track("5", "32", "345"));
-        instance.addFilePathToPlaylist(new Track("1", "Unknown", "3437"));
+        instance.addTrackToPlaylist(new Track("1", "2", "3"));
+        instance.addTrackToPlaylist(new Track("2", "4", "5"));
+        instance.addTrackToPlaylist(new Track("3", "7", "6"));
+        instance.addTrackToPlaylist(new Track("5", "32", "345"));
+        instance.addTrackToPlaylist(new Track("1", "Unknown", "3437"));
         Track expResult = null;
         Track result = instance.getTrackByName(trackName);
         assertEquals(expResult, result);
@@ -138,7 +138,7 @@ public class PlaylistManagerTest {
     public void testIsEmpty() {
         PlaylistManager instance = new PlaylistManager();
         assertTrue("Not empty", instance.isEmpty());
-        instance.addFilePathToPlaylist(new Track("1", "2", "3"));
+        instance.addTrackToPlaylist(new Track("1", "2", "3"));
         assertTrue("Empty", !instance.isEmpty());
     }
 }

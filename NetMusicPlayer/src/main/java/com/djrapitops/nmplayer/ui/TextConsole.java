@@ -9,13 +9,25 @@ import com.djrapitops.nmplayer.messaging.MessageSender;
 import javafx.scene.control.TextArea;
 
 /**
+ * JavaFx UI component, a Disabled TextArea.
+ *
+ * <p>
+ * When initialized sets itself as the output of MessageSender
  *
  * @author ristolah
+ * @see TextArea
+ * @see MessageSender
  */
 public class TextConsole extends TextArea {
 
     /**
+     * Constructor for the component.
+     * <p>
+     * Disables the TextArea, but makes it appear editable.
+     * <p>
+     * Sets itself as the output of MessageSender.
      *
+     * @see MessageSender
      */
     public TextConsole() {
         super.setEditable(false);

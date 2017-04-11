@@ -11,14 +11,27 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 /**
+ * JavaFx UI component, a Button used to stop playing the currently playing
+ * track.
+ *
+ * <p>
+ * Playbutton is needed to update the pause status text if this button is
+ * pressed.
  *
  * @author ristolah
+ * @see PlaylistFileManager
+ * @see PlaylistManager
+ * @see MusicPlayer
  */
 public class StopButton extends Button {
 
     /**
+     * Constructor for the button.
+     * <p>
+     * Sets the click event response to stop playback on MusicPlayer.
      *
-     * @param play
+     * @param play Already initialized PlayButton
+     * @see MusicPlayer
      */
     public StopButton(PlayButton play) {
         super.setStyle("-fx-background-color: White");
@@ -28,5 +41,5 @@ public class StopButton extends Button {
             play.update();
         };
         super.setOnAction(h);
-    }    
+    }
 }

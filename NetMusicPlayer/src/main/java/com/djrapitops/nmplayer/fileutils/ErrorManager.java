@@ -26,7 +26,7 @@ import java.util.Date;
 public class ErrorManager {
 
     /**
-     * Logs caught Throwable to Errors.txt
+     * Logs caught Throwable to Errors.txt.
      *
      * @param source Name of the source class.
      * @param e Throwable that was caught by the program.

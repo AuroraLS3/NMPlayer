@@ -5,18 +5,23 @@
  */
 package com.djrapitops.nmplayer.ui;
 
-import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
 /**
+ * JavaFx Application used as the Interface for the user.
+ *
+ * <p>
+ * When started, initialises multiple UI components and sets them to be on a
+ * certain part of the program.
  *
  * @author ristolah
+ * @see Application
+ * @see Stage
  */
 public class UserInterface extends Application {
 
@@ -24,14 +29,14 @@ public class UserInterface extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("NMPlayer");
 
-        MediaView view = new MediaView(MusicPlayer.getInstance().getMediaPlayer());
+//        MediaView view = new MediaView(MusicPlayer.getInstance().getMediaPlayer());
 
         BorderPane root = new BorderPane();
-        root.setCenter(view);
+//        root.setCenter(view);
         root.setBottom(toolbar(primaryStage));
         root.setRight(console());
 
-        primaryStage.setScene(new Scene(root, 400, 300));
+        primaryStage.setScene(new Scene(root, 600, 300));
         primaryStage.show();
     }
 

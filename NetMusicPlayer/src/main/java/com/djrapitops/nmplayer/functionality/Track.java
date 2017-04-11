@@ -8,6 +8,7 @@ package com.djrapitops.nmplayer.functionality;
 import java.util.Objects;
 
 /**
+ * This class is used to store information of mp3 file in a single object.
  *
  * @author Risto
  */
@@ -18,10 +19,11 @@ public class Track {
     private final String fileName;
 
     /**
+     * Used to create a new Track object.
      *
-     * @param name
-     * @param artist
-     * @param filePath
+     * @param name Track name of the mp3.
+     * @param artist Artist of the mp3.
+     * @param filePath The absolute filepath of the .mp3 file.
      */
     public Track(String name, String artist, String filePath) {
         this.name = name;
@@ -30,24 +32,24 @@ public class Track {
     }
 
     /**
-     *
-     * @return
+     * Grabs the name contained in the Track object.
+     * @return Track name of the mp3.
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
-     * @return
+     * Grabs the artist contained in the Track object.
+     * @return Artist of the mp3.
      */
     public String getArtist() {
         return artist;
     }
 
     /**
-     *
-     * @return
+     * Grabs the filepath contained in the Track object.
+     * @return The absolute filepath of the .mp3 file.
      */
     public String getFilePath() {
         return fileName;

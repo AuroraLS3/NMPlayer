@@ -17,6 +17,9 @@ import javafx.scene.media.MediaPlayer;
 /**
  * This class contains all the logic used to change the playback (sound that is
  * coming out of the speakers).
+ * <p>
+ * THIS CLASS SHOULD NOT BE INITIALIZED WITH CLASS CONSTRUCTOR, MusicPlayer IS A
+ * SINGLETON CLASS, use MusicPlayer.getInstance() instead.
  *
  * <p>
  * The class contains information about the current state of the player, as well
@@ -52,8 +55,16 @@ public class MusicPlayer {
 
     /**
      * Method used to start the playback logic.
-     * 
-     * @throws IllegalStateException If a javafx Application is has not been started yet.
+     *
+     * <p>
+     * Selects a playlist "all" that contains all the tracks in other playlists
+     * & the tracks folder.
+     *
+     * <p>
+     * Sets the initial playing state to false.
+     *
+     * @throws IllegalStateException If a javafx Application is has not been
+     * started yet.
      */
     public void init() throws IllegalStateException {
         selectPlaylist("all");
@@ -61,8 +72,26 @@ public class MusicPlayer {
     }
 
     /**
+     * This method is used to change the playlist.
+     * <p>
+     * PlaylistFileManager is used to load the playlist file, and
+     * TrackFileManager is used to translate the file contents into Track
+     * objects.
      *
-     * @param playlistName
+     * <p>
+     * Then the playlist inside the PlaylistManager will be set as the new List
+     * given by TrackFileManager.
+     *
+     * <p>
+     * First track of the playlist will be selected for play.
+     *
+     * @param playlistName Name of the playlist
+     * @throws IllegalStateException If a javafx Application is has not been
+     * started yet.
+     * @see PlaylistFileManager
+     * @see TrackFileManager
+     * @see PlaylistManager
+     * @see selectTrack
      */
     public void selectPlaylist(String playlistName) throws IllegalStateException {
         selectedPlaylist = playlistName;
@@ -71,9 +100,18 @@ public class MusicPlayer {
     }
 
     /**
+     * Used to move to the next track in the playlist.
      *
+     * <p>
+     * If currentTrack is null (Not initialized) nothing is done.
+     * <p>
+     * Otherwise the playback is stopped, new Track selected, and then played.
+     *
+     * @throws IllegalStateException If a javafx Application is has not been
+     * started yet.
+     * @see selectTrack
      */
-    public void nextTrack() {
+    public void nextTrack() throws IllegalStateException {
         if (currentTrack != null) {
             mp.stop();
             playing = false;
@@ -83,9 +121,18 @@ public class MusicPlayer {
     }
 
     /**
+     * Used to move to the previous track in the playlist.
      *
+     * <p>
+     * If currentTrack is null (Not initialized) nothing is done.
+     * <p>
+     * Otherwise the playback is stopped, new Track selected, and then played.
+     *
+     * @see selectTrack
+     * @throws IllegalStateException If a javafx Application is has not been
+     * started yet.
      */
-    public void previousTrack() {
+    public void previousTrack() throws IllegalStateException {
         if (currentTrack != null) {
             mp.stop();
             playing = false;
@@ -95,7 +142,14 @@ public class MusicPlayer {
     }
 
     /**
+     * Begins/Resumes the playback.
      *
+     * <p>
+     * If MusicPlayer is null (not initialized) nothing is done.
+     * <p>
+     * Playing Message will be sent with MessageSender
+     *
+     * @see MessageSender
      */
     public void play() {
         if (mp != null) {
@@ -106,7 +160,15 @@ public class MusicPlayer {
     }
 
     /**
+     * Pauses the playback.
      *
+     * <p>
+     * If MusicPlayer is null (not initialized) nothing is done.
+     *
+     * <p>
+     * Pause Message will be sent with MessageSender
+     *
+     * @see MessageSender
      */
     public void pause() {
         if (mp != null && playing) {
@@ -117,7 +179,14 @@ public class MusicPlayer {
     }
 
     /**
+     * Stops the playback.
      *
+     * <p>
+     * If MusicPlayer is null (not initialized) nothing is done.
+     * <p>
+     * Stop Message will be sent with MessageSender
+     *
+     * @see MessageSender
      */
     public void stop() {
         if (mp != null) {
@@ -128,8 +197,20 @@ public class MusicPlayer {
     }
 
     /**
+     * Used get a Track object from the playlist for the selectTrack(Track)
+     * method.
      *
-     * @param i
+     * <p>
+     * If the playlist is empty, a message will be sent with the MessageSender.
+     *
+     *
+     * @param i Index of the track in the playlist.
+     * @throws IllegalStateException If a javafx Application is has not been
+     * started yet.
+     * @see selectTrack
+     * @see PlaylistManager
+     * @see MessageSender
+     *
      */
     public void selectTrack(int i) throws IllegalStateException {
         final int tracks = playlist.getPlaylist().size();
@@ -145,20 +226,34 @@ public class MusicPlayer {
     }
 
     /**
+     * Used to change the MediaPlayer object to play the Track.
      *
-     * @param track
+     * <p>
+     * Creates a new MediaPlayer object with the filepath inside the Track
+     * object, and frees the resources associated with the old MediaPlayer
+     * object, if one exists.
+     * <p>
+     * If the file specified by Track object doesn't exist a message will be
+     * sent with MessageSender.
+     * <p>
+     * After successfully creating the new MediaPlayer object, the currentTrack
+     * information will be updated and a select message will be sent with
+     * MessageSender
+     *
+     *
+     * @param track Track to be played.
+     * @throws IllegalStateException If a javafx Application is has not been
+     * started yet.
+     * @see MessageSender
      */
-    public void selectTrack(Track track) {
+    public void selectTrack(Track track) throws IllegalStateException {
         if (track != null) {
             String mp3FilePath = track.getFilePath();
             File trackFile = new File(mp3FilePath);
             if (!trackFile.exists()) {
-                MessageSender.getInstance().send("File doesn't exist! " + track);
+                msg.send("File doesn't exist! Restart application! " + track);
                 return;
             }
-            currentTrackIndex = playlist.getPlaylist().indexOf(track);
-            currentTrack = track;
-            msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
             Media play = new Media(trackFile.toURI().toString());
             if (mp != null) {
                 mp.dispose();
@@ -170,42 +265,63 @@ public class MusicPlayer {
                     nextTrack();
                 }
             });
+            currentTrackIndex = playlist.getPlaylist().indexOf(track);
+            currentTrack = track;
+            msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
         }
     }
 
     /**
+     * Adds a new Track object to the playlist in PlaylistManager.
      *
-     * @param track
+     * <p>
+     * If the track given is null nothing is done.
+     * <p>
+     * Otherwise the track is added to playlist in PlaylistManager, add message
+     * is sent with MessageSender and the new playlist is saved with
+     * PlaylistFileManager.
+     *
+     * @param track Track to add to the playlist.
+     * @throws IllegalStateException If a javafx Application is has not been
+     * started yet.
+     * @see PlaylistManager
+     * @see PlaylistFileManager
+     * @see MessageSender
      */
-    public void addTrackToPlaylist(Track track) {
+    public void addTrackToPlaylist(Track track) throws IllegalStateException {
         if (track == null) {
             return;
         }
-        playlist.addFilePathToPlaylist(track);
-        MessageSender.getInstance().send(Phrase.ADDED_TRACK.parse(track.getArtist() + " - " + track.getName()));
+        playlist.addTrackToPlaylist(track);
+        msg.send(Phrase.ADDED_TRACK.parse(track.getArtist() + " - " + track.getName()));
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
         selectTrack(track);
     }
 
     /**
+     * Used to grab the MediaPlayer object that is currently handling the
+     * playback.
      *
-     * @return
+     * @return MediaPlayer that has the current track playback capability.
      */
     public MediaPlayer getMediaPlayer() {
         return mp;
     }
 
     /**
+     * Tells wether or not the MusicPlayer has active playback going on.
      *
-     * @return
+     * @return Is sound coming out of the speakers?
      */
     public boolean isPlaying() {
         return playing;
     }
 
     /**
+     * Used to get the only instance of the MusicPlayer so that all of it's
+     * methods can be accessed easily.
      *
-     * @return
+     * @return INSTANCE created in the static class MusicPlayerSingletonHolder
      */
     public static MusicPlayer getInstance() {
         return MusicPlayerSingletonHolder.INSTANCE;
