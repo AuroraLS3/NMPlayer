@@ -6,6 +6,7 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
+import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,9 +49,6 @@ public class PlaylistFileManager {
      * @return Success of the save.
      */
     public static boolean save(List<String> filepaths, String name) {
-        if (name.equals("all")) {
-            return true;
-        }
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
         try {
@@ -96,7 +94,12 @@ public class PlaylistFileManager {
         File playlistFile = new File(playlistFolder, name + ".txt");
         if (playlistFile.exists()) {
             try {
-                playlist.addAll(Files.lines(playlistFile.toPath(), Charset.defaultCharset()).collect(Collectors.toList()));
+                List<String> lines = Files.lines(playlistFile.toPath(), Charset.defaultCharset()).collect(Collectors.toList());
+                if (lines.isEmpty()) {
+//                    Files.deleteIfExists(playlistFile.toPath());
+                } else {
+                    playlist.addAll(lines);
+                }
             } catch (Exception ex) {
                 ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", ex);
             }
@@ -109,6 +112,13 @@ public class PlaylistFileManager {
         File playlistFolder = getPlaylistFolder();
         File[] files = playlistFolder.listFiles();
         for (File file : files) {
+            if (file.getName().equals("all.txt")) {
+                try {
+                    playlist.addAll(Files.lines(file.toPath(), Charset.defaultCharset()).collect(Collectors.toList()));
+                } catch (IOException ex) {
+                    ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", ex);
+                }
+            }
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {
                 continue;
             }
@@ -136,5 +146,18 @@ public class PlaylistFileManager {
      */
     public static boolean save(List<Track> playlist, String name, boolean ok) {
         return save(playlist.stream().map(track -> track.getFilePath()).collect(Collectors.toList()), name);
+    }
+
+    public static String getKnownPlaylists() {
+        StringBuilder playlists = new StringBuilder();
+        File[] files = getPlaylistFolder().listFiles();
+        for (File file : files) {
+            if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt")) {
+                continue;
+            }
+            playlists.append(TextUtils.uppercaseFirst(file.getName().replace(".txt", ""))).append(", ");
+        }
+        String string = playlists.toString();
+        return string.substring(0, string.length() - 2);
     }
 }

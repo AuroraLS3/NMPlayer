@@ -129,4 +129,13 @@ public class PlaylistManager {
     public int getIndexOf(Track track) {
         return playlist.indexOf(track);
     }
+
+    public boolean hasTrack(Track track) {
+        for (Track t : playlist) {
+            if (t.equals(track)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

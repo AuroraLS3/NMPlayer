@@ -44,18 +44,18 @@ public class AddTrackButton extends Button {
      * @see Application
      */
     public AddTrackButton(Updateable ui, Stage stage) {
-        super.setStyle("-fx-background-color: Green; -fx-text-fill: White");
+        super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
         super.setText("Add Track");
         fileChooser.setSelectedExtensionFilter(new ExtensionFilter("mp3", Arrays.asList(new String[]{".mp3"})));
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             final MusicPlayer musicPlayer = MusicPlayer.getInstance();
-            if (musicPlayer.isPlaying()) {
-                musicPlayer.pause();                
-            }
             ui.update();
             File selectedFile = fileChooser.showOpenDialog(stage);
             musicPlayer.addTrackToPlaylist(TrackFileManager.processFile(selectedFile));
             ui.update();
+            if (musicPlayer.isPlaying()) {
+                musicPlayer.play();
+            }
         };
         super.setOnAction(h);
     }

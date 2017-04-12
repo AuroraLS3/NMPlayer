@@ -1,6 +1,7 @@
 
 package com.djrapitops.nmplayer.ui.playlist;
 
+import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.ui.Updateable;
 import javafx.geometry.Pos;
@@ -21,7 +22,7 @@ public class UITrack extends HBox implements Updateable{
         this.track = track;
         super.setAlignment(Pos.CENTER_LEFT);
         super.alignmentProperty().isBound();
-        super.setSpacing(5);
+        super.setSpacing(5);        
         super.setStyle("-fx-background-color: Lightgrey");
         super.getChildren().add(new SelectButton(this));
         super.getChildren().add(new RemoveButton(this));

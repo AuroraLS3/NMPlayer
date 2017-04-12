@@ -37,6 +37,7 @@ public class TrackFileManagerTest {
      */
     @Test
     public void testGetFolder() {
+        TrackFileManager t = new TrackFileManager();
         File folder = TrackFileManager.getFolder();
         assertTrue("Didn't create folder", folder.exists());
         assertEquals(new File("tracks"), folder);
@@ -173,7 +174,7 @@ public class TrackFileManagerTest {
         File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival");
         testTrack.createNewFile();
         String result = TrackFileManager.getArtist(testTrack);
-        String exp = "Artist";
+        String exp = "Dj Rapitops";
         Files.deleteIfExists(testTrack.toPath());
         assertEquals(exp, result);
     }
@@ -208,7 +209,8 @@ public class TrackFileManagerTest {
         long linesNow = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
         assertTrue("Did not catch IOException, is folder", linesBefore < linesNow);
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "ExceptionFolder.mp3").toPath());
-        String exp = "Track";
+        String exp = "ExceptionFolder";
+        // Filename expected if read not successful.
         assertEquals(exp, result);
     }
 
@@ -223,7 +225,7 @@ public class TrackFileManagerTest {
         testTrack.createNewFile();
         Files.deleteIfExists(testTrack.toPath());
         String result = TrackFileManager.getTrackName(testTrack);
-        String exp = "Track";
+        String exp = "Arrival";
         assertEquals(exp, result);
     }
 }

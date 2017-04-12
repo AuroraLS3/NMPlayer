@@ -41,19 +41,20 @@ public class ChangePlaylistButton extends Button {
         super.setStyle("-fx-background-color: White");
         super.setAlignment(Pos.CENTER_RIGHT);
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
-            String newPlaylist = t.getText().toLowerCase().trim();
-            if (newPlaylist.isEmpty()) {
-                MessageSender.getInstance().send(Phrase.EMPTY_NAME+"");                
-                return;
-            }
-            MusicPlayer mp = MusicPlayer.getInstance();
-            if (mp.isPlaying()) {
-                mp.stop();
-            }
-            mp.selectPlaylist(newPlaylist);
-            u.update();
+            changePlaylist(t, u);
         };
         super.setOnAction(h);
+    }
+
+    public void changePlaylist(TextField t, Updateable u) throws IllegalStateException {
+        String newPlaylist = t.getText().toLowerCase().trim();
+        if (newPlaylist.isEmpty()) {
+            MessageSender.getInstance().send(Phrase.EMPTY_NAME.parse(PlaylistFileManager.getKnownPlaylists()));
+            return;
+        }
+        MusicPlayer mp = MusicPlayer.getInstance();
+        mp.selectPlaylist(newPlaylist);
+        u.update();
     }
 
 }

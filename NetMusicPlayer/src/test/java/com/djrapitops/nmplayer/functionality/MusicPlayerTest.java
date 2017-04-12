@@ -8,6 +8,7 @@ package com.djrapitops.nmplayer.functionality;
 import java.lang.reflect.Field;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import jdk.Exported;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -40,7 +41,10 @@ public class MusicPlayerTest {
      *
      */
     @Test
+    @Ignore("IllegalStateException: Tookit not initialized.")
     public void testInit() {
+        MusicPlayer mp = new MusicPlayer();
+        mp.init();
     }
 
     /**

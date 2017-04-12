@@ -141,4 +141,70 @@ public class PlaylistManagerTest {
         instance.addTrackToPlaylist(new Track("1", "2", "3"));
         assertTrue("Empty", !instance.isEmpty());
     }
+
+    @Test
+    public void testSelectTrackEmpty() {
+        PlaylistManager m = new PlaylistManager();
+        assertEquals(null, m.selectTrack(0));
+    }
+
+    @Test
+    public void testSelectTrackMinusOne() {
+        PlaylistManager m = new PlaylistManager();
+        Track o1 = new Track("1", "2", "3");
+        Track o2 = new Track("4", "5", "6");
+        Track o3 = new Track("7", "8", "9");
+        m.addTrackToPlaylist(o1);
+        m.addTrackToPlaylist(o2);
+        m.addTrackToPlaylist(o3);
+        assertEquals(o3, m.selectTrack(-1));
+    }
+
+    @Test
+    public void testSelectTrackInsideSize() {
+        PlaylistManager m = new PlaylistManager();
+        Track o1 = new Track("1", "2", "3");
+        Track o2 = new Track("4", "5", "6");
+        Track o3 = new Track("7", "8", "9");
+        m.addTrackToPlaylist(o1);
+        m.addTrackToPlaylist(o2);
+        m.addTrackToPlaylist(o3);
+        assertEquals(o2, m.selectTrack(1));
+    }
+
+    @Test
+    public void testSelectTrackOverSize() {
+        PlaylistManager m = new PlaylistManager();
+        Track o1 = new Track("1", "2", "3");
+        Track o2 = new Track("4", "5", "6");
+        Track o3 = new Track("7", "8", "9");
+        m.addTrackToPlaylist(o1);
+        m.addTrackToPlaylist(o2);
+        m.addTrackToPlaylist(o3);
+        assertEquals(o1, m.selectTrack(5));
+    }
+    
+    @Test
+    public void testSelectTrackZero() {
+        PlaylistManager m = new PlaylistManager();
+        Track o1 = new Track("1", "2", "3");
+        Track o2 = new Track("4", "5", "6");
+        Track o3 = new Track("7", "8", "9");
+        m.addTrackToPlaylist(o1);
+        m.addTrackToPlaylist(o2);
+        m.addTrackToPlaylist(o3);
+        assertEquals(o1, m.selectTrack(0));
+    }
+
+    @Test
+    public void testIndexOf() {
+        PlaylistManager m = new PlaylistManager();
+        Track o1 = new Track("1", "2", "3");
+        Track o2 = new Track("4", "5", "6");
+        Track o3 = new Track("7", "8", "9");
+        m.addTrackToPlaylist(o1);
+        m.addTrackToPlaylist(o2);
+        m.addTrackToPlaylist(o3);
+        assertEquals(1, m.getIndexOf(o2));
+    }
 }

@@ -143,7 +143,7 @@ public class TrackFileManager {
      */
     public static String getTrackName(File file) {
         String title = null;
-        if (file.getName().contains(".mp3")) {
+        if (file.getName().endsWith(".mp3")) {
             try {
                 Mp3File mp3 = new Mp3File(file);
                 final ID3v2 id3v2Tag = mp3.getId3v2Tag();
@@ -161,15 +161,13 @@ public class TrackFileManager {
         }
         if (title == null) {
             title = "";
-
         }
         if (title.isEmpty()) {
             if (file.getName().contains(" - ")) {
-                title = file.getName().split(" - ")[1].replace(".txt", "");
+                title = file.getName().split(" - ")[1].replace(".mp3", "");
             } else {
-                title = "Track";
+                title = file.getName().replace(".mp3", "");
             }
-
         }
         return title;
     }

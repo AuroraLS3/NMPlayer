@@ -5,10 +5,15 @@ import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
+import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
+import com.djrapitops.nmplayer.ui.TrackProgressBar;
+import com.djrapitops.nmplayer.ui.Updateable;
 import java.io.File;
 import java.util.List;
+import javafx.beans.Observable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 /**
  * This class contains all the logic used to change the playback (sound that is
@@ -27,6 +32,8 @@ public class MusicPlayer {
     private final PlaylistManager playlist;
     private final MessageSender msg;
     private MediaPlayer mp;
+    private Updateable progressBar;
+    private Updateable ui;
 
     private Track currentTrack;
     private int currentTrackIndex;
@@ -44,6 +51,7 @@ public class MusicPlayer {
     public MusicPlayer() {
         playlist = new PlaylistManager();
         msg = MessageSender.getInstance();
+        selectedPlaylist = "None";
     }
 
     /**
@@ -84,12 +92,14 @@ public class MusicPlayer {
         selectedPlaylist = playlistName;
         playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist)));
         currentTrackIndex = 0;
-        msg.send(Phrase.SELECTED_PLAYLIST.parse(playlistName));
+        msg.send(Phrase.SELECTED_PLAYLIST.parse(TextUtils.uppercaseFirst(playlistName)));
         if (playlist.isEmpty()) {
             msg.send(Phrase.PLAYLIST_EMPTY + "");
             return;
-        }        
-        selectTrack(playlist.selectTrack(currentTrackIndex));
+        }
+        if (!playlist.hasTrack(currentTrack)) {
+            selectTrack(playlist.selectTrack(currentTrackIndex));
+        }
     }
 
     /**
@@ -202,7 +212,7 @@ public class MusicPlayer {
      * @see MessageSender
      */
     public void selectTrack(Track track) throws IllegalStateException {
-        if (track != null) {
+        if (track != null && !track.equals(currentTrack)) {
             String mp3FilePath = track.getFilePath();
             File trackFile = new File(mp3FilePath);
             if (!trackFile.exists()) {
@@ -218,11 +228,18 @@ public class MusicPlayer {
                 @Override
                 public void run() {
                     nextTrack();
+                    ui.update();
                 }
+            });
+            mp.currentTimeProperty().addListener((Observable ov) -> {
+                progressBar.update();
+            });
+            mp.setOnReady(() -> {
+                progressBar.update();
             });
             currentTrackIndex = playlist.getIndexOf(track);
             currentTrack = track;
-            msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
+//            msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
         }
     }
 
@@ -255,13 +272,30 @@ public class MusicPlayer {
     }
 
     public void removeTrackFromPlaylist(Track track) {
-        if (playlist.getIndexOf(track) == currentTrackIndex) {
+        boolean removingCurrentTrack = playlist.getIndexOf(track) == currentTrackIndex;
+        if (removingCurrentTrack) {
             stop();
         }
         playlist.removeTrackFromPlaylist(track);
         msg.send(Phrase.REMOVED_TRACK.parse(track.toString()));
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
-        selectTrack(currentTrackIndex);
+        if (removingCurrentTrack) {
+            selectTrack(currentTrackIndex);
+        }
+    }
+
+    public double getCurrentTrackProgress() {
+        if (mp == null) {
+            return 0;
+        }
+        return mp.getCurrentTime().toSeconds() / mp.getTotalDuration().toSeconds();
+    }
+
+    public void setTrackPosition(double d) {
+        if (mp == null) {
+            return;
+        }
+        mp.seek(mp.getTotalDuration().multiply(d));
     }
 
     /**
@@ -291,6 +325,22 @@ public class MusicPlayer {
      */
     public List<Track> getPlaylist() {
         return playlist.getPlaylist();
+    }
+
+    public String getSelectedPlaylist() {
+        return selectedPlaylist;
+    }
+
+    public Track getCurrentTrack() {
+        return currentTrack;
+    }
+
+    public void setProgressBar(Updateable progressBar) {
+        this.progressBar = progressBar;
+    }
+
+    public void setEndOfMediaUpdate(Updateable updateable) {
+        this.ui = updateable;
     }
 
     /**
