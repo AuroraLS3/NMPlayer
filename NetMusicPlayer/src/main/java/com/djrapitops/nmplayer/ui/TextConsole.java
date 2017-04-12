@@ -31,6 +31,7 @@ public class TextConsole extends TextArea {
      */
     public TextConsole() {
         super.setEditable(false);
+        super.setPrefWidth(10000);
         super.setMouseTransparent(true);
         super.setFocusTraversable(false);
         super.maxHeight(3);

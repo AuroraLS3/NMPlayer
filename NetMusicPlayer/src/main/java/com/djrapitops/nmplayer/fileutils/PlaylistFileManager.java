@@ -13,7 +13,9 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +48,9 @@ public class PlaylistFileManager {
      * @return Success of the save.
      */
     public static boolean save(List<String> filepaths, String name) {
+        if (name.equals("all")) {
+            return true;
+        }
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
         try {
@@ -83,6 +88,9 @@ public class PlaylistFileManager {
      * @return List containing all the lines inside the file.
      */
     public static List<String> load(String name) {
+        if (name.equals("all")) {
+            return loadAll();
+        }
         ArrayList<String> playlist = new ArrayList<>();
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
@@ -94,6 +102,25 @@ public class PlaylistFileManager {
             }
         }
         return playlist;
+    }
+
+    public static List<String> loadAll() {
+        Set<String> playlist = new HashSet<>();
+        File playlistFolder = getPlaylistFolder();
+        File[] files = playlistFolder.listFiles();
+        for (File file : files) {
+            if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {
+                continue;
+            }
+            playlist.addAll(load(file.getName().replace(".txt", "")));
+        }
+        for (File trackF : TrackFileManager.getFolder().listFiles()) {
+            if (trackF.isDirectory() || !trackF.canRead() || !trackF.getName().endsWith(".mp3")) {
+                continue;
+            }
+            playlist.add(trackF.getAbsolutePath());
+        }
+        return new ArrayList<>(playlist);
     }
 
     /**

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.djrapitops.nmplayer.ui;
+package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
 /**
@@ -18,21 +19,23 @@ import javafx.scene.control.Button;
  * @see PlaylistManager
  * @see MusicPlayer
  */
-public class NextButton extends Button {
+public class RemoveButton extends Button {
 
     /**
-     * Constructor for the button. Sets the click event response to play the
-     * next track on the MusicPlayer.
+     * Constructor for the button. Sets the click event response to remove the associated track from Playlist.
      *
-     * @param u A UI Component to update when the button is pressed.
+     * @param uiTrack A UITrack Component to update when the button is pressed.
      * @see MusicPlayer
+     * @see UITrack
+     * @see PlaylistManager
      */
-    public NextButton(Updateable u) {
-        super.setStyle("-fx-background-color: White");
-        super.setText(">>");
+    public RemoveButton(UITrack uiTrack) {
+        super.setStyle("-fx-background-color: DarkRed; -fx-text-fill: White");
+        super.setText("x");
+        super.setAlignment(Pos.CENTER_RIGHT);
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
-            MusicPlayer.getInstance().nextTrack();
-            u.update();
+            MusicPlayer.getInstance().removeTrackFromPlaylist(uiTrack.getTrack());
+            uiTrack.update();
         };
         super.setOnAction(h);
     }

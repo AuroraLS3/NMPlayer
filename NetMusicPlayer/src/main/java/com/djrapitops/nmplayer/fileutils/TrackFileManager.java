@@ -69,7 +69,7 @@ public class TrackFileManager {
      * <p>
      * If the given file can not be read, doesn't exist or isn't an mp3-file, a
      * null value will be returned.
-     * 
+     *
      * <p>
      * A message will be sent with MessageSender if file type is wrong.
      *
@@ -82,7 +82,7 @@ public class TrackFileManager {
             return null;
         }
         String fileName = file.getName();
-        if (!fileName.contains(".mp3")) {
+        if (!fileName.endsWith(".mp3")) {
             MessageSender.getInstance().send(Phrase.WRONG_FILETYPE + "");
             return null;
         }
@@ -118,7 +118,16 @@ public class TrackFileManager {
             }
         }
         if (artist == null) {
-            artist = "Artist";
+            artist = "";
+
+        }
+        if (artist.isEmpty()) {
+            if (file.getName().contains(" - ")) {
+                artist = file.getName().split(" - ")[0];
+            } else {
+                artist = "Artist";
+            }
+
         }
         return artist;
     }
@@ -151,7 +160,16 @@ public class TrackFileManager {
             }
         }
         if (title == null) {
-            title = "Track";
+            title = "";
+
+        }
+        if (title.isEmpty()) {
+            if (file.getName().contains(" - ")) {
+                title = file.getName().split(" - ")[1].replace(".txt", "");
+            } else {
+                title = "Track";
+            }
+
         }
         return title;
     }

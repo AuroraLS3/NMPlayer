@@ -6,6 +6,7 @@
 package com.djrapitops.nmplayer.functionality;
 
 import java.util.Objects;
+import javafx.scene.layout.HBox;
 
 /**
  * This class is used to store information of mp3 file in a single object.

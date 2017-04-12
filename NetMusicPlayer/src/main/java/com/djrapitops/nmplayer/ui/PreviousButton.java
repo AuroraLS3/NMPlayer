@@ -13,10 +13,6 @@ import javafx.scene.control.Button;
 /**
  * JavaFx UI component, a Button used to change the currently playing track.
  *
- * <p>
- * Playbutton is needed to update the pause status text if this button is
- * pressed.
- *
  * @author Rsl1122
  * @see PlaylistFileManager
  * @see PlaylistManager
@@ -30,15 +26,15 @@ public class PreviousButton extends Button {
      * Sets the click event response to play the previous track on the
      * MusicPlayer.
      *
-     * @param play Already initialized PlayButton
+     * @param u A UI Component to update when the button is pressed.
      * @see MusicPlayer
      */
-    public PreviousButton(PlayButton play) {
+    public PreviousButton(Updateable u) {
         super.setStyle("-fx-background-color: White");
         super.setText("<<");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             MusicPlayer.getInstance().previousTrack();
-            play.update();
+            u.update();
         };
         super.setOnAction(h);
     }

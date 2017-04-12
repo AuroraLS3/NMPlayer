@@ -23,10 +23,14 @@ public enum Phrase {
     PLAYLIST_EMPTY("The selected playlist is empty!"),
     ERROR("An Error has occurred. It has been logged to Errors.txt"),
     ERROR_JAVAFX("JavaFX Application not started, try running the program again!"),
+    EMPTY_NAME("Can't change to a Playlist with no name!"),
     WRONG_FILETYPE("Attempted to add wrong filetype! Only mp3s are supported"),
+    NONEXISTING_FILE("File doesn't exist! Restart application! (REPLACE0)"),
     SELECTED("Selected Track: REPLACE0"),
+    SELECTED_PLAYLIST("Selected Playlist: \"REPLACE0\""),
     NOW_PLAYING("Now Playing: REPLACE0"),
     ADDED_TRACK("Added: REPLACE0"),
+    REMOVED_TRACK("Removed: REPLACE0"),
     STOP("STOPPED"),
     PAUSE("PAUSED");
 

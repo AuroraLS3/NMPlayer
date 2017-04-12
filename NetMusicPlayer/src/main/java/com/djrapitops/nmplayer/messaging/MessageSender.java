@@ -44,6 +44,7 @@ public class MessageSender {
                 con.appendText(System.getProperty("line.separator"));
             }
             con.appendText(s);
+            con.scrollTopProperty().set(Double.MAX_VALUE);
         } else {
             System.out.println(s);
         }

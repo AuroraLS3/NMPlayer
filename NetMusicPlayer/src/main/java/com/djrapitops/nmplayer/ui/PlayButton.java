@@ -16,7 +16,7 @@ import javafx.scene.control.Button;
  * @author Rsl1122
  * @see MusicPlayer
  */
-public class PlayButton extends Button {
+public class PlayButton extends Button implements Updateable {
 
     /**
      * Constructor for the Button.
@@ -41,12 +41,7 @@ public class PlayButton extends Button {
         super.setOnAction(h);
     }
 
-    /**
-     * Updates the text on the button according to the playing status of the
-     * MusicPlayer.
-     *
-     * @see MusicPlayer
-     */
+    @Override
     public void update() {
         if (!MusicPlayer.getInstance().isPlaying()) {
             super.setText("Play");
