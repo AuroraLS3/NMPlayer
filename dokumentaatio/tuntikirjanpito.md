@@ -16,3 +16,5 @@ Päivä | Tunnit | Kuvaus
 06.04.2017 | 1.0h | Luokkakaavion päivitys, muutos erään arvon säilytykseen
 07.04.2017 | 2.0h | Testejen parantelua
 11.04.2017 | 4,75h | Javadocs, Yksi sekvenssikaavio, pieniä muutoksia.
+13.04.2017 | 2,75h | Sekvenssikaavio, UI:ta eteenpäin
+13.04.2017 | 4,0h | UI:ta eteenpäin ihan huvin vuoksi. Testejä.
