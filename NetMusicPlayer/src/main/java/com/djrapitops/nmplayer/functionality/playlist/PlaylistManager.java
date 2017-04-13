@@ -37,7 +37,9 @@ public class PlaylistManager {
      * @param t Track to be added.
      */
     public void addTrackToPlaylist(Track t) {
-        playlist.add(t);
+        if (!hasTrack(t)) {
+            playlist.add(t);
+        }
     }
 
     /**

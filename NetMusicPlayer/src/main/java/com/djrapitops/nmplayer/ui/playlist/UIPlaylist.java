@@ -55,8 +55,11 @@ public final class UIPlaylist extends VBox implements Updateable {
 
     private List<HBox> getTrackElements() {
         List<HBox> elements = new ArrayList<>();
-        List<Track> playlist = MusicPlayer.getInstance().getPlaylist();
-        Collections.sort(playlist, new TrackComparator());
+        MusicPlayer mp = MusicPlayer.getInstance();
+        List<Track> playlist = mp.getPlaylist();
+        if (mp.getSelectedPlaylist().equals("all")) {
+            Collections.sort(playlist, new TrackComparator());
+        }
         for (Track track : playlist) {
             elements.add(new UITrack(track, ui));
         }

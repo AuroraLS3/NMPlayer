@@ -23,6 +23,7 @@ public enum Phrase {
     NONEXISTING_FILE("File doesn't exist! Restart application! (REPLACE0)"),
     SELECTED("Selected Track: REPLACE0"),
     SELECTED_PLAYLIST("Selected Playlist: \"REPLACE0\""),
+    LOADING_PLAYLIST("Loading Playlist: \"REPLACE0\".."),
     NOW_PLAYING("Now Playing: REPLACE0"),
     ADDED_TRACK("Added: REPLACE0"),
     ALREADY_HAS_TRACK("Playlist already has this track! (REPLACE0)"),

@@ -127,6 +127,9 @@ public class PlaylistFileManagerTest {
         String knownPlaylists = PlaylistFileManager.getKnownPlaylists();
         File[] files = PlaylistFileManager.getPlaylistFolder().listFiles();
         for (File file : files) {
+            if (file.getName().equals("all.txt")) {
+                continue;
+            }
             if (file.isDirectory()) {
                 assertTrue("Included a directory " + file.toString() + " | " + knownPlaylists, !knownPlaylists.toLowerCase().contains(file.getName().toLowerCase().replace(".txt", "")));
             }

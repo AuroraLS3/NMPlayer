@@ -67,6 +67,7 @@ public class MusicPlayer {
      */
     public void init() throws IllegalStateException {
         selectPlaylist("all");
+        selectTrack(0);
         playing = false;
     }
 
@@ -89,6 +90,7 @@ public class MusicPlayer {
      * @see selectTrack
      */
     public void selectPlaylist(String playlistName) throws IllegalStateException {
+        msg.send(Phrase.LOADING_PLAYLIST.parse(TextUtils.uppercaseFirst(playlistName)));
         selectedPlaylist = playlistName;
         playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist)));
         currentTrackIndex = 0;
@@ -98,6 +100,7 @@ public class MusicPlayer {
             return;
         }
         if (!playlist.hasTrack(currentTrack)) {
+            currentTrackIndex = playlist.getIndexOf(currentTrack);
             selectTrack(playlist.selectTrack(currentTrackIndex));
         }
     }
@@ -238,9 +241,10 @@ public class MusicPlayer {
             mp.setOnReady(() -> {
                 progressBar.update();
             });
-            currentTrackIndex = playlist.getIndexOf(track);
             currentTrack = track;
+
         }
+        currentTrackIndex = playlist.getIndexOf(currentTrack);
     }
 
     /**
@@ -284,7 +288,7 @@ public class MusicPlayer {
      */
     public void removeTrackFromPlaylist(Track track) {
         boolean removingCurrentTrack = playlist.getIndexOf(track) == currentTrackIndex;
-        if (removingCurrentTrack) {
+        if (removingCurrentTrack && playing) {
             stop();
         }
         playlist.removeTrackFromPlaylist(track);

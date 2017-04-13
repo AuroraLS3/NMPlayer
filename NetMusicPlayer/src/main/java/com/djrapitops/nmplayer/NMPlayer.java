@@ -30,15 +30,15 @@ public class NMPlayer {
                 javafx.application.Application.launch(UserInterface.class);
             }
         }.start();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-        }
-        try {
-            mp.init();
-        } catch (IllegalStateException e) {
-            MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException ex) {
+//        }
+//        try {
+//            mp.init();
+//        } catch (IllegalStateException e) {
+//            MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
+//        }
     }
 
 }

@@ -8,6 +8,8 @@ import com.djrapitops.nmplayer.ui.toolbar.PlayButton;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
+import com.djrapitops.nmplayer.messaging.MessageSender;
+import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.playlist.AddTrackButton;
 import com.djrapitops.nmplayer.ui.playlist.ChangePlaylistBox;
 import com.djrapitops.nmplayer.ui.playlist.UIPlaylist;
@@ -62,7 +64,12 @@ public class UserInterface extends Application implements Updateable {
 
         primaryStage.setScene(new Scene(root, 400, 700));
         primaryStage.show();
-        Thread.sleep(1000);
+        try {
+            MusicPlayer.getInstance().init();
+        } catch (IllegalStateException e) {
+            MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
+        }
+//        Thread.sleep(2000);
         update();
         MusicPlayer.getInstance().setEndOfMediaUpdate(this);
     }
@@ -85,7 +92,9 @@ public class UserInterface extends Application implements Updateable {
     private VBox console() {
         VBox box = new VBox();
         HBox console = new HBox();
-        console.getChildren().add(new TextConsole());
+        TextConsole con = new TextConsole();
+        console.getChildren().add(con);
+        MessageSender.getInstance().setOutput(con);
         box.getChildren().add(console);
         return box;
     }

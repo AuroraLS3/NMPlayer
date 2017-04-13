@@ -11,9 +11,6 @@ import javafx.scene.control.TextArea;
 /**
  * JavaFx UI component, a Disabled TextArea.
  *
- * <p>
- * When initialized sets itself as the output of MessageSender
- *
  * @author Rsl1122
  * @see TextArea
  * @see MessageSender
@@ -30,12 +27,12 @@ public class TextConsole extends TextArea {
      * @see MessageSender
      */
     public TextConsole() {
+        super();
         super.setEditable(false);
         super.setPrefWidth(10000);
         super.setMouseTransparent(true);
         super.setFocusTraversable(false);
         super.maxHeight(3);
-        MessageSender.getInstance().setOutput(this);
     }
 
 }
