@@ -5,6 +5,11 @@
  */
 package com.djrapitops.nmplayer.ui;
 
+import com.djrapitops.nmplayer.ui.toolbar.StopButton;
+import com.djrapitops.nmplayer.ui.toolbar.VolumeSlider;
+import com.djrapitops.nmplayer.ui.toolbar.NextButton;
+import com.djrapitops.nmplayer.ui.toolbar.PreviousButton;
+import com.djrapitops.nmplayer.ui.toolbar.PlayButton;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
@@ -68,15 +73,17 @@ public class UserInterface extends Application implements Updateable {
 
     private Node playlist() {
         HBox changePlaylistBox = new ChangePlaylistBox(this, new AddTrackButton(this, stage));
-
+        VBox box = new VBox();
         VBox playlist = new UIPlaylist(changePlaylistBox, this);
         ScrollPane scroll = new ScrollPane();
         scroll.setContent(playlist);
         scroll.fitToWidthProperty().set(true);
         scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
+        box.getChildren().add(changePlaylistBox);
+        box.getChildren().add(scroll);
         updateableComponents.add((Updateable) changePlaylistBox);
         updateableComponents.add((Updateable) playlist);
-        return scroll;
+        return box;
     }
 
     private VBox console() {
@@ -92,7 +99,7 @@ public class UserInterface extends Application implements Updateable {
     private VBox toolbar() {
         VBox box = new VBox();
         HBox toolbar = new HBox();
-        toolbar.setAlignment(Pos.CENTER);
+        toolbar.setAlignment(Pos.CENTER_RIGHT);
         toolbar.alignmentProperty().isBound();
         toolbar.setSpacing(5);
         toolbar.setStyle("-fx-background-color: White");
@@ -102,6 +109,7 @@ public class UserInterface extends Application implements Updateable {
         toolbar.getChildren().add(play);
         toolbar.getChildren().add(new StopButton(this));
         toolbar.getChildren().add(new NextButton(this));
+        toolbar.getChildren().add(new VolumeSlider());
         TrackProgressBar progress = new TrackProgressBar();
         updateableComponents.add(progress);
         box.getChildren().add(progress);

@@ -6,6 +6,7 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
+import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 import com.mpatric.mp3agic.ID3v1;
@@ -82,7 +83,8 @@ public class TrackFileManager {
             return null;
         }
         String fileName = file.getName();
-        if (!fileName.endsWith(".mp3")) {
+        boolean isSupportedFileType = (fileName.endsWith(".mp3") || fileName.endsWith(".wav"));
+        if (!isSupportedFileType) {
             MessageSender.getInstance().send(Phrase.WRONG_FILETYPE + "");
             return null;
         }
@@ -101,7 +103,7 @@ public class TrackFileManager {
      */
     public static String getArtist(File file) {
         String artist = null;
-        if (file.getName().contains(".mp3")) {
+        if (file.getName().endsWith(".mp3")) {
             try {
                 Mp3File mp3 = new Mp3File(file);
                 final ID3v2 id3v2Tag = mp3.getId3v2Tag();
@@ -164,9 +166,9 @@ public class TrackFileManager {
         }
         if (title.isEmpty()) {
             if (file.getName().contains(" - ")) {
-                title = file.getName().split(" - ")[1].replace(".mp3", "");
+                title = TextUtils.removeExtension(file.getName().split(" - ")[1]);
             } else {
-                title = file.getName().replace(".mp3", "");
+                title = TextUtils.removeExtension(file.getName());
             }
         }
         return title;

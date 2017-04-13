@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -125,7 +127,8 @@ public class PlaylistFileManager {
             playlist.addAll(load(file.getName().replace(".txt", "")));
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
-            if (trackF.isDirectory() || !trackF.canRead() || !trackF.getName().endsWith(".mp3")) {
+            boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));
+            if (trackF.isDirectory() || !trackF.canRead() || !isSupportedFileType) {
                 continue;
             }
             playlist.add(trackF.getAbsolutePath());
@@ -155,7 +158,14 @@ public class PlaylistFileManager {
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt")) {
                 continue;
             }
-            playlists.append(TextUtils.uppercaseFirst(file.getName().replace(".txt", ""))).append(", ");
+            int tracks = 0;
+            try {
+                tracks = (int) Files.lines(file.toPath(), Charset.defaultCharset()).count();
+            } catch (IOException ex) {
+            }
+            if (tracks > 0) {
+                playlists.append(TextUtils.uppercaseFirst(TextUtils.removeExtension(file.getName()))).append(", ");
+            }
         }
         String string = playlists.toString();
         return string.substring(0, string.length() - 2);

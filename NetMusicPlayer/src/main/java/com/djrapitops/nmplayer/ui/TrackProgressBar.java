@@ -6,7 +6,6 @@
 package com.djrapitops.nmplayer.ui;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.scene.control.Slider;
 
@@ -20,13 +19,11 @@ public class TrackProgressBar extends Slider implements Updateable {
         super.setPrefWidth(10000);
         super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
         TrackProgressBar bar = this;
-        super.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {                
-                if (bar.isValueChanging()) {
-                    MusicPlayer.getInstance().setTrackPosition(bar.getValue()/100);
-                    bar.disableProperty().set(true);
-                    bar.update();
-                }
+        super.valueProperty().addListener((Observable ov) -> {
+            if (bar.isValueChanging()) {
+                MusicPlayer.getInstance().setTrackPosition(bar.getValue()/100);
+                bar.disableProperty().set(true);
+                bar.update();
             }
         });
         MusicPlayer.getInstance().setProgressBar(this);

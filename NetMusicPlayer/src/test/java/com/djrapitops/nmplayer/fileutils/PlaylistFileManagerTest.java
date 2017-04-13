@@ -6,7 +6,6 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import static com.djrapitops.nmplayer.fileutils.PlaylistFileManager.getPlaylistFolder;
-import static com.djrapitops.nmplayer.fileutils.PlaylistFileManager.load;
 import com.djrapitops.nmplayer.functionality.Track;
 import java.io.File;
 import java.io.IOException;
@@ -126,9 +125,18 @@ public class PlaylistFileManagerTest {
         File[] files = PlaylistFileManager.getPlaylistFolder().listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                assertTrue("Included a directory "+ file.toString() + " | " + knownPlaylists, !knownPlaylists.toLowerCase().contains(file.getName().toLowerCase().replace(".txt", "")));
+                assertTrue("Included a directory " + file.toString() + " | " + knownPlaylists, !knownPlaylists.toLowerCase().contains(file.getName().toLowerCase().replace(".txt", "")));
             }
-            assertTrue("Didn't include " + file.toString() + " | " + knownPlaylists, knownPlaylists.toLowerCase().contains(file.getName().toLowerCase().replace(".txt", "")));
+            int tracks = 0;
+            try {
+                tracks = (int) Files.lines(file.toPath(), Charset.defaultCharset()).count();
+            } catch (IOException ex) {
+            }
+            if (tracks > 0) {
+                assertTrue("Didn't include " + file.toString() + " | " + knownPlaylists, knownPlaylists.toLowerCase().contains(file.getName().toLowerCase().replace(".txt", "")));
+            } else {
+                assertTrue("Included a list with 0 paths " + file.toString() + " | " + knownPlaylists, !knownPlaylists.toLowerCase().contains(file.getName().toLowerCase().replace(".txt", "")));
+            }
         }
     }
 
@@ -146,13 +154,14 @@ public class PlaylistFileManagerTest {
             }
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
-            if (trackF.isDirectory() || !trackF.canRead() || !trackF.getName().endsWith(".mp3")) {
+            boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));
+            if (trackF.isDirectory() || !trackF.canRead() || !isSupportedFileType) {
                 continue;
             }
             assertTrue("Didn't contain " + trackF.toString(), loaded.contains(trackF.getAbsolutePath()));
         }
     }
-    
+
     @Test
     public void testLoad_All() throws IOException {
         List<String> loaded = PlaylistFileManager.load("all");
@@ -167,7 +176,8 @@ public class PlaylistFileManagerTest {
             }
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
-            if (trackF.isDirectory() || !trackF.canRead() || !trackF.getName().endsWith(".mp3")) {
+            boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));
+            if (trackF.isDirectory() || !trackF.canRead() || !isSupportedFileType) {
                 continue;
             }
             assertTrue("Didn't contain " + trackF.toString(), loaded.contains(trackF.getAbsolutePath()));

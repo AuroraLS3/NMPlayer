@@ -39,6 +39,7 @@ public class MusicPlayer {
     private int currentTrackIndex;
     private String selectedPlaylist;
     private boolean playing;
+    private double volume;
 
     /**
      * Class constructor.
@@ -52,6 +53,7 @@ public class MusicPlayer {
         playlist = new PlaylistManager();
         msg = MessageSender.getInstance();
         selectedPlaylist = "None";
+        volume = 0.75;
     }
 
     /**
@@ -224,6 +226,7 @@ public class MusicPlayer {
                 mp.dispose();
             }
             mp = new MediaPlayer(play);
+            mp.setVolume(volume);
             mp.setOnEndOfMedia(new Runnable() {
                 @Override
                 public void run() {
@@ -268,7 +271,6 @@ public class MusicPlayer {
         playlist.addTrackToPlaylist(track);
         msg.send(Phrase.ADDED_TRACK.parse(track.getArtist() + " - " + track.getName()));
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
-        selectTrack(track);
     }
 
     public void removeTrackFromPlaylist(Track track) {
@@ -296,6 +298,17 @@ public class MusicPlayer {
             return;
         }
         mp.seek(mp.getTotalDuration().multiply(d));
+    }
+
+    public void setVolume(double d) {
+        volume = d;
+        if (mp != null) {
+            mp.setVolume(volume);
+        }
+    }
+
+    public double getVolume() {
+        return volume;
     }
 
     /**

@@ -45,6 +45,7 @@ public class MessageSender {
             }
             con.appendText(s);
             con.scrollTopProperty().set(Double.MAX_VALUE);
+            con.scrollLeftProperty().set(Double.MAX_VALUE);
         } else {
             System.out.println(s);
         }

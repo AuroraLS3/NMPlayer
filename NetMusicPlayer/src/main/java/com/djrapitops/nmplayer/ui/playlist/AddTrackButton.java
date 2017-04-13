@@ -5,11 +5,17 @@
  */
 package com.djrapitops.nmplayer.ui.playlist;
 
+import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
+import com.djrapitops.nmplayer.functionality.Track;
+import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
 import com.djrapitops.nmplayer.ui.Updateable;
+import com.djrapitops.nmplayer.ui.UserInterface;
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -45,16 +51,31 @@ public class AddTrackButton extends Button {
      */
     public AddTrackButton(Updateable ui, Stage stage) {
         super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
-        super.setText("Add Track");
-        fileChooser.setSelectedExtensionFilter(new ExtensionFilter("mp3", Arrays.asList(new String[]{".mp3"})));
+        super.setText("Add Tracks");
+        fileChooser.setSelectedExtensionFilter(new ExtensionFilter("mp3", Arrays.asList(new String[]{".mp3", ".wav"})));
+        fileChooser.setTitle("NMPlayer | Add File(s)");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             final MusicPlayer musicPlayer = MusicPlayer.getInstance();
             ui.update();
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            musicPlayer.addTrackToPlaylist(TrackFileManager.processFile(selectedFile));
-            ui.update();
-            if (musicPlayer.isPlaying()) {
-                musicPlayer.play();
+            List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage);
+            if (selectedFiles != null) {
+                for (File file : selectedFiles) {
+                    musicPlayer.addTrackToPlaylist(TrackFileManager.processFile(file));
+                    Track currentTrack = musicPlayer.getCurrentTrack();
+                    if (currentTrack != null) {
+                        musicPlayer.selectTrack(currentTrack);
+                    } else {
+                        musicPlayer.selectTrack(0);
+                    }
+                    File directory = file.getParentFile();
+                    if (directory != null && directory.isDirectory()) {
+                        fileChooser.setInitialDirectory(directory);
+                    }
+                }
+                ui.update();
+                if (musicPlayer.isPlaying()) {
+                    musicPlayer.play();
+                }
             }
         };
         super.setOnAction(h);

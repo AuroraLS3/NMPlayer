@@ -7,8 +7,10 @@ package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
+import com.djrapitops.nmplayer.functionality.utilities.TrackComparator;
 import com.djrapitops.nmplayer.ui.Updateable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -28,7 +30,7 @@ public final class UIPlaylist extends VBox implements Updateable {
 
     public UIPlaylist(HBox changeBox, Updateable ui) {
         this.ui = ui;
-        this.changeBox = changeBox;
+//        this.changeBox = changeBox;
         super.setAlignment(Pos.TOP_LEFT);
         super.alignmentProperty().isBound();
         super.setSpacing(5);
@@ -39,7 +41,7 @@ public final class UIPlaylist extends VBox implements Updateable {
     public void update() {        
         ObservableList<Node> components = super.getChildren();
         components.clear();
-        components.add(changeBox);
+//        components.add(changeBox);
         tracks = getTrackElements();
         for (HBox track : tracks) {
             components.add(track);
@@ -49,6 +51,7 @@ public final class UIPlaylist extends VBox implements Updateable {
     private List<HBox> getTrackElements() {
         List<HBox> elements = new ArrayList<>();
         List<Track> playlist = MusicPlayer.getInstance().getPlaylist();
+        Collections.sort(playlist, new TrackComparator());
         for (Track track : playlist) {
             elements.add(new UITrack(track, ui));
         }

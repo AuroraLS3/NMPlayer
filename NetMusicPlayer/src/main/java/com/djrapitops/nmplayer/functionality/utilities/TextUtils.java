@@ -14,4 +14,8 @@ public class TextUtils {
     public static String uppercaseFirst(String string) {
         return "" + string.toUpperCase().charAt(0) + string.toLowerCase().subSequence(1, string.length());
     }
+    
+    public static String removeExtension(String s) {
+        return s.replace(".wav", "").replace(".mp3", "").replace(".txt", "");
+    }
 }
