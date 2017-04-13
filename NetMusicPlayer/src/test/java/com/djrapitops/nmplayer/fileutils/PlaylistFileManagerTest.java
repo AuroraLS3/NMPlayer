@@ -119,6 +119,9 @@ public class PlaylistFileManagerTest {
         Files.deleteIfExists(exceptionFolder.toPath());
     }
 
+    /**
+     *
+     */
     @Test
     public void testGetKnownPlaylists() {
         String knownPlaylists = PlaylistFileManager.getKnownPlaylists();
@@ -140,6 +143,10 @@ public class PlaylistFileManagerTest {
         }
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testLoadAll() throws IOException {
         List<String> loaded = PlaylistFileManager.loadAll();
@@ -162,6 +169,10 @@ public class PlaylistFileManagerTest {
         }
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Test
     public void testLoad_All() throws IOException {
         List<String> loaded = PlaylistFileManager.load("all");

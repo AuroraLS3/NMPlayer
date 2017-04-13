@@ -33,11 +33,19 @@ public class ErrorManagerTest {
     public ErrorManagerTest() {
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Before
     public void setUp() throws IOException {
         Files.deleteIfExists(new File("Errors.txt").toPath());
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @After
     public void tearDown() throws IOException {
         Files.deleteIfExists(new File("Errors.txt").toPath());

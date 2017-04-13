@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.djrapitops.nmplayer.messaging;
 
 /**
@@ -30,6 +25,7 @@ public enum Phrase {
     SELECTED_PLAYLIST("Selected Playlist: \"REPLACE0\""),
     NOW_PLAYING("Now Playing: REPLACE0"),
     ADDED_TRACK("Added: REPLACE0"),
+    ALREADY_HAS_TRACK("Playlist already has this track! (REPLACE0)"),
     REMOVED_TRACK("Removed: REPLACE0"),
     STOP("STOPPED"),
     PAUSE("PAUSED");

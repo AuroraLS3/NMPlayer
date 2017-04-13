@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
@@ -14,6 +9,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
 /**
+ * This button is used to change the track to the track represented by the
+ * UITrack element.
  *
  * @author ristolah
  */
@@ -22,6 +19,8 @@ public class SelectButton extends Button {
     /**
      * Constructor for the button. Sets the click event response to play the
      * associated track from Playlist.
+     *
+     * Will check if the track is already playing, and does nothing if it is.
      *
      * @param uiTrack A UITrack Component to update when the button is pressed.
      * @see MusicPlayer

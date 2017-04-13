@@ -6,14 +6,12 @@ import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
-import com.djrapitops.nmplayer.ui.TrackProgressBar;
 import com.djrapitops.nmplayer.ui.Updateable;
 import java.io.File;
 import java.util.List;
 import javafx.beans.Observable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 /**
  * This class contains all the logic used to change the playback (sound that is
@@ -242,10 +240,15 @@ public class MusicPlayer {
             });
             currentTrackIndex = playlist.getIndexOf(track);
             currentTrack = track;
-//            msg.send(Phrase.SELECTED.parse(currentTrack.toString()));
         }
     }
 
+    /**
+     * Shortcut for selectTrack(playlist.selectTrack(i)).
+     *
+     * @param i Index of the track to select.
+     * @throws IllegalStateException If JavaFx Application is not running.
+     */
     public void selectTrack(int i) throws IllegalStateException {
         selectTrack(playlist.selectTrack(i));
     }
@@ -273,6 +276,12 @@ public class MusicPlayer {
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
     }
 
+    /**
+     * Removes a track object from the current Playlist, and saves the change to
+     * the txt file.
+     *
+     * @param track Track to remove.
+     */
     public void removeTrackFromPlaylist(Track track) {
         boolean removingCurrentTrack = playlist.getIndexOf(track) == currentTrackIndex;
         if (removingCurrentTrack) {
@@ -286,6 +295,12 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     * Used to get the relative playtime/duration of the playback for the
+     * current track.
+     *
+     * @return a double from 0 to 1.0
+     */
     public double getCurrentTrackProgress() {
         if (mp == null) {
             return 0;
@@ -293,6 +308,12 @@ public class MusicPlayer {
         return mp.getCurrentTime().toSeconds() / mp.getTotalDuration().toSeconds();
     }
 
+    /**
+     * Used to change the play position of the current track based on the
+     * relative duration given.
+     *
+     * @param d a double from 0 to 1.0
+     */
     public void setTrackPosition(double d) {
         if (mp == null) {
             return;
@@ -300,6 +321,11 @@ public class MusicPlayer {
         mp.seek(mp.getTotalDuration().multiply(d));
     }
 
+    /**
+     * Used to set the playback volume.
+     *
+     * @param d a double from 0 to 1.0
+     */
     public void setVolume(double d) {
         volume = d;
         if (mp != null) {
@@ -307,6 +333,11 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     * Used to get the playback volume.
+     *
+     * @return a double from 0 to 1.0
+     */
     public double getVolume() {
         return volume;
     }
@@ -340,18 +371,49 @@ public class MusicPlayer {
         return playlist.getPlaylist();
     }
 
+    /**
+     * Used to get the PlaylistManager.
+     *
+     * @return Currently used playlistmanager.
+     */
+    public PlaylistManager getPlaylistManager() {
+        return playlist;
+    }
+
+    /**
+     * Used to get the name of the currently playing playlist.
+     *
+     * @return For example "All" or "TestPlaylist"
+     */
     public String getSelectedPlaylist() {
         return selectedPlaylist;
     }
 
+    /**
+     * Used to get the currently playing Track object.
+     *
+     * @return currently playing Track object.
+     */
     public Track getCurrentTrack() {
         return currentTrack;
     }
 
+    /**
+     * Used to set the Updateable which .update() method will be called when the
+     * playback moves forward.
+     *
+     * @param progressBar An Object that implements Updateable
+     */
     public void setProgressBar(Updateable progressBar) {
         this.progressBar = progressBar;
     }
 
+    /**
+     * Used to set the Updateable which .update method will be called when the
+     * playback ends.
+     *
+     * @param updateable An Object that implements Updateable
+     */
     public void setEndOfMediaUpdate(Updateable updateable) {
         this.ui = updateable;
     }

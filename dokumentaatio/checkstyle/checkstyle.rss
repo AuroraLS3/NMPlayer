@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 16,
-             Errors: 0,
+      <title>File: 27,
+             Errors: 1,
              Warnings: 0,
              Infos: 0
       </title>
@@ -46,6 +46,48 @@ under the License.
           <tbody>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.ChangePlaylistBox.java">com/djrapitops/nmplayer/ui/playlist/ChangePlaylistBox.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.PlayButton.java">com/djrapitops/nmplayer/ui/toolbar/PlayButton.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.AddTrackButton.java">com/djrapitops/nmplayer/ui/playlist/AddTrackButton.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.MusicPlayer.java">com/djrapitops/nmplayer/functionality/MusicPlayer.java</a>
                 </td>
                 <td>
@@ -55,7 +97,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
               </tr>
                           <tr>
@@ -74,7 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.fileutils.ErrorManager.java">com/djrapitops/nmplayer/fileutils/ErrorManager.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.StopButton.java">com/djrapitops/nmplayer/ui/toolbar/StopButton.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +130,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.fileutils.PlaylistFileManager.java">com/djrapitops/nmplayer/fileutils/PlaylistFileManager.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.UITrack.java">com/djrapitops/nmplayer/ui/playlist/UITrack.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.PreviousButton.java">com/djrapitops/nmplayer/ui/toolbar/PreviousButton.java</a>
                 </td>
                 <td>
                   0
@@ -130,34 +186,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.NextButton.java">com/djrapitops/nmplayer/ui/NextButton.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.NMPlayer.java">com/djrapitops/nmplayer/NMPlayer.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.Track.java">com/djrapitops/nmplayer/functionality/Track.java</a>
                 </td>
                 <td>
@@ -172,7 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.StopButton.java">com/djrapitops/nmplayer/ui/StopButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.ChangePlaylistButton.java">com/djrapitops/nmplayer/ui/playlist/ChangePlaylistButton.java</a>
                 </td>
                 <td>
                   0
@@ -186,7 +214,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.TextConsole.java">com/djrapitops/nmplayer/ui/TextConsole.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.RemoveButton.java">com/djrapitops/nmplayer/ui/playlist/RemoveButton.java</a>
                 </td>
                 <td>
                   0
@@ -228,7 +256,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.PreviousButton.java">com/djrapitops/nmplayer/ui/PreviousButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.utilities.TextUtils.java">com/djrapitops/nmplayer/functionality/utilities/TextUtils.java</a>
                 </td>
                 <td>
                   0
@@ -242,7 +270,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.AddTrackButton.java">com/djrapitops/nmplayer/ui/AddTrackButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.VolumeSlider.java">com/djrapitops/nmplayer/ui/toolbar/VolumeSlider.java</a>
                 </td>
                 <td>
                   0
@@ -256,7 +284,133 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.PlayButton.java">com/djrapitops/nmplayer/ui/PlayButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.fileutils.ErrorManager.java">com/djrapitops/nmplayer/fileutils/ErrorManager.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.fileutils.PlaylistFileManager.java">com/djrapitops/nmplayer/fileutils/PlaylistFileManager.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.NextButton.java">com/djrapitops/nmplayer/ui/toolbar/NextButton.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.TrackProgressBar.java">com/djrapitops/nmplayer/ui/TrackProgressBar.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.NMPlayer.java">com/djrapitops/nmplayer/NMPlayer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.utilities.TrackComparator.java">com/djrapitops/nmplayer/functionality/utilities/TrackComparator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.TextConsole.java">com/djrapitops/nmplayer/ui/TextConsole.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.Updateable.java">com/djrapitops/nmplayer/ui/Updateable.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.SelectButton.java">com/djrapitops/nmplayer/ui/playlist/SelectButton.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.UIPlaylist.java">com/djrapitops/nmplayer/ui/playlist/UIPlaylist.java</a>
                 </td>
                 <td>
                   0

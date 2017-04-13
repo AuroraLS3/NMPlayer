@@ -6,10 +6,12 @@
 package com.djrapitops.nmplayer.ui;
 
 /**
+ * This Interface is used by the UI Components to update various contents.
  *
- * @author ristolah
+ * @author Risto
  */
 public interface Updateable {
+
     /**
      * Updates the UI Component according to the status of MusicPlayer.
      *

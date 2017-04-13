@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.djrapitops.nmplayer.ui;
 
 import com.djrapitops.nmplayer.ui.toolbar.StopButton;
@@ -43,10 +38,13 @@ import javafx.stage.Stage;
  */
 public class UserInterface extends Application implements Updateable {
 
-    private List<Updateable> updateableComponents;
+    private final List<Updateable> updateableComponents;
     private Stage stage;
     private VBox toolbar;
 
+    /**
+     * Constructor that initializes updateableComponents List.
+     */
     public UserInterface() {
         updateableComponents = new ArrayList<>();
     }
@@ -56,11 +54,9 @@ public class UserInterface extends Application implements Updateable {
         stage = primaryStage;
         stage.setTitle("NMPlayer");
         stage.getIcons().add(new Image("http://djrapitops.com/uploads/NMPlayer.png"));
-//        MediaView view = new MediaView(MusicPlayer.getInstance().getMediaPlayer());
         BorderPane root = new BorderPane();
         root.setCenter(playlist());
         toolbar = toolbar();
-//        root.setCenter(view);
         root.setBottom(toolbar);
         root.setTop(console());
 
@@ -74,7 +70,7 @@ public class UserInterface extends Application implements Updateable {
     private Node playlist() {
         HBox changePlaylistBox = new ChangePlaylistBox(this, new AddTrackButton(this, stage));
         VBox box = new VBox();
-        VBox playlist = new UIPlaylist(changePlaylistBox, this);
+        VBox playlist = new UIPlaylist(this);
         ScrollPane scroll = new ScrollPane();
         scroll.setContent(playlist);
         scroll.fitToWidthProperty().set(true);
@@ -88,11 +84,9 @@ public class UserInterface extends Application implements Updateable {
 
     private VBox console() {
         VBox box = new VBox();
-//        box.setSpacing(5);
         HBox console = new HBox();
         console.getChildren().add(new TextConsole());
         box.getChildren().add(console);
-//        box.getChildren().add(toolbar());
         return box;
     }
 

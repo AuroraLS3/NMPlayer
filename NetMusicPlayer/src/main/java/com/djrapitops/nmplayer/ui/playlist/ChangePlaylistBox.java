@@ -6,8 +6,6 @@
 package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.ui.Updateable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -18,6 +16,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 /**
+ * This UI element is a container for elements related to changing the current
+ * playlist.
  *
  * @author ristolah
  */
@@ -25,6 +25,17 @@ public class ChangePlaylistBox extends HBox implements Updateable {
 
     private TextField selector;
 
+    /**
+     * Class constructor.
+     *
+     * Creates a new textfield, button for changing the playlist. Adds a
+     * KeyEvent listener for the textfield, if Enter is pressed the Change
+     * Playlist button's action will be performed.
+     *
+     * @param u Updateable which .update() will be called when playlist is
+     * changed.
+     * @param addTrackButton Already created AddTrackButton to add to this box.
+     */
     public ChangePlaylistBox(Updateable u, AddTrackButton addTrackButton) {
         super.setAlignment(Pos.CENTER);
         super.alignmentProperty().isBound();
@@ -40,7 +51,6 @@ public class ChangePlaylistBox extends HBox implements Updateable {
                 }
             }
         });
-//        selector.setPrefWidth(10000);
         ObservableList<Node> components = super.getChildren();
         components.add(selector);
         components.add(new ChangePlaylistButton(selector, u));

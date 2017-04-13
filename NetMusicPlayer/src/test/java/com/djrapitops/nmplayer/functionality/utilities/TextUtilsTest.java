@@ -14,9 +14,15 @@ import static org.junit.Assert.*;
  */
 public class TextUtilsTest {
     
+    /**
+     *
+     */
     public TextUtilsTest() {
     }
 
+    /**
+     *
+     */
     @Test
     public void testUppercaseFirst() {
         TextUtils t = new TextUtils();

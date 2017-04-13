@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.djrapitops.nmplayer.ui.toolbar;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
@@ -11,13 +6,21 @@ import javafx.beans.Observable;
 import javafx.scene.control.Slider;
 
 /**
+ * This element is used to change the volume of the playback.
  *
  * @author Risto
+ * @see MusicPlayer
  */
-public class VolumeSlider extends Slider implements Updateable{
+public class VolumeSlider extends Slider implements Updateable {
 
     VolumeSlider bar = this;
 
+    /**
+     * Constructor.
+     *
+     * Will update the slider position to the current volume of the MusicPlayer.
+     * Adds a listener for user input that changes the volume of the playback.
+     */
     public VolumeSlider() {
         this.update();
         super.valueProperty().addListener((Observable ov) -> {

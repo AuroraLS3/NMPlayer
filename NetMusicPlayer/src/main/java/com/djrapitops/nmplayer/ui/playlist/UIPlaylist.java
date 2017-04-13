@@ -19,33 +19,38 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
+ * This UI Component contains the UI elements that represent each track.
  *
  * @author ristolah
  */
 public final class UIPlaylist extends VBox implements Updateable {
 
     private List<HBox> tracks;
-    private HBox changeBox;
     private Updateable ui;
 
-    public UIPlaylist(HBox changeBox, Updateable ui) {
+    /**
+     * Class constructor.
+     * 
+     * Sets the Updateable to give to the UITrack elements' click event.
+     * 
+     * @param ui Updateable to be called when a UITrack's button is pressed.
+     */
+    public UIPlaylist(Updateable ui) {
         this.ui = ui;
-//        this.changeBox = changeBox;
         super.setAlignment(Pos.TOP_LEFT);
         super.alignmentProperty().isBound();
         super.setSpacing(5);
-        update();    
+        update();
     }
 
     @Override
-    public void update() {        
+    public void update() {
         ObservableList<Node> components = super.getChildren();
         components.clear();
-//        components.add(changeBox);
         tracks = getTrackElements();
         for (HBox track : tracks) {
             components.add(track);
-        }   
+        }
     }
 
     private List<HBox> getTrackElements() {

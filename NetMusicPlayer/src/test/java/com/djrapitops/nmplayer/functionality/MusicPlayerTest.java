@@ -29,10 +29,16 @@ public class MusicPlayerTest {
     public MusicPlayerTest() {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp() {
     }
 
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
@@ -73,7 +79,7 @@ public class MusicPlayerTest {
      */
     @Test
     public void testPlay() {
-        
+
     }
 
     /**
@@ -128,5 +134,12 @@ public class MusicPlayerTest {
     public void testGetInstance() {
         MusicPlayer result = MusicPlayer.getInstance();
         assertTrue("Result is null", result != null);
+    }
+
+    @Test
+    public void testVolume() {
+        MusicPlayer test = new MusicPlayer();
+        test.setVolume(0.3);
+        assertTrue("Volume not correct.", 0.3 == test.getVolume());
     }
 }

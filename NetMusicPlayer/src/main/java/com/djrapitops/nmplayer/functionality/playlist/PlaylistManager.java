@@ -1,7 +1,6 @@
 package com.djrapitops.nmplayer.functionality.playlist;
 
 import com.djrapitops.nmplayer.functionality.Track;
-import com.djrapitops.nmplayer.messaging.Phrase;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +115,7 @@ public class PlaylistManager {
             return selectTrack(0);
         }
     }
-    
+
     /**
      * Check whether or not the playlist is empty.
      *
@@ -126,10 +125,22 @@ public class PlaylistManager {
         return playlist.isEmpty();
     }
 
+    /**
+     * Used to get the index in the list of a certain Track object.
+     *
+     * @param track Track object to look for.
+     * @return Index of the given track object, -1 if not found.
+     */
     public int getIndexOf(Track track) {
         return playlist.indexOf(track);
     }
 
+    /**
+     * Used to check if playlist has the same track that was given as parameter.
+     *
+     * @param track Track to look for.
+     * @return Does the playlist have the track?
+     */
     public boolean hasTrack(Track track) {
         for (Track t : playlist) {
             if (t.equals(track)) {

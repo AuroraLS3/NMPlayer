@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
@@ -28,9 +23,11 @@ import javafx.scene.control.TextField;
 public class ChangePlaylistButton extends Button {
 
     /**
-     * Constructor for the button. Sets the click event response to change the playlist of MusicPlayer.
+     * Constructor for the button. Sets the click event response to change the
+     * playlist of MusicPlayer.
      *
-     * @param t TextArea which text is used to read user input for playlist name.
+     * @param t TextArea which text is used to read user input for playlist
+     * name.
      * @param u A UI Component to update when the button is pressed.
      * @see MusicPlayer
      * @see UITrack
@@ -46,6 +43,17 @@ public class ChangePlaylistButton extends Button {
         super.setOnAction(h);
     }
 
+    /**
+     * Changes the playlist according to the text inside the textfield.
+     *
+     * If the textfield is empty, MessageSender will be used to send the known
+     * playlists.
+     *
+     * @param t TextField used to get the playlist name.
+     * @param u Element to call .update() on after the change is complete. (If
+     * successful)
+     * @throws IllegalStateException If JavaFx Application is not running.
+     */
     public void changePlaylist(TextField t, Updateable u) throws IllegalStateException {
         String newPlaylist = t.getText().toLowerCase().trim();
         if (newPlaylist.isEmpty()) {

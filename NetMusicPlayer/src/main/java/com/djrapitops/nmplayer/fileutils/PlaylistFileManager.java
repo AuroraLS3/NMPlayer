@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -97,9 +95,7 @@ public class PlaylistFileManager {
         if (playlistFile.exists()) {
             try {
                 List<String> lines = Files.lines(playlistFile.toPath(), Charset.defaultCharset()).collect(Collectors.toList());
-                if (lines.isEmpty()) {
-//                    Files.deleteIfExists(playlistFile.toPath());
-                } else {
+                if (!lines.isEmpty()) {
                     playlist.addAll(lines);
                 }
             } catch (Exception ex) {
@@ -109,6 +105,12 @@ public class PlaylistFileManager {
         return playlist;
     }
 
+    /**
+     * Used to load the All playlist, which includes tracks in tracks folder &
+     * other playlists.
+     *
+     * @return List of filepaths to every track known by the player.
+     */
     public static List<String> loadAll() {
         Set<String> playlist = new HashSet<>();
         File playlistFolder = getPlaylistFolder();
@@ -124,7 +126,7 @@ public class PlaylistFileManager {
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {
                 continue;
             }
-            playlist.addAll(load(file.getName().replace(".txt", "")));
+            playlist.addAll(load(TextUtils.removeExtension(file.getName())));
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
             boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));
@@ -151,6 +153,12 @@ public class PlaylistFileManager {
         return save(playlist.stream().map(track -> track.getFilePath()).collect(Collectors.toList()), name);
     }
 
+    /**
+     * A Method used to get a Comma separated list of playlist in the playlists
+     * folder.
+     *
+     * @return Playlists, for example "All, TestPlaylist, Small"
+     */
     public static String getKnownPlaylists() {
         StringBuilder playlists = new StringBuilder();
         File[] files = getPlaylistFolder().listFiles();

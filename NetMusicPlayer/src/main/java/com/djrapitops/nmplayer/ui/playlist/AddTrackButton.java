@@ -10,6 +10,8 @@ import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
+import com.djrapitops.nmplayer.messaging.MessageSender;
+import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.Updateable;
 import com.djrapitops.nmplayer.ui.UserInterface;
 import java.io.File;
@@ -60,12 +62,17 @@ public class AddTrackButton extends Button {
             List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage);
             if (selectedFiles != null) {
                 for (File file : selectedFiles) {
-                    musicPlayer.addTrackToPlaylist(TrackFileManager.processFile(file));
-                    Track currentTrack = musicPlayer.getCurrentTrack();
-                    if (currentTrack != null) {
-                        musicPlayer.selectTrack(currentTrack);
+                    Track newTrack = TrackFileManager.processFile(file);
+                    if (!MusicPlayer.getInstance().getPlaylistManager().hasTrack(newTrack)) {
+                        musicPlayer.addTrackToPlaylist(newTrack);
+                        Track currentTrack = musicPlayer.getCurrentTrack();
+                        if (currentTrack != null) {
+                            musicPlayer.selectTrack(currentTrack);
+                        } else {
+                            musicPlayer.selectTrack(0);
+                        }
                     } else {
-                        musicPlayer.selectTrack(0);
+                        MessageSender.getInstance().send(Phrase.ALREADY_HAS_TRACK.parse(newTrack.toString()));
                     }
                     File directory = file.getParentFile();
                     if (directory != null && directory.isDirectory()) {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.djrapitops.nmplayer.ui.toolbar;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
@@ -25,6 +21,7 @@ public class PlayButton extends Button implements Updateable {
      * Sets the click event response to either pause or play the playback with
      * MusicPlayer and update the text on the button.
      *
+     * @param u Updateable to call when the button is pressed.
      * @see MusicPlayer
      */
     public PlayButton(Updateable u) {
