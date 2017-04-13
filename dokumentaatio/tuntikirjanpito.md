@@ -19,3 +19,4 @@ Päivä | Tunnit | Kuvaus
 12.04.2017 | 2,75h | Sekvenssikaavio, UI:ta eteenpäin
 12.04.2017 | 4,0h | UI:ta eteenpäin ihan huvin vuoksi. Testejä.
 13.04.2017 | 1,0h | UI:n viimeistely (Äänenvoimakkuus, epäloogisuudet pois)
+13.04.2017 | 1,75h | Testit lopuille ja javadoc kuntoon. Pit ja checkstyle raportit.
