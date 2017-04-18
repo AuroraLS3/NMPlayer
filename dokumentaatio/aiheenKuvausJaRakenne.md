@@ -17,7 +17,7 @@ Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappale
 - Kappaleen tauottaminen (pause-nappi)
 
 ### Luokkakaavio
-![Luokkakaavio 06.04.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio06042017.jpg)
+![Luokkakaavio 18.04.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio18042017.jpg)
 ### Seuraavan raidan valinta, kun raitoja on lisätty vähintään kaksi.
 ![Sekvenssikaavio, Seuraavan raidan valinta](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/Sekvenssikaavio_nextTrack.jpg)
 ### Uuden raidan lisäys napin painallus
