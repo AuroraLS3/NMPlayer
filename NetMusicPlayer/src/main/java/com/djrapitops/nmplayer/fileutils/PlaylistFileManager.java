@@ -176,6 +176,9 @@ public class PlaylistFileManager {
             }
         }
         String string = playlists.toString();
-        return string.substring(0, string.length() - 2);
+        if (string.length() >= 2) {
+            return string.substring(0, string.length() - 2);
+        }
+        return "All";
     }
 }
