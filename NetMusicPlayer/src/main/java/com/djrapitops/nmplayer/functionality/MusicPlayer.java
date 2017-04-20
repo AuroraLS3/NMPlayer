@@ -101,6 +101,7 @@ public class MusicPlayer {
         }
         if (!playlist.hasTrack(currentTrack)) {
             currentTrackIndex = playlist.getIndexOf(currentTrack);
+            stop();
             selectTrack(playlist.selectTrack(currentTrackIndex));
         }
     }

@@ -19,7 +19,6 @@ Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappale
 
 **Tiedetyt bugit:**
 - Mikäli vedettäviä palkkeja (slider) ei vedetä vaan klikataan jostain kohdasta, muutoksia ei tapahdu - täytyy vetää. (UI)
-- Tekstikonsolin focus siirtyy välissä väärään kohtaan (UI)
 - Jos MP3-tiesoston ID3-tag on tyhjä, ilmoittaa ohjelma että virhe on tapahtunut ja kirjoittaa virheen ylös.
 - Jos JavaFx törmää virheeseen ei NMPlayer saa virhettä napatuksi koska käyttöliittymä pyörii erillisessä langassa.
 - "All"-soittolistan kappaleita, joita ei ole lisätty itse soittolistaan ei voi poistaa kuin tilapäisesti. (Ellei poista niitä alkuperäisestä soittolistasta)

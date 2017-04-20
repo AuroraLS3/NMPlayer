@@ -23,3 +23,4 @@ Päivä | Tunnit | Kuvaus
 13.04.2017 | 1,5h | Pieniä korjauksia, Testit logiikalle joka vaati JavaFx toolkitin päällä olemista. Pit raportti
 18.04.2017 | 2,0h | Luokkakaavion päivitys, käyttöohjeet, rakennekuvaus, tiedetyt bugit.
 20.04.2017 | 1,0h | Sekvenssikaavioiden päivitys ja linux koneella testaus
+20.04.2017 | 0.5h | Pieniä bugikorjauksia

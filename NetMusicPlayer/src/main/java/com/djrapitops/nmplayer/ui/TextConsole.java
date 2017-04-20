@@ -28,6 +28,7 @@ public class TextConsole extends TextArea {
      */
     public TextConsole() {
         super();
+        super.setWrapText(true);
         super.setEditable(false);
         super.setPrefWidth(10000);
         super.setMouseTransparent(true);
