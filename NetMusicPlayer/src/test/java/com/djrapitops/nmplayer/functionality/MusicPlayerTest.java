@@ -246,6 +246,20 @@ public class MusicPlayerTest {
         test.setVolume(0.3);
         assertTrue("Volume not correct.", 0.3 == test.getVolume());
     }
+    
+    @Test
+    public void testVolumeNegative() {
+        MusicPlayer test = new MusicPlayer();
+        test.setVolume(-0.1);
+        assertTrue("Volume not correct.", 0.0 == test.getVolume());
+    }
+    
+    @Test
+    public void testVolumeOver1() {
+        MusicPlayer test = new MusicPlayer();
+        test.setVolume(1.3);
+        assertTrue("Volume not correct.", 1.0 == test.getVolume());
+    }
 
     @Test
     public void testProgressNullMP() {

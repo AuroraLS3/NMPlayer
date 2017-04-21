@@ -332,6 +332,12 @@ public class MusicPlayer {
      * @param d a double from 0 to 1.0
      */
     public void setVolume(double d) {
+        if (d < 0) {
+            d = 0;
+        }
+        if (d > 1) {
+            d = 1;
+        }
         volume = d;
         if (mp != null) {
             mp.setVolume(volume);

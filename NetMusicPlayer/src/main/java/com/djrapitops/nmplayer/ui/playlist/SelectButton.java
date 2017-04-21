@@ -36,7 +36,7 @@ public class SelectButton extends Button {
             super.setStyle("-fx-background-color: White");
         }
         super.setAlignment(Pos.CENTER_LEFT);
-        super.setText(uiTrack.getTrack().toString());
+        super.setText(uiTrack.getTrack().toString().replace("_", " "));
         super.setPrefWidth(10000);
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             if (!mp.getCurrentTrack().equals(uiTrack.getTrack()) || !mp.isPlaying()) {

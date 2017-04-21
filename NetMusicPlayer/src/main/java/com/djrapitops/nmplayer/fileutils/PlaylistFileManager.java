@@ -52,13 +52,7 @@ public class PlaylistFileManager {
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
         try {
-            playlistFile.createNewFile();
-            FileWriter fw = new FileWriter(playlistFile, false);
-            try (PrintWriter pw = new PrintWriter(fw, true)) {
-                for (String filepath : filepaths) {
-                    pw.println(filepath);
-                }
-            }
+            Files.write(playlistFile.toPath(), filepaths, Charset.defaultCharset());
         } catch (IOException e) {
             ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", e);
             return false;

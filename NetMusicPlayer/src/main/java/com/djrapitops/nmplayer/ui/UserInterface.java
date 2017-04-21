@@ -16,12 +16,15 @@ import com.djrapitops.nmplayer.ui.playlist.UIPlaylist;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -64,14 +67,21 @@ public class UserInterface extends Application implements Updateable {
 
         primaryStage.setScene(new Scene(root, 400, 700));
         primaryStage.show();
+        MusicPlayer musicPlayer = MusicPlayer.getInstance();
+        root.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                handleKeyPress(keyEvent);
+            }
+        });
         try {
-            MusicPlayer.getInstance().init();
+            musicPlayer.init();
         } catch (IllegalStateException e) {
             MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
         }
 //        Thread.sleep(2000);
         update();
-        MusicPlayer.getInstance().setEndOfMediaUpdate(this);
+        musicPlayer.setEndOfMediaUpdate(this);
     }
 
     private Node playlist() {
@@ -112,7 +122,9 @@ public class UserInterface extends Application implements Updateable {
         toolbar.getChildren().add(play);
         toolbar.getChildren().add(new StopButton(this));
         toolbar.getChildren().add(new NextButton(this));
-        toolbar.getChildren().add(new VolumeSlider());
+        VolumeSlider volumeSlider = new VolumeSlider();
+        updateableComponents.add(volumeSlider);
+        toolbar.getChildren().add(volumeSlider);
         TrackProgressBar progress = new TrackProgressBar();
         updateableComponents.add(progress);
         box.getChildren().add(progress);
@@ -137,4 +149,43 @@ public class UserInterface extends Application implements Updateable {
         stage.setTitle((mp.isPlaying() ? "▶" : "") + " NMPlayer | " + TextUtils.uppercaseFirst(mp.getSelectedPlaylist()) + " | " + track);
     }
 
+    public void handleKeyPress(KeyEvent keyEvent) throws IllegalStateException {
+        MusicPlayer musicPlayer = MusicPlayer.getInstance();
+        KeyCode key = keyEvent.getCode();
+        if (key == null) {
+            return;
+        } else {
+            switch (key) {
+                case TRACK_NEXT:
+                case RIGHT:
+                    musicPlayer.nextTrack();
+                    break;
+                case TRACK_PREV:
+                case LEFT:
+                    musicPlayer.previousTrack();
+                    break;
+                case PLAY:
+                case PAUSE:
+                case SPACE:
+                    if (musicPlayer.isPlaying()) {
+                        musicPlayer.pause();
+                    } else {
+                        musicPlayer.play();
+                    }
+                    break;
+                case STOP:
+                    musicPlayer.stop();
+                    break;
+                case DOWN:
+                    musicPlayer.setVolume(musicPlayer.getVolume() - 0.1);
+                    break;
+                case UP:
+                    musicPlayer.setVolume(musicPlayer.getVolume() + 0.1);
+                    break;
+                default:
+                    return;
+            }
+        }
+        update();
+    }
 }
