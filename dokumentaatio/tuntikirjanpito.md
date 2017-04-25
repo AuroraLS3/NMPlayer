@@ -25,3 +25,4 @@ Päivä | Tunnit | Kuvaus
 20.04.2017 | 1,0h | Sekvenssikaavioiden päivitys ja linux koneella testaus
 20.04.2017 | 0.5h | Pieniä bugikorjauksia
 21.04.2017 | 0.25h | Pikku korjauksia
+25.04.2017 | 3.5h | Sekoituksen lisäys ja muutoksia nykyisen kappaleen tiedon sijaintiin.

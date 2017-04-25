@@ -4,10 +4,11 @@ import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
-import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
+import com.djrapitops.nmplayer.functionality.utilities.TrackComparator;
 import com.djrapitops.nmplayer.ui.Updateable;
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import javafx.beans.Observable;
 import javafx.scene.media.Media;
@@ -33,8 +34,6 @@ public class MusicPlayer {
     private Updateable progressBar;
     private Updateable ui;
 
-    private Track currentTrack;
-    private int currentTrackIndex;
     private String selectedPlaylist;
     private boolean playing;
     private double volume;
@@ -79,7 +78,8 @@ public class MusicPlayer {
      * Then the playlist inside the PlaylistManager will be set as the new List
      * given by TrackFileManager.
      *
-     * First track of the playlist will be selected for play.
+     * First track of the playlist will be selected if the currently playing
+     * track is not found.
      *
      * @param playlistName Name of the playlist
      * @throws IllegalStateException If a javafx Application is has not been
@@ -92,17 +92,14 @@ public class MusicPlayer {
     public void selectPlaylist(String playlistName) throws IllegalStateException {
         msg.send(Phrase.LOADING_PLAYLIST.parse(TextUtils.uppercaseFirst(playlistName)));
         selectedPlaylist = playlistName;
-        playlist.setPlaylist(TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist)));
-        currentTrackIndex = 0;
+        List<Track> newPlaylist = TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist));
+        if (selectedPlaylist.equals("all")) {
+            Collections.sort(newPlaylist, new TrackComparator());
+        }
+        playlist.setPlaylist(newPlaylist);
         msg.send(Phrase.SELECTED_PLAYLIST.parse(TextUtils.uppercaseFirst(playlistName)));
         if (playlist.isEmpty()) {
             msg.send(Phrase.PLAYLIST_EMPTY + "");
-            return;
-        }
-        if (!playlist.hasTrack(currentTrack)) {
-            currentTrackIndex = playlist.getIndexOf(currentTrack);
-            stop();
-            selectTrack(playlist.selectTrack(currentTrackIndex));
         }
     }
 
@@ -117,13 +114,13 @@ public class MusicPlayer {
      * @see selectTrack
      */
     public void nextTrack() throws IllegalStateException {
-        if (currentTrack != null) {
+        if (playlist.getCurrentTrack() != null) {
             if (playlist.isEmpty()) {
                 return;
             }
             mp.stop();
             playing = false;
-            selectTrack(currentTrackIndex + 1);
+            selectTrack(playlist.getCurrentTrackIndex() + 1);
             play();
         }
     }
@@ -139,13 +136,13 @@ public class MusicPlayer {
      * started yet.
      */
     public void previousTrack() throws IllegalStateException {
-        if (currentTrack != null) {
+        if (playlist.getCurrentTrack() != null) {
             if (playlist.isEmpty()) {
                 return;
             }
             mp.stop();
             playing = false;
-            selectTrack(currentTrackIndex - 1);
+            selectTrack(playlist.getCurrentTrackIndex() - 1);
             play();
         }
     }
@@ -162,7 +159,7 @@ public class MusicPlayer {
         if (mp != null) {
             playing = true;
             mp.play();
-            msg.send(Phrase.NOW_PLAYING.parse(currentTrack.toString()));
+            msg.send(Phrase.NOW_PLAYING.parse(playlist.getCurrentTrack().toString()));
         }
     }
 
@@ -192,7 +189,7 @@ public class MusicPlayer {
      * @see MessageSender
      */
     public void stop() {
-        if (mp != null) {
+        if (mp != null && playing) {
             playing = false;
             mp.stop();
             msg.send(Phrase.STOP + "");
@@ -216,7 +213,7 @@ public class MusicPlayer {
      * @see MessageSender
      */
     public void selectTrack(Track track) throws IllegalStateException {
-        if (track != null && !track.equals(currentTrack)) {
+        if (track != null && !track.equals(playlist.getCurrentTrack())) {
             String mp3FilePath = track.getFilePath();
             File trackFile = new File(mp3FilePath);
             if (!trackFile.exists()) {
@@ -242,10 +239,8 @@ public class MusicPlayer {
             mp.setOnReady(() -> {
                 progressBar.update();
             });
-            currentTrack = track;
-
+            playlist.setCurrentTrack(track);
         }
-        currentTrackIndex = playlist.getIndexOf(currentTrack);
     }
 
     /**
@@ -288,7 +283,7 @@ public class MusicPlayer {
      * @param track Track to remove.
      */
     public void removeTrackFromPlaylist(Track track) {
-        boolean removingCurrentTrack = playlist.getIndexOf(track) == currentTrackIndex;
+        boolean removingCurrentTrack = playlist.getCurrentTrackIndex() == playlist.getIndexOf(track);
         if (removingCurrentTrack && playing) {
             stop();
         }
@@ -296,7 +291,7 @@ public class MusicPlayer {
         msg.send(Phrase.REMOVED_TRACK.parse(track.toString()));
         PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
         if (removingCurrentTrack) {
-            selectTrack(currentTrackIndex);
+            selectTrack(playlist.getCurrentTrackIndex());
         }
     }
 
@@ -406,7 +401,7 @@ public class MusicPlayer {
      * @return currently playing Track object.
      */
     public Track getCurrentTrack() {
-        return currentTrack;
+        return playlist.getCurrentTrack();
     }
 
     /**

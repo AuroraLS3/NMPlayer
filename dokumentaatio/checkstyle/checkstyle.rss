@@ -25,8 +25,8 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2017</copyright>
     <item>
-      <title>File: 27,
-             Errors: 1,
+      <title>File: 29,
+             Errors: 2,
              Warnings: 0,
              Infos: 0
       </title>
@@ -172,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.playlist.PlaylistManager.java">com/djrapitops/nmplayer/functionality/playlist/PlaylistManager.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.ShuffleButton.java">com/djrapitops/nmplayer/ui/toolbar/ShuffleButton.java</a>
                 </td>
                 <td>
                   0
@@ -312,7 +312,35 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.PlaylistManager.java">com/djrapitops/nmplayer/functionality/PlaylistManager.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.NextButton.java">com/djrapitops/nmplayer/ui/toolbar/NextButton.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.functionality.RandomOrderUtility.java">com/djrapitops/nmplayer/functionality/RandomOrderUtility.java</a>
                 </td>
                 <td>
                   0

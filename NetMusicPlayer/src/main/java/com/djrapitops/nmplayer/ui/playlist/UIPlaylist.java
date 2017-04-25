@@ -7,10 +7,8 @@ package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
-import com.djrapitops.nmplayer.functionality.utilities.TrackComparator;
 import com.djrapitops.nmplayer.ui.Updateable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -57,9 +55,6 @@ public final class UIPlaylist extends VBox implements Updateable {
         List<HBox> elements = new ArrayList<>();
         MusicPlayer mp = MusicPlayer.getInstance();
         List<Track> playlist = mp.getPlaylist();
-        if (mp.getSelectedPlaylist().equals("all")) {
-            Collections.sort(playlist, new TrackComparator());
-        }
         for (Track track : playlist) {
             elements.add(new UITrack(track, ui));
         }

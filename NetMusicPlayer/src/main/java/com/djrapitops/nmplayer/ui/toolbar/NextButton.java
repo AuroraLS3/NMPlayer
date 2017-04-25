@@ -26,7 +26,8 @@ public class NextButton extends Button {
      */
     public NextButton(Updateable u) {
         super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
-        super.setText(">>");
+        super.setPrefWidth(30);
+        super.setText("⏩");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             MusicPlayer.getInstance().nextTrack();
             u.update();

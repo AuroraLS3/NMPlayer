@@ -34,15 +34,16 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">     * @see MusicPlayer</em>
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../com/djrapitops/nmplayer/ui/toolbar/StopButton.html">StopButton</a>(<a href="../../../../../com/djrapitops/nmplayer/ui/Updateable.html">Updateable</a> u) {
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>          <strong class="jxr_keyword">super</strong>.setStyle(<span class="jxr_string">"-fx-background-color: #8290ed; -fx-text-fill: White"</span>);
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">super</strong>.setText(<span class="jxr_string">"Stop"</span>);
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          EventHandler h = (EventHandler&lt;ActionEvent&gt;) (ActionEvent event) -&gt; {
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>              MusicPlayer.getInstance().stop();
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>              u.update();
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          };
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>          <strong class="jxr_keyword">super</strong>.setOnAction(h);
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      }
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  }
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          <strong class="jxr_keyword">super</strong>.setPrefWidth(30);
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">super</strong>.setStyle(<span class="jxr_string">"-fx-background-color: #8290ed; -fx-text-fill: White"</span>);
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">super</strong>.setText(<span class="jxr_string">"■"</span>);
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>          EventHandler h = (EventHandler&lt;ActionEvent&gt;) (ActionEvent event) -&gt; {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>              MusicPlayer.getInstance().stop();
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>              u.update();
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>          };
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">super</strong>.setOnAction(h);
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>      }
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2017. All rights reserved.</div>

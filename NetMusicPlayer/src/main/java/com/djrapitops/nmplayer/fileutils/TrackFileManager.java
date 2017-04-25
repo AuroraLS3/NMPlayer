@@ -154,7 +154,7 @@ public class TrackFileManager {
                 } else {
                     final ID3v1 id3v1Tag = mp3.getId3v1Tag();
                     if (id3v1Tag != null) {
-                        title = id3v1Tag.getTrack();
+                        title = id3v1Tag.getTitle();
                     }
                 }
             } catch (IOException | UnsupportedTagException | InvalidDataException ex) {

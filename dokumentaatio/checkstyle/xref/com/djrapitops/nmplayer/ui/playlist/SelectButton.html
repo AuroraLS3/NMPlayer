@@ -10,7 +10,7 @@
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> com.djrapitops.nmplayer.functionality.MusicPlayer;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> com.djrapitops.nmplayer.functionality.Track;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> com.djrapitops.nmplayer.functionality.PlaylistManager;
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> javafx.event.ActionEvent;
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> javafx.event.EventHandler;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> javafx.geometry.Pos;
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>              <strong class="jxr_keyword">super</strong>.setStyle(<span class="jxr_string">"-fx-background-color: White"</span>);
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>          }
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          <strong class="jxr_keyword">super</strong>.setAlignment(Pos.CENTER_LEFT);
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">super</strong>.setText(uiTrack.getTrack().toString());
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>          <strong class="jxr_keyword">super</strong>.setText(uiTrack.getTrack().toString().replace(<span class="jxr_string">"_"</span>, <span class="jxr_string">" "</span>));
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>          <strong class="jxr_keyword">super</strong>.setPrefWidth(10000);
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>          EventHandler h = (EventHandler&lt;ActionEvent&gt;) (ActionEvent event) -&gt; {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>              <strong class="jxr_keyword">if</strong> (!mp.getCurrentTrack().equals(uiTrack.getTrack()) || !mp.isPlaying()) {

@@ -26,8 +26,9 @@ public class StopButton extends Button {
      * @see MusicPlayer
      */
     public StopButton(Updateable u) {
+        super.setPrefWidth(30);
         super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
-        super.setText("Stop");
+        super.setText("■");
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             MusicPlayer.getInstance().stop();
             u.update();

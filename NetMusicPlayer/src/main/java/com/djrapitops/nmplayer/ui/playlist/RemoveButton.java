@@ -6,6 +6,7 @@
 package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
+import com.djrapitops.nmplayer.functionality.PlaylistManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -22,7 +23,8 @@ import javafx.scene.control.Button;
 public class RemoveButton extends Button {
 
     /**
-     * Constructor for the button. Sets the click event response to remove the associated track from Playlist.
+     * Constructor for the button. Sets the click event response to remove the
+     * associated track from Playlist.
      *
      * @param uiTrack A UITrack Component to update when the button is pressed.
      * @see MusicPlayer
@@ -34,7 +36,12 @@ public class RemoveButton extends Button {
         super.setText("x");
         super.setAlignment(Pos.CENTER_RIGHT);
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
-            MusicPlayer.getInstance().removeTrackFromPlaylist(uiTrack.getTrack());
+            MusicPlayer musicPlayer = MusicPlayer.getInstance();
+            musicPlayer.removeTrackFromPlaylist(uiTrack.getTrack());
+            PlaylistManager playlistManager = musicPlayer.getPlaylistManager();
+            if (playlistManager.isRandom()) {
+                playlistManager.setRandom(true);
+            }
             uiTrack.update();
         };
         super.setOnAction(h);

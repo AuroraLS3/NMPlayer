@@ -2,7 +2,7 @@ package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
-import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
+import com.djrapitops.nmplayer.functionality.PlaylistManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

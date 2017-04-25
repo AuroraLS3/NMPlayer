@@ -25,7 +25,8 @@ public class PlayButton extends Button implements Updateable {
      * @see MusicPlayer
      */
     public PlayButton(Updateable u) {
-        super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
+        super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White; -fx-font-weight: bold;");
+        super.setPrefWidth(30);
         u.update();
         EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
             MusicPlayer musicPlayer = MusicPlayer.getInstance();
@@ -42,9 +43,9 @@ public class PlayButton extends Button implements Updateable {
     @Override
     public void update() {
         if (!MusicPlayer.getInstance().isPlaying()) {
-            super.setText("Play");
+            super.setText(" ▶ ");
         } else {
-            super.setText("Pause");
+            super.setText("⏸");
         }
     }
 

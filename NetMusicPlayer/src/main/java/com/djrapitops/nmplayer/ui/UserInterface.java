@@ -13,9 +13,11 @@ import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.playlist.AddTrackButton;
 import com.djrapitops.nmplayer.ui.playlist.ChangePlaylistBox;
 import com.djrapitops.nmplayer.ui.playlist.UIPlaylist;
+import com.djrapitops.nmplayer.ui.toolbar.ShuffleButton;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -33,7 +35,6 @@ import javafx.stage.Stage;
 /**
  * JavaFx Application used as the Interface for the user.
  *
- * <p>
  * When started, initialises multiple UI components and sets them to be on a
  * certain part of the program.
  *
@@ -68,18 +69,14 @@ public class UserInterface extends Application implements Updateable {
         primaryStage.setScene(new Scene(root, 400, 700));
         primaryStage.show();
         MusicPlayer musicPlayer = MusicPlayer.getInstance();
-        root.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                handleKeyPress(keyEvent);
-            }
+        root.setOnKeyPressed((KeyEvent keyEvent) -> {
+            handleKeyPress(keyEvent);
         });
         try {
             musicPlayer.init();
         } catch (IllegalStateException e) {
             MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
         }
-//        Thread.sleep(2000);
         update();
         musicPlayer.setEndOfMediaUpdate(this);
     }
@@ -111,24 +108,28 @@ public class UserInterface extends Application implements Updateable {
 
     private VBox toolbar() {
         VBox box = new VBox();
-        HBox toolbar = new HBox();
-        toolbar.setAlignment(Pos.CENTER_RIGHT);
-        toolbar.alignmentProperty().isBound();
-        toolbar.setSpacing(5);
-        toolbar.setStyle("-fx-background-color: White");
+        HBox controls = new HBox();
+        controls.setAlignment(Pos.CENTER_RIGHT);
+        controls.alignmentProperty().isBound();
+        controls.setSpacing(5);
+        controls.setStyle("-fx-background-color: White");
         final PlayButton play = new PlayButton(this);
         updateableComponents.add(play);
-        toolbar.getChildren().add(new PreviousButton(this));
-        toolbar.getChildren().add(play);
-        toolbar.getChildren().add(new StopButton(this));
-        toolbar.getChildren().add(new NextButton(this));
+        ObservableList<Node> conponents = controls.getChildren();
+        ShuffleButton shuffle = new ShuffleButton();
+        conponents.add(shuffle);
+        updateableComponents.add(shuffle);
+        conponents.add(new PreviousButton(this));
+        conponents.add(play);
+        conponents.add(new StopButton(this));
+        conponents.add(new NextButton(this));
         VolumeSlider volumeSlider = new VolumeSlider();
         updateableComponents.add(volumeSlider);
-        toolbar.getChildren().add(volumeSlider);
+        conponents.add(volumeSlider);
         TrackProgressBar progress = new TrackProgressBar();
         updateableComponents.add(progress);
         box.getChildren().add(progress);
-        box.getChildren().add(toolbar);
+        box.getChildren().add(controls);
         return box;
     }
 
@@ -149,6 +150,12 @@ public class UserInterface extends Application implements Updateable {
         stage.setTitle((mp.isPlaying() ? "▶" : "") + " NMPlayer | " + TextUtils.uppercaseFirst(mp.getSelectedPlaylist()) + " | " + track);
     }
 
+    /**
+     * Used for Key press functionality processing.
+     *
+     * @param keyEvent Key pressed.
+     * @throws IllegalStateException if JavaFx application not started.
+     */
     public void handleKeyPress(KeyEvent keyEvent) throws IllegalStateException {
         MusicPlayer musicPlayer = MusicPlayer.getInstance();
         KeyCode key = keyEvent.getCode();

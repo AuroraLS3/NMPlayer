@@ -1,6 +1,5 @@
-package com.djrapitops.nmplayer.functionality.playlist;
+package com.djrapitops.nmplayer.functionality;
 
-import com.djrapitops.nmplayer.functionality.Track;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,9 @@ import java.util.List;
 public class PlaylistManager {
 
     private List<Track> playlist;
+    private RandomOrderUtility random;
+
+    private Track currentTrack;
 
     /**
      * Creates a new PlaylistManager with given List as the playlist.
@@ -78,12 +80,9 @@ public class PlaylistManager {
 
     /**
      * Attempts to get a Track object from the playlist with the same track name
-     * as the parameter.
-     * <p>
-     * If playlist contains multiple of the same name, the first one will be
+     * as the parameter. If playlist contains multiple of the same name, the
+     * first one will be returned. If playlist contains none null will be
      * returned.
-     * <p>
-     * If playlist contains none null will be returned.
      *
      * @param trackName Name to search for in the Track objects.
      * @return Track object that has the same name, or null.
@@ -101,6 +100,9 @@ public class PlaylistManager {
      * Used get a Track object from the playlist for the selectTrack(Track)
      * method.
      *
+     * If random is enabled, the RandomOrderUtility index will be used to select
+     * the track.
+     *
      * @param i Index of the track in the playlist.
      * @return appropriate track object that is on the list.
      *
@@ -112,8 +114,16 @@ public class PlaylistManager {
         } else if (i == -1) {
             return selectTrack(tracks - 1);
         } else if (tracks > i && i >= 0) {
-            return playlist.get(i);
+            if (isRandom()) {
+                int index = random.getNewIndexFromOrder(i);
+                return playlist.get(index);
+            } else {
+                return playlist.get(i);
+            }
         } else {
+            if (isRandom()) {
+                setRandom(true);
+            }
             return selectTrack(0);
         }
     }
@@ -130,11 +140,18 @@ public class PlaylistManager {
     /**
      * Used to get the index in the list of a certain Track object.
      *
+     * If shuffle is enabled (isRandom()), the index of the track on the random
+     * order will be returned.
+     *
      * @param track Track object to look for.
      * @return Index of the given track object, -1 if not found.
      */
     public int getIndexOf(Track track) {
-        return playlist.indexOf(track);
+        int trackIndex = playlist.indexOf(track);
+        if (isRandom()) {
+            return random.getIndexOrderList().indexOf(trackIndex);
+        }
+        return trackIndex;
     }
 
     /**
@@ -150,5 +167,57 @@ public class PlaylistManager {
             }
         }
         return false;
+    }
+
+    /**
+     * Used to get the currently playing track.
+     *
+     * @return currently playing track or null if nothing is playing.
+     */
+    public Track getCurrentTrack() {
+        return currentTrack;
+    }
+
+    /**
+     * Change the current track variable & it's index varable.
+     *
+     * @param currentTrack new Track.
+     */
+    public void setCurrentTrack(Track currentTrack) {
+        this.currentTrack = currentTrack;
+    }
+
+    /**
+     * Used to get the index of the current track.
+     *
+     * @return Index of the current track.
+     */
+    public int getCurrentTrackIndex() {
+        return getIndexOf(currentTrack);
+    }
+
+    /**
+     * Checks whether or shuffle is enabled.
+     *
+     * @return state.
+     */
+    public boolean isRandom() {
+        return random != null;
+    }
+
+    /**
+     * Changes the shuffle status.
+     *
+     * a true will create a new RandomOrderUtility.
+     *
+     * @param value true/false
+     * @see RandomOrderUtility
+     */
+    public void setRandom(boolean value) {
+        if (value) {
+            random = new RandomOrderUtility(playlist.size(), getCurrentTrackIndex());
+        } else {
+            random = null;
+        }
     }
 }

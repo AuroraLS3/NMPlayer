@@ -2,7 +2,7 @@ package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
+import com.djrapitops.nmplayer.functionality.PlaylistManager;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.Updateable;
@@ -62,6 +62,10 @@ public class ChangePlaylistButton extends Button {
         }
         MusicPlayer mp = MusicPlayer.getInstance();
         mp.selectPlaylist(newPlaylist);
+        PlaylistManager playlistManager = mp.getPlaylistManager();
+        if (playlistManager.isRandom()) {
+            playlistManager.setRandom(true);
+        }
         u.update();
     }
 

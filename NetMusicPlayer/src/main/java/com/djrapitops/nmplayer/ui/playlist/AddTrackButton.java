@@ -9,7 +9,7 @@ import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
-import com.djrapitops.nmplayer.functionality.playlist.PlaylistManager;
+import com.djrapitops.nmplayer.functionality.PlaylistManager;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.Updateable;
@@ -70,6 +70,10 @@ public class AddTrackButton extends Button {
                             musicPlayer.selectTrack(currentTrack);
                         } else {
                             musicPlayer.selectTrack(0);
+                        }
+                        PlaylistManager playlistManager = musicPlayer.getPlaylistManager();
+                        if (playlistManager.isRandom()) {
+                            playlistManager.setRandom(true);
                         }
                     } else {
                         MessageSender.getInstance().send(Phrase.ALREADY_HAS_TRACK.parse(newTrack.toString()));
