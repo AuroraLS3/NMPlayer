@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 /**
  * JavaFx UI component, a Button used to add tracks to the playlist.
  * <p>
- * Pauses the playback when pressed, and opens a new file selection window.F
+ * Pauses the playback when pressed, and opens a new file selection window.
  *
  * @author Rsl1122
  * @see PlaylistFileManager

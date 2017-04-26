@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
@@ -30,6 +25,33 @@ import java.util.List;
  * @see Track
  */
 public class TrackFileManager {
+
+    /**
+     * Get all of the supported file extensions in a String array.
+     *
+     * For example ".mp3"
+     *
+     * @return String array of supported file extensions.
+     */
+    public static String[] getSupportedFileExtensions() {
+        return new String[]{".mp3", ".wav"};
+    }
+
+    /**
+     * Check if a given file is a supported filetype for a Track.
+     *
+     * @param file File to check
+     * @return Does the file end with a supported file extension?
+     */
+    public static boolean isSupportedFileType(File file) {
+        String fName = file.getName();
+        for (String ext : getSupportedFileExtensions()) {
+            if (fName.endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Creates the tracks folder if it doesn't exist and returns it.
@@ -82,9 +104,7 @@ public class TrackFileManager {
         if (file == null || !file.exists() || !file.canRead()) {
             return null;
         }
-        String fileName = file.getName();
-        boolean isSupportedFileType = (fileName.endsWith(".mp3") || fileName.endsWith(".wav"));
-        if (!isSupportedFileType) {
+        if (!isSupportedFileType(file)) {
             MessageSender.getInstance().send(Phrase.WRONG_FILETYPE + "");
             return null;
         }

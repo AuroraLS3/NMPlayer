@@ -5,6 +5,8 @@
  */
 package com.djrapitops.nmplayer.ui;
 
+import com.djrapitops.nmplayer.functionality.MusicPlayer;
+
 /**
  * This Interface is used by the UI Components to update various contents.
  *

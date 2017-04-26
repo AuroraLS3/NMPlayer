@@ -252,4 +252,13 @@ public class PlaylistManagerTest {
         m.addTrackToPlaylist(o3);
         assertTrue(!m.hasTrack(new Track("-","-","-")));
     }
+    
+    @Test
+    public void testSetRandom() {
+        PlaylistManager m = new PlaylistManager();
+        m.setRandom(true);
+        assertTrue(m.isRandom());
+        m.setRandom(false);
+        assertTrue(!m.isRandom());
+    }
 }

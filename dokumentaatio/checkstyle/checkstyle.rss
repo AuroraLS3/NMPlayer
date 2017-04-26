@@ -46,7 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.ChangePlaylistBox.java">com/djrapitops/nmplayer/ui/playlist/ChangePlaylistBox.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.PlayButton.java">com/djrapitops/nmplayer/ui/toolbar/PlayButton.java</a>
                 </td>
                 <td>
                   0
@@ -60,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.PlayButton.java">com/djrapitops/nmplayer/ui/toolbar/PlayButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.ChangePlaylistBox.java">com/djrapitops/nmplayer/ui/playlist/ChangePlaylistBox.java</a>
                 </td>
                 <td>
                   0
@@ -130,7 +130,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.UITrack.java">com/djrapitops/nmplayer/ui/playlist/UITrack.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.PreviousButton.java">com/djrapitops/nmplayer/ui/toolbar/PreviousButton.java</a>
                 </td>
                 <td>
                   0
@@ -144,7 +144,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.toolbar.PreviousButton.java">com/djrapitops/nmplayer/ui/toolbar/PreviousButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.UITrack.java">com/djrapitops/nmplayer/ui/playlist/UITrack.java</a>
                 </td>
                 <td>
                   0
@@ -200,7 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.ChangePlaylistButton.java">com/djrapitops/nmplayer/ui/playlist/ChangePlaylistButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.RemoveButton.java">com/djrapitops/nmplayer/ui/playlist/RemoveButton.java</a>
                 </td>
                 <td>
                   0
@@ -214,7 +214,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.RemoveButton.java">com/djrapitops/nmplayer/ui/playlist/RemoveButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.ChangePlaylistButton.java">com/djrapitops/nmplayer/ui/playlist/ChangePlaylistButton.java</a>
                 </td>
                 <td>
                   0
@@ -424,7 +424,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.SelectButton.java">com/djrapitops/nmplayer/ui/playlist/SelectButton.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.UIPlaylist.java">com/djrapitops/nmplayer/ui/playlist/UIPlaylist.java</a>
                 </td>
                 <td>
                   0
@@ -438,7 +438,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.UIPlaylist.java">com/djrapitops/nmplayer/ui/playlist/UIPlaylist.java</a>
+                  <a href="${project.url}/checkstyle.html#com.djrapitops.nmplayer.ui.playlist.SelectButton.java">com/djrapitops/nmplayer/ui/playlist/SelectButton.java</a>
                 </td>
                 <td>
                   0

@@ -16,12 +16,13 @@ import javafx.scene.media.MediaPlayer;
 
 /**
  * This class contains all the logic used to change the playback (sound that is
- * coming out of the speakers). THIS CLASS SHOULD NOT BE INITIALIZED WITH CLASS
- * CONSTRUCTOR, MusicPlayer IS A SINGLETON CLASS, use MusicPlayer.getInstance()
- * instead.
+ * coming out of the speakers).
  *
  * The class contains information about the current state of the player, as well
  * as a PlaylistManager
+ *
+ * THIS CLASS SHOULD NOT BE INITIALIZED WITH CLASS CONSTRUCTOR, MusicPlayer IS A
+ * SINGLETON CLASS, use MusicPlayer.getInstance() instead.
  *
  * @author Rsl1122
  * @see PlaylistManager
@@ -57,7 +58,7 @@ public class MusicPlayer {
      * Method used to start the playback logic.
      *
      * Selects a playlist "all" that contains all the tracks in other playlists
-     * & the tracks folder.
+     * and the tracks folder.
      *
      * Sets the initial playing state to false.
      *
@@ -398,7 +399,9 @@ public class MusicPlayer {
     /**
      * Used to get the currently playing Track object.
      *
-     * @return currently playing Track object.
+     * Returns null if nothing is playing (isPlaying() false)
+     *
+     * @return currently playing Track object or null if nothing is playing.
      */
     public Track getCurrentTrack() {
         return playlist.getCurrentTrack();
@@ -416,7 +419,7 @@ public class MusicPlayer {
 
     /**
      * Used to set the Updateable which .update method will be called when the
-     * playback ends.
+     * playback ends at the end of file.
      *
      * @param updateable An Object that implements Updateable
      */

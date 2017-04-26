@@ -228,4 +228,19 @@ public class TrackFileManagerTest {
         String exp = "Arrival";
         assertEquals(exp, result);
     }
+
+    @Test
+    public void testSupportedFileTypes() {
+        File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
+        assertTrue(TrackFileManager.isSupportedFileType(testTrack));
+    }
+
+    @Test
+    public void testSupportedFileTypesFalse() throws IOException {
+        Files.deleteIfExists(new File("NonMp3TestFile.txt").toPath());
+        final File testFile = new File("NonMp3TestFile.txt");
+        testFile.createNewFile();
+        assertTrue(!TrackFileManager.isSupportedFileType(testFile));
+        Files.deleteIfExists(new File("NonMp3TestFile.txt").toPath());
+    }
 }

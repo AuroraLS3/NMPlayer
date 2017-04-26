@@ -1,7 +1,9 @@
 
 package com.djrapitops.nmplayer.ui.toolbar;
 
+import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
+import com.djrapitops.nmplayer.functionality.PlaylistManager;
 import com.djrapitops.nmplayer.ui.Updateable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

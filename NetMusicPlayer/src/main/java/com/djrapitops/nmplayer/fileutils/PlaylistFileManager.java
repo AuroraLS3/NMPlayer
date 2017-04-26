@@ -8,9 +8,7 @@ package com.djrapitops.nmplayer.fileutils;
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -100,7 +98,7 @@ public class PlaylistFileManager {
     }
 
     /**
-     * Used to load the All playlist, which includes tracks in tracks folder &
+     * Used to load the All playlist, which includes tracks in tracks folder and
      * other playlists.
      *
      * @return List of filepaths to every track known by the player.
@@ -123,7 +121,7 @@ public class PlaylistFileManager {
             playlist.addAll(load(TextUtils.removeExtension(file.getName())));
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
-            boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));
+            boolean isSupportedFileType = TrackFileManager.isSupportedFileType(trackF);
             if (trackF.isDirectory() || !trackF.canRead() || !isSupportedFileType) {
                 continue;
             }

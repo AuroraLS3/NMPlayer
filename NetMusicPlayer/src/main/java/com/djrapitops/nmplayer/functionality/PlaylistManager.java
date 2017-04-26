@@ -179,7 +179,7 @@ public class PlaylistManager {
     }
 
     /**
-     * Change the current track variable & it's index varable.
+     * Change the current track variable and it's index varable.
      *
      * @param currentTrack new Track.
      */

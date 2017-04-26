@@ -5,6 +5,7 @@
  */
 package com.djrapitops.nmplayer.ui.playlist;
 
+import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.PlaylistManager;
 import javafx.event.ActionEvent;
