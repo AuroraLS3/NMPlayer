@@ -3,7 +3,7 @@
 
 Musiikkisoittimen soittolistaan voi lisätä biisin plus napilla.
 Usean soittolistan luominen on mahdollista.
-Soittimessa näkyy nykyisen kappaleen nimi ja pituus.
+Soittimessa näkyy nykyisen kappaleen ja soittolistan nimi.
 Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappaletta soitetaan.
 
 **Käyttäjät:** Musiikin kuuntelijat
@@ -16,10 +16,12 @@ Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappale
 - Äänenvoimakkuuden vaihto
 - Kappaleen toistokohdan vaihto (seeking)
 - "All"-soittolista joka sisältää kaikki lisätyt kappaleet sekä /tracks-kansiossa olevat kappaleet.
+- Satunnaisen kappaleen toiston tila. (shuffle-nappi)
 
 **Tiedetyt bugit:**
+- Jos koneella ei ole kaikkia näppäimiin tarvittavia fontteja, on näppäimissä vain laatikko.
 - Mikäli vedettäviä palkkeja (slider) ei vedetä vaan klikataan jostain kohdasta, muutoksia ei tapahdu - täytyy vetää. (UI)
-- Jos MP3-tiesoston ID3-tag on tyhjä, ilmoittaa ohjelma että virhe on tapahtunut ja kirjoittaa virheen ylös.
+- Jos MP3-tiesoston ID3-tag on tyhjä, ilmoittaa ohjelma että virhe on tapahtunut ja kirjoittaa virheen ylös. (Ei kaadu)
 - Jos JavaFx törmää virheeseen ei NMPlayer saa virhettä napatuksi koska käyttöliittymä pyörii erillisessä langassa.
 - "All"-soittolistan kappaleita, joita ei ole lisätty itse soittolistaan ei voi poistaa kuin tilapäisesti. (Ellei poista niitä alkuperäisestä soittolistasta)
 
