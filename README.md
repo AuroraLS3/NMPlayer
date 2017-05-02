@@ -8,9 +8,9 @@ Soittimella pystyy myös tekemään useamman soittolistan.
 [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)  
 [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)  
 [Pit-raportti](https://htmlpreview.github.io/?https://github.com/Rsl1122/NMPlayer/blob/master/dokumentaatio/pit/index.html)  
-[Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/Rsl1122/NMPlayer/blob/master/dokumentaatio/checkstyle/checkstyle.html)
+[Checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/Rsl1122/NMPlayer/blob/master/dokumentaatio/checkstyle/checkstyle.html)  
+Checkstyle-raportin kaksi virhettä aiheutuu Javadocin pituudesta luokassa.  
 [Javadoc](https://htmlpreview.github.io/?https://github.com/Rsl1122/NMPlayer/blob/master/javadoc/index.html)
-Checkstyle-raportin yksi virhe aiheutuu Javadocin pituudesta luokassa. Ilman javadocia luokan pituus olisi ~150.
 
 ### Käyttöohjeet
 - Ohjelman voi käynnistää tuplaklikkaamalla .jar tiedostoa.
