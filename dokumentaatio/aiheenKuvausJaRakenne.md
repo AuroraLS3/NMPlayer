@@ -24,7 +24,7 @@ Play, pause, stop, next ja previous nappien avulla voidaan hallita mitä kappale
 - "All"-soittolistan kappaleita, joita ei ole lisätty itse soittolistaan ei voi poistaa kuin tilapäisesti. (Ellei poista niitä alkuperäisestä soittolistasta)
 
 ### Luokkakaavio
-![Luokkakaavio 18.04.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio18042017.jpg)
+![Luokkakaavio 02.05.2017](https://raw.githubusercontent.com/Rsl1122/NMPlayer/master/dokumentaatio/luokkakaavio02052017.jpg)
 **Rakennekuvaus:**
 Ohjelma koostuu käyttöliittymästä (vasen) ja logiikasta (oikea).
 
