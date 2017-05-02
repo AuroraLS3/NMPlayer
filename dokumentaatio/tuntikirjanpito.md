@@ -27,3 +27,4 @@ Päivä | Tunnit | Kuvaus
 21.04.2017 | 0.25h | Pikku korjauksia
 25.04.2017 | 3.5h | Sekoituksen lisäys ja muutoksia nykyisen kappaleen tiedon sijaintiin.
 26.04.2017 | 1.5h | Satunnaisia asioita
+02.05.2017 | 1.0h | Loppupalautuksen valmistelu, luokkakaavio, dokumentaatio, javadoc, release.
