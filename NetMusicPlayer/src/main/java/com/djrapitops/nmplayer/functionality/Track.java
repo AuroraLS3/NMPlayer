@@ -6,7 +6,6 @@
 package com.djrapitops.nmplayer.functionality;
 
 import java.util.Objects;
-import javafx.scene.layout.HBox;
 
 /**
  * This class is used to store information of mp3 file in a single object.
@@ -22,8 +21,8 @@ public class Track {
     /**
      * Used to create a new Track object.
      *
-     * @param name Track name of the mp3.
-     * @param artist Artist of the mp3.
+     * @param name     Track name of the mp3.
+     * @param artist   Artist of the mp3.
      * @param filePath The absolute filepath of the .mp3 file.
      */
     public Track(String name, String artist, String filePath) {
@@ -34,6 +33,7 @@ public class Track {
 
     /**
      * Grabs the name contained in the Track object.
+     *
      * @return Track name of the mp3.
      */
     public String getName() {
@@ -42,6 +42,7 @@ public class Track {
 
     /**
      * Grabs the artist contained in the Track object.
+     *
      * @return Artist of the mp3.
      */
     public String getArtist() {
@@ -50,6 +51,7 @@ public class Track {
 
     /**
      * Grabs the filepath contained in the Track object.
+     *
      * @return The absolute filepath of the .mp3 file.
      */
     public String getFilePath() {
@@ -57,31 +59,22 @@ public class Track {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Track other = (Track) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.artist, other.artist)) {
-            return false;
-        }
-        if (!Objects.equals(this.fileName, other.fileName)) {
-            return false;
-        }
-        return true;
+    public String toString() {
+        return artist + " - " + name;
     }
 
     @Override
-    public String toString() {
-        return artist + " - " + name;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Track track = (Track) o;
+        return Objects.equals(name, track.name) &&
+                Objects.equals(artist, track.artist) &&
+                Objects.equals(fileName, track.fileName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, artist, fileName);
     }
 }

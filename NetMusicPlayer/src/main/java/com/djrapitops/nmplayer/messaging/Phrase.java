@@ -33,16 +33,7 @@ public enum Phrase {
 
     private String text;
 
-    private Phrase(String text) {
-        this.text = text;
-    }
-
-    /**
-     * Used to change the text of the Enum.
-     *
-     * @param text New text.
-     */
-    public void setText(String text) {
+    Phrase(String text) {
         this.text = text;
     }
 

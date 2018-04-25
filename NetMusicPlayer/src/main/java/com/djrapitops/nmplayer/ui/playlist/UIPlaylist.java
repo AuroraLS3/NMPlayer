@@ -8,13 +8,14 @@ package com.djrapitops.nmplayer.ui.playlist;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.ui.Updateable;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This UI Component contains the UI elements that represent each track.
@@ -23,7 +24,6 @@ import javafx.scene.layout.VBox;
  */
 public final class UIPlaylist extends VBox implements Updateable {
 
-    private List<HBox> tracks;
     private Updateable ui;
 
     /**
@@ -45,10 +45,8 @@ public final class UIPlaylist extends VBox implements Updateable {
     public void update() {
         ObservableList<Node> components = super.getChildren();
         components.clear();
-        tracks = getTrackElements();
-        for (HBox track : tracks) {
-            components.add(track);
-        }
+        List<HBox> tracks = getTrackElements();
+        components.addAll(tracks);
     }
 
     private List<HBox> getTrackElements() {

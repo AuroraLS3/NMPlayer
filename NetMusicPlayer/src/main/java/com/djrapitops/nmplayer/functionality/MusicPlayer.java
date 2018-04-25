@@ -66,7 +66,7 @@ public class MusicPlayer {
      * @throws IllegalStateException If a javafx Application is has not been
      * started yet.
      */
-    public void init() throws IllegalStateException {
+    public void init() {
         selectPlaylist("all");
         selectTrack(0);
         playing = false;
@@ -90,7 +90,7 @@ public class MusicPlayer {
      * @see TrackFileManager
      * @see PlaylistManager
      */
-    public void selectPlaylist(String playlistName) throws IllegalStateException {
+    public void selectPlaylist(String playlistName) {
         msg.send(Phrase.LOADING_PLAYLIST.parse(TextUtils.uppercaseFirst(playlistName)));
         selectedPlaylist = playlistName;
         List<Track> newPlaylist = TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist));
@@ -113,7 +113,7 @@ public class MusicPlayer {
      * @throws IllegalStateException If a javafx Application is has not been
      * started yet.
      */
-    public void nextTrack() throws IllegalStateException {
+    public void nextTrack() {
         if (playlist.getCurrentTrack() != null) {
             if (playlist.isEmpty()) {
                 return;
@@ -134,7 +134,7 @@ public class MusicPlayer {
      * @throws IllegalStateException If a javafx Application is has not been
      * started yet.
      */
-    public void previousTrack() throws IllegalStateException {
+    public void previousTrack() {
         if (playlist.getCurrentTrack() != null) {
             if (playlist.isEmpty()) {
                 return;
@@ -211,7 +211,7 @@ public class MusicPlayer {
      * started yet.
      * @see MessageSender
      */
-    public void selectTrack(Track track) throws IllegalStateException {
+    public void selectTrack(Track track) {
         if (track != null && !track.equals(playlist.getCurrentTrack())) {
             String mp3FilePath = track.getFilePath();
             File trackFile = new File(mp3FilePath);
@@ -248,7 +248,7 @@ public class MusicPlayer {
      * @param i Index of the track to select.
      * @throws IllegalStateException If JavaFx Application is not running.
      */
-    public void selectTrack(int i) throws IllegalStateException {
+    public void selectTrack(int i) {
         selectTrack(playlist.selectTrack(i));
     }
 
@@ -266,7 +266,7 @@ public class MusicPlayer {
      * @see PlaylistFileManager
      * @see MessageSender
      */
-    public void addTrackToPlaylist(Track track) throws IllegalStateException {
+    public void addTrackToPlaylist(Track track) {
         if (track == null) {
             return;
         }

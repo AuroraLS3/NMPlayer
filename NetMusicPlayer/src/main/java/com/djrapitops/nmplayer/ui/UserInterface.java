@@ -129,7 +129,7 @@ public class UserInterface extends Application implements Updateable {
      * @param keyEvent Key pressed.
      * @throws IllegalStateException if JavaFx application not started.
      */
-    private void handleKeyPress(KeyEvent keyEvent) throws IllegalStateException {
+    private void handleKeyPress(KeyEvent keyEvent) {
         MusicPlayer musicPlayer = MusicPlayer.getInstance();
         KeyCode key = keyEvent.getCode();
         if (key == null) {

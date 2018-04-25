@@ -8,22 +8,21 @@ package com.djrapitops.nmplayer.ui.playlist;
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.PlaylistManager;
+import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.Updateable;
 import com.djrapitops.nmplayer.ui.UserInterface;
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * JavaFx UI component, a Button used to add tracks to the playlist.
@@ -45,7 +44,7 @@ public class AddTrackButton extends Button {
      * Sets the click event response to open a new FileChooser and add a new
      * track to the playlist that contains information of the file.
      *
-     * @param ui A UI Component to update when the button is pressed.
+     * @param ui    A UI Component to update when the button is pressed.
      * @param stage Stage used by the UserInterface.
      * @see FileChooser
      * @see UserInterface
@@ -54,9 +53,9 @@ public class AddTrackButton extends Button {
     public AddTrackButton(Updateable ui, Stage stage) {
         super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
         super.setText("Add Tracks");
-        fileChooser.setSelectedExtensionFilter(new ExtensionFilter("mp3", Arrays.asList(new String[]{".mp3", ".wav"})));
+        fileChooser.setSelectedExtensionFilter(new ExtensionFilter("mp3", Arrays.asList(".mp3", ".wav")));
         fileChooser.setTitle("NMPlayer | Add File(s)");
-        EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
+        super.setOnAction(event -> {
             final MusicPlayer musicPlayer = MusicPlayer.getInstance();
             ui.update();
             List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage);
@@ -88,8 +87,7 @@ public class AddTrackButton extends Button {
                     musicPlayer.play();
                 }
             }
-        };
-        super.setOnAction(h);
+        });
     }
 
 }

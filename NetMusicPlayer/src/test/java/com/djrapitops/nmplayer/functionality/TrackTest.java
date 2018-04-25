@@ -6,32 +6,18 @@
 package com.djrapitops.nmplayer.functionality;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-/**
- *
- * @author Rsl1122
- */
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class TrackTest {
 
-    /**
-     *
-     */
-    public TrackTest() {
-    }
-
-    /**
-     *
-     */
     @Test
     public void testGetArtist() {
         Track t = new Track("1", "2", "3");
-        assertEquals(t.getArtist(), "2");
+        assertEquals("2", t.getArtist());
     }
-    
-    /**
-     *
-     */
+
     @Test
     public void testEquals() {
         System.out.println("Test Track.equals");
@@ -40,9 +26,6 @@ public class TrackTest {
         assertTrue("Not Equals!", instance.equals(obj));
     }
 
-    /**
-     *
-     */
     @Test
     public void testEquals2() {
         System.out.println("Test Track.equals (not equal)");
@@ -51,9 +34,6 @@ public class TrackTest {
         assertTrue("Equals!", !instance.equals(obj));
     }
 
-    /**
-     *
-     */
     @Test
     public void testEquals3() {
         System.out.println("Test Track.equals (Same object)");
@@ -62,15 +42,11 @@ public class TrackTest {
         assertTrue("Not Equals!", instance.equals(obj));
     }
 
-    /**
-     *
-     */
     @Test
     public void testEquals4() {
         System.out.println("Test Track.equals (null)");
         Track instance = new Track("1", "2", "3");
-        Object obj = null;
-        assertTrue("Equals!", !instance.equals(obj));
+        assertTrue("Equals!", !instance.equals(null));
     }
 
     /**
@@ -105,7 +81,7 @@ public class TrackTest {
         Track instance = new Track("1", "2", "3");
         assertTrue("Equals!", !instance.equals(obj));
     }
-    
+
     /**
      *
      */
@@ -113,6 +89,6 @@ public class TrackTest {
     public void testToString() {
         System.out.println("Test Track.toString");
         Track instance = new Track("1", "2", "3");
-        assertEquals("2 - 1",instance.toString());
+        assertEquals("2 - 1", instance.toString());
     }
 }
