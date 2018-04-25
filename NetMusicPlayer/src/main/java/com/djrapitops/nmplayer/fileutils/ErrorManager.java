@@ -7,17 +7,20 @@ package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
+
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.Date;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class is used to write caught <tt>Throwable</tt> objects to Errors.txt
  * in the folder the .jar resides in.
- *
  * <p>
  * All of the methods are static.
  *
@@ -28,23 +31,36 @@ public class ErrorManager {
     /**
      * Logs caught Throwable to Errors.txt.
      *
-     * @param source Name of the source class.
-     * @param e Throwable that was caught by the program.
+     * @param source    Name of the source class.
+     * @param throwable Throwable that was caught by the program.
      */
-    public static void toLog(String source, Throwable e) {
+    public static void toLog(String source, Throwable throwable) {
         MessageSender.getInstance().send(Phrase.ERROR + "");
-        toLog(source + " Caught " + e);
-        for (StackTraceElement x : e.getStackTrace()) {
-            toLog("  " + x);
+        List<String> stackTrace = new ArrayList<>();
+        stackTrace.add(source + " Caught " + throwable);
+        appendStackTrace(throwable, stackTrace);
+        Throwable cause = throwable.getCause();
+        while (cause != null) {
+            stackTrace.add("caused by " + cause);
+            appendStackTrace(cause, stackTrace);
+            cause = cause.getCause();
         }
-        toLog("");
+        stackTrace.add("");
+
+        toLog(stackTrace);
+    }
+
+    private static void appendStackTrace(Throwable throwable, List<String> stackTrace) {
+        for (StackTraceElement x : throwable.getStackTrace()) {
+            stackTrace.add("  " + x);
+        }
     }
 
     /**
      * Logs multiple caught Throwables to Errors.txt.
      *
      * @param source Class name the exception was caught in.
-     * @param e Collection of caught Throwables, eg NullPointerException
+     * @param e      Collection of caught Throwables, eg NullPointerException
      */
     public static void toLog(String source, Collection<Throwable> e) {
         for (Throwable ex : e) {
@@ -56,32 +72,22 @@ public class ErrorManager {
      * Logs a message to the Errors.txt with a timestamp.
      *
      * @param message A line that will be written to the Errors.txt as a new
-     * line.
+     *                line.
      */
     public static void toLog(String message) {
-        FileWriter fw = null;
-        PrintWriter pw = null;
-        try {
-            File log = new File("Errors.txt");
-            if (!log.exists()) {
-                log.createNewFile();
-            }
-            fw = new FileWriter(log, true);
-            pw = new PrintWriter(fw, true);
-            String timestamp = formatTimeStamp(new Date().getTime());
-            pw.println("[" + timestamp + "] " + message);
+        String timestamp = formatTimeStamp(new Date().getTime());
+        toLog(Collections.singletonList("[" + timestamp + "] " + message));
+    }
 
-        } catch (IOException ex) {
-        } finally {
-            if (pw != null) {
-                pw.close();
+    private static void toLog(List<String> toWrite) {
+        File log = new File("Errors.txt");
+        try {
+            if (!log.exists() && !log.createNewFile()) {
+                throw new IllegalStateException("Errors.txt could not be created");
             }
-            if (fw != null) {
-                try {
-                    fw.close();
-                } catch (IOException ex) {
-                }
-            }
+            Files.write(log.toPath(), toWrite, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            Logger.getGlobal().log(Level.WARNING, "Failed to write to Errors.txt", e);
         }
     }
 
@@ -92,7 +98,7 @@ public class ErrorManager {
      * @return String of format (month) (day) (hh:mm:ss)
      */
     public static String formatTimeStamp(long ms) {
-        Date sfd = new Date(ms);
-        return ("" + sfd).substring(4, 19);
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd HH:mm:ss", Locale.ENGLISH);
+        return formatter.format(ms);
     }
 }

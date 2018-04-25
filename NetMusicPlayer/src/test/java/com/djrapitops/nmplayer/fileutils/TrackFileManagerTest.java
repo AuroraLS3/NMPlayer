@@ -20,7 +20,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Rsl1122
  */
 public class TrackFileManagerTest {
@@ -173,6 +172,9 @@ public class TrackFileManagerTest {
     }
 
     private long getLineCount(File errors) throws IOException {
+        if (!errors.exists()) {
+            return 0;
+        }
         return FileReader.lines(errors).size();
     }
 
