@@ -6,13 +6,12 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
+import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,15 +82,16 @@ public class TrackFileManagerTest {
 
     @Test
     public void testProcessFileNotMp3() throws IOException {
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+        List<String> msg = new ArrayList<>();
+        MessageSender.getInstance().setOutput(msg::add);
+
         Files.deleteIfExists(new File("NonMp3TestFile.txt").toPath());
         final File testFile = new File("NonMp3TestFile.txt");
         testFile.createNewFile();
         Track result = TrackFileManager.processFile(testFile);
         Files.deleteIfExists(new File("NonMp3TestFile.txt").toPath());
         assertNull(result);
-        assertTrue("Didn't notify about wrong filetype", outContent.toString().contains(Phrase.WRONG_FILETYPE + ""));
+        assertTrue("Didn't notify about wrong filetype", msg.contains(Phrase.WRONG_FILETYPE.toString()));
     }
 
     @Test

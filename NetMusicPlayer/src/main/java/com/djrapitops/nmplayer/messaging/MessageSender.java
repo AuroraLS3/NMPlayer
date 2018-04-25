@@ -68,6 +68,10 @@ public class MessageSender {
         }
     }
 
+    public void setOutput(MethodRef<String> out) {
+        output = out;
+    }
+
     private static class MessageSenderSingletonHolder {
 
         private static final MessageSender INSTANCE = new MessageSender();

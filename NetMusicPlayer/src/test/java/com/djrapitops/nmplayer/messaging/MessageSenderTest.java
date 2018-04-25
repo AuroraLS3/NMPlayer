@@ -11,11 +11,12 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author Rsl1122
  */
 public class MessageSenderTest {
@@ -31,11 +32,11 @@ public class MessageSenderTest {
      */
     @Test
     public void testSend() {
-        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
+        List<String> msg = new ArrayList<>();
+        MessageSender.getInstance().setOutput(msg::add);
         final String exp = "Testmessage";
         MessageSender.getInstance().send(exp);
-        assertTrue("Didn't contain test message", outContent.toString().contains(exp));
+        assertTrue("Didn't contain test message", msg.contains(exp));
     }
 
     /**
