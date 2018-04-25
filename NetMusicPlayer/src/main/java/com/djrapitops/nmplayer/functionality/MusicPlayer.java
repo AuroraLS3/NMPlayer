@@ -2,17 +2,18 @@ package com.djrapitops.nmplayer.functionality;
 
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.fileutils.TrackFileManager;
-import com.djrapitops.nmplayer.messaging.MessageSender;
-import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
 import com.djrapitops.nmplayer.functionality.utilities.TrackComparator;
+import com.djrapitops.nmplayer.messaging.MessageSender;
+import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.Updateable;
-import java.io.File;
-import java.util.Collections;
-import java.util.List;
 import javafx.beans.Observable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class contains all the logic used to change the playback (sound that is
@@ -88,7 +89,6 @@ public class MusicPlayer {
      * @see PlaylistFileManager
      * @see TrackFileManager
      * @see PlaylistManager
-     * @see selectTrack
      */
     public void selectPlaylist(String playlistName) throws IllegalStateException {
         msg.send(Phrase.LOADING_PLAYLIST.parse(TextUtils.uppercaseFirst(playlistName)));
@@ -112,7 +112,6 @@ public class MusicPlayer {
      *
      * @throws IllegalStateException If a javafx Application is has not been
      * started yet.
-     * @see selectTrack
      */
     public void nextTrack() throws IllegalStateException {
         if (playlist.getCurrentTrack() != null) {
@@ -132,7 +131,6 @@ public class MusicPlayer {
      * If currentTrack is null (Not initialized) nothing is done. Otherwise the
      * playback is stopped, new Track selected, and then played.
      *
-     * @see selectTrack
      * @throws IllegalStateException If a javafx Application is has not been
      * started yet.
      */
@@ -274,7 +272,7 @@ public class MusicPlayer {
         }
         playlist.addTrackToPlaylist(track);
         msg.send(Phrase.ADDED_TRACK.parse(track.getArtist() + " - " + track.getName()));
-        PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
+        PlaylistFileManager.saveTracksAsPlaylist(playlist.getPlaylist(), selectedPlaylist);
     }
 
     /**
@@ -290,7 +288,7 @@ public class MusicPlayer {
         }
         playlist.removeTrackFromPlaylist(track);
         msg.send(Phrase.REMOVED_TRACK.parse(track.toString()));
-        PlaylistFileManager.save(playlist.getPlaylist(), selectedPlaylist, true);
+        PlaylistFileManager.saveTracksAsPlaylist(playlist.getPlaylist(), selectedPlaylist);
         if (removingCurrentTrack) {
             selectTrack(playlist.getCurrentTrackIndex());
         }

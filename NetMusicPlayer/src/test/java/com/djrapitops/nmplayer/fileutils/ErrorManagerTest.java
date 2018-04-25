@@ -6,56 +6,34 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.messaging.Phrase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.After;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Ignore;
 
-/**
- *
- * @author Rsl1122
- */
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class ErrorManagerTest {
 
-    /**
-     *
-     */
-    public ErrorManagerTest() {
-    }
-
-    /**
-     *
-     * @throws IOException
-     */
     @Before
     public void setUp() throws IOException {
         Files.deleteIfExists(new File("Errors.txt").toPath());
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @After
     public void tearDown() throws IOException {
         Files.deleteIfExists(new File("Errors.txt").toPath());
     }
 
-    /**
-     *
-     * @throws IOException
-     */
-    @Ignore("Causes tests to fail on Windows.")
     @Test
     public void testToLog_String_Collection() throws IOException {
         System.out.println("ErrorManager.toLog throwable (collection) test");
@@ -66,31 +44,27 @@ public class ErrorManagerTest {
         String source = "package.TestSource";
         Throwable e = new IllegalArgumentException("Test");
         Throwable e2 = new IllegalStateException("Test2");
-        // This line causes the error
-        ErrorManager.toLog("Test");        
-        ErrorManager.toLog(source, Arrays.asList(new Throwable[]{e, e2}));
-        
-        List<String> stacktraceE = Arrays.asList(e.getStackTrace()).stream().map(s -> "  " + s).collect(Collectors.toList());
-        // Test throws AccessDeniedException here.
-        List<String> errorlines = Files.lines(errors.toPath(), Charset.defaultCharset()).collect(Collectors.toList());
-        // 
+
+        ErrorManager.toLog("Test");
+        ErrorManager.toLog(source, Arrays.asList(e, e2));
+
+        List<String> stacktraceE = Arrays.stream(e.getStackTrace()).map(s -> "  " + s).collect(Collectors.toList());
+
+        List<String> errorLines = FileReader.lines(errors);
+
         assertTrue("Errors.txt doesn't exist", errors.exists());
-        assertTrue("Errors.txt is empty-", errorlines.size() > 0);
-        assertTrue("First line doesn't contain package.", errorlines.get(1).contains("package.TestSource"));
-        assertTrue("First line doesn't contain exception name", errorlines.get(1).contains("IllegalArgumentException"));
-        assertTrue("Second line doesn't exist", errorlines.get(2) != null);
-        assertTrue("stacktrace not there", errorlines.get(2).contains(stacktraceE.get(0)));
-        assertTrue("stacktrace not there", errorlines.get(3).contains(stacktraceE.get(1)));
+        assertTrue("Errors.txt is empty-", errorLines.size() > 0);
+        assertTrue("First line doesn't contain package.", errorLines.get(1).contains("package.TestSource"));
+        assertTrue("First line doesn't contain exception name", errorLines.get(1).contains("IllegalArgumentException"));
+        assertTrue("Second line doesn't exist", errorLines.get(2) != null);
+        assertTrue("stacktrace not there", errorLines.get(2).contains(stacktraceE.get(0)));
+        assertTrue("stacktrace not there", errorLines.get(3).contains(stacktraceE.get(1)));
         assertTrue("Didn't notify user", outContent.toString().contains(Phrase.ERROR + ""));
-//        assertEquals(18, errorlines.get(32).length());
+
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
-    public void testToLog_IOException() throws IOException {
+    public void testToLog_IOException() {
         ErrorManager t = new ErrorManager();
         File errors = new File("Errors.txt");
         errors.mkdir();
@@ -100,9 +74,6 @@ public class ErrorManagerTest {
         }
     }
 
-    /**
-     *
-     */
     @Test
     public void testFormatTimeStamp() {
         System.out.println("ErrorManager.formatTimeStamp test");

@@ -4,11 +4,8 @@ import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
-import com.mpatric.mp3agic.ID3v1;
-import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
+import com.mpatric.mp3agic.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +30,7 @@ public class TrackFileManager {
      *
      * @return String array of supported file extensions.
      */
-    public static String[] getSupportedFileExtensions() {
+    private static String[] getSupportedFileExtensions() {
         return new String[]{".mp3", ".wav"};
     }
 
@@ -108,8 +105,7 @@ public class TrackFileManager {
             MessageSender.getInstance().send(Phrase.WRONG_FILETYPE + "");
             return null;
         }
-        Track track = new Track(getTrackName(file), getArtist(file), file.getAbsolutePath());
-        return track;
+        return new Track(getTrackName(file), getArtist(file), file.getAbsolutePath());
     }
 
     /**

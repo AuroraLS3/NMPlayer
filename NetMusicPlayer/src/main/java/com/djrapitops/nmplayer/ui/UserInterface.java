@@ -1,10 +1,5 @@
 package com.djrapitops.nmplayer.ui;
 
-import com.djrapitops.nmplayer.ui.toolbar.StopButton;
-import com.djrapitops.nmplayer.ui.toolbar.VolumeSlider;
-import com.djrapitops.nmplayer.ui.toolbar.NextButton;
-import com.djrapitops.nmplayer.ui.toolbar.PreviousButton;
-import com.djrapitops.nmplayer.ui.toolbar.PlayButton;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
@@ -13,12 +8,9 @@ import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.playlist.AddTrackButton;
 import com.djrapitops.nmplayer.ui.playlist.ChangePlaylistBox;
 import com.djrapitops.nmplayer.ui.playlist.UIPlaylist;
-import com.djrapitops.nmplayer.ui.toolbar.ShuffleButton;
-import java.util.ArrayList;
-import java.util.List;
+import com.djrapitops.nmplayer.ui.toolbar.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -31,6 +23,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JavaFx Application used as the Interface for the user.
@@ -55,30 +50,8 @@ public class UserInterface extends Application implements Updateable {
         updateableComponents = new ArrayList<>();
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
-        stage.setTitle("NMPlayer");
-        stage.getIcons().add(new Image("http://djrapitops.com/uploads/NMPlayer.png"));
-        BorderPane root = new BorderPane();
-        root.setCenter(playlist());
-        toolbar = toolbar();
-        root.setBottom(toolbar);
-        root.setTop(console());
-
-        primaryStage.setScene(new Scene(root, 400, 700));
-        primaryStage.show();
-        MusicPlayer musicPlayer = MusicPlayer.getInstance();
-        root.setOnKeyPressed((KeyEvent keyEvent) -> {
-            handleKeyPress(keyEvent);
-        });
-        try {
-            musicPlayer.init();
-        } catch (IllegalStateException e) {
-            MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
-        }
-        update();
-        musicPlayer.setEndOfMediaUpdate(this);
+    public static void start(String[] args) {
+        Application.launch(args);
     }
 
     private Node playlist() {
@@ -156,7 +129,7 @@ public class UserInterface extends Application implements Updateable {
      * @param keyEvent Key pressed.
      * @throws IllegalStateException if JavaFx application not started.
      */
-    public void handleKeyPress(KeyEvent keyEvent) throws IllegalStateException {
+    private void handleKeyPress(KeyEvent keyEvent) throws IllegalStateException {
         MusicPlayer musicPlayer = MusicPlayer.getInstance();
         KeyCode key = keyEvent.getCode();
         if (key == null) {
@@ -194,5 +167,29 @@ public class UserInterface extends Application implements Updateable {
             }
         }
         update();
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        stage = primaryStage;
+        stage.setTitle("NMPlayer");
+        stage.getIcons().add(new Image("http://djrapitops.com/uploads/NMPlayer.png"));
+        BorderPane root = new BorderPane();
+        root.setCenter(playlist());
+        toolbar = toolbar();
+        root.setBottom(toolbar);
+        root.setTop(console());
+
+        primaryStage.setScene(new Scene(root, 400, 700));
+        primaryStage.show();
+        MusicPlayer musicPlayer = MusicPlayer.getInstance();
+        root.setOnKeyPressed(this::handleKeyPress);
+        try {
+            musicPlayer.init();
+        } catch (IllegalStateException e) {
+            MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
+        }
+        update();
+        musicPlayer.setEndOfMediaUpdate(this);
     }
 }

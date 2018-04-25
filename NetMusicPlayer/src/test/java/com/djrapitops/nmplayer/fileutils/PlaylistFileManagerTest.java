@@ -5,42 +5,28 @@
  */
 package com.djrapitops.nmplayer.fileutils;
 
-import static com.djrapitops.nmplayer.fileutils.PlaylistFileManager.getPlaylistFolder;
 import com.djrapitops.nmplayer.functionality.Track;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import org.junit.Before;
-import org.junit.Test;
+
+import static com.djrapitops.nmplayer.fileutils.PlaylistFileManager.getPlaylistFolder;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Rsl1122
- */
 public class PlaylistFileManagerTest {
 
-    /**
-     *
-     */
     public PlaylistFileManagerTest() {
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Before
-    public void setUp() throws IOException {
+    public void setUp() {
     }
 
-    /**
-     *
-     */
     @Test
     public void testGetPlaylistFolder() {
         PlaylistFileManager t = new PlaylistFileManager();
@@ -51,10 +37,6 @@ public class PlaylistFileManagerTest {
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testSaveAndLoad() throws IOException {
         System.out.println("  Test load Method");
@@ -63,8 +45,8 @@ public class PlaylistFileManagerTest {
         expResult.add("ST");
         List<Track> testTracks = new ArrayList<>();
         testTracks.add(new Track("T", "E", "ST"));
-        if (!PlaylistFileManager.save(testTracks, name, true)) {
-            fail("Failed to save.");
+        if (!PlaylistFileManager.saveTracksAsPlaylist(testTracks, name)) {
+            fail("Failed to saveTracksAsPlaylist.");
         }
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
         File testFile = new File(PlaylistFileManager.getPlaylistFolder(), name + ".txt");
@@ -75,13 +57,9 @@ public class PlaylistFileManagerTest {
         Files.deleteIfExists(new File("testFile.txt").toPath());
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testSaveException() throws IOException {
-        System.out.println("  Test save for exception");
+        System.out.println("  Test saveTracksAsPlaylist for exception");
         String name = "testSaveException";
         File exceptionFolder = new File(PlaylistFileManager.getPlaylistFolder(), name + ".txt");
         exceptionFolder.mkdir();
@@ -89,39 +67,36 @@ public class PlaylistFileManagerTest {
         expResult.add("testlink");
         File errors = new File("Errors.txt");
         ErrorManager.toLog("Test");
-        long linesBefore = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesBefore = getLineCount(errors);
         if (PlaylistFileManager.save(expResult, name)) {
-            fail("Succeeded to save");
+            fail("Succeeded to saveTracksAsPlaylist");
         }
-        long linesNow = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesNow = getLineCount(errors);
         assertTrue("Did not catch IOException, is folder", linesBefore < linesNow);
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
         assertTrue("Didn't create playlist file", !new File(PlaylistFileManager.getPlaylistFolder(), name + ".txt").isFile());
         Files.deleteIfExists(new File(PlaylistFileManager.getPlaylistFolder(), name + ".txt").toPath());
     }
 
-    /**
-     *
-     * @throws IOException
-     */
+    private int getLineCount(File errors) throws IOException {
+        return FileReader.lines(errors).size();
+    }
+
     @Test
     public void testLoadException() throws IOException {
         System.out.println("  Test load for exception");
         String name = "testLoadException";
         File errors = new File("Errors.txt");
         ErrorManager.toLog("Test");
-        long linesBefore = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesBefore = getLineCount(errors);
         File exceptionFolder = new File(PlaylistFileManager.getPlaylistFolder(), name + ".txt");
         exceptionFolder.mkdir();
         PlaylistFileManager.load(name);
-        long linesNow = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesNow = getLineCount(errors);
         assertTrue("Did not catch IOException, pathseparator", linesBefore < linesNow);
         Files.deleteIfExists(exceptionFolder.toPath());
     }
 
-    /**
-     *
-     */
     @Test
     public void testGetKnownPlaylists() {
         String knownPlaylists = PlaylistFileManager.getKnownPlaylists();
@@ -135,7 +110,7 @@ public class PlaylistFileManagerTest {
             }
             int tracks = 0;
             try {
-                tracks = (int) Files.lines(file.toPath(), Charset.defaultCharset()).count();
+                tracks = getLineCount(file);
             } catch (IOException ex) {
             }
             if (tracks > 0) {
@@ -146,10 +121,6 @@ public class PlaylistFileManagerTest {
         }
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testLoadAll() throws IOException {
         List<String> loaded = PlaylistFileManager.loadAll();
@@ -159,9 +130,7 @@ public class PlaylistFileManagerTest {
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {
                 continue;
             }
-            for (String s : Files.lines(file.toPath(), Charset.defaultCharset()).collect(Collectors.toList())) {
-                assertTrue("Didn't contain " + s, loaded.contains(s));
-            }
+            assertTrue(loaded.containsAll(FileReader.lines(file)));
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
             boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));
@@ -172,10 +141,6 @@ public class PlaylistFileManagerTest {
         }
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testLoad_All() throws IOException {
         List<String> loaded = PlaylistFileManager.load("all");
@@ -185,9 +150,7 @@ public class PlaylistFileManagerTest {
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {
                 continue;
             }
-            for (String s : Files.lines(file.toPath(), Charset.defaultCharset()).collect(Collectors.toList())) {
-                assertTrue("Didn't contain " + s, loaded.contains(s));
-            }
+            assertTrue(loaded.containsAll(FileReader.lines(file)));
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
             boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));

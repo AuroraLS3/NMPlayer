@@ -6,18 +6,17 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
-import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
-import com.djrapitops.nmplayer.ui.TextConsole;
+import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -62,30 +61,16 @@ public class TrackFileManagerTest {
 
     }
 
-    /**
-     *
-     */
     @Test
     public void testProcessFileNull() {
-        Track result = TrackFileManager.processFile(null);
-        Track exp = null;
-        assertEquals(exp, result);
+        assertNull(TrackFileManager.processFile(null));
     }
 
-    /**
-     *
-     */
     @Test
     public void testProcessFileNonexistent() {
-        Track result = TrackFileManager.processFile(new File("UnexistingTestFile"));
-        Track exp = null;
-        assertEquals(exp, result);
+        assertNull(TrackFileManager.processFile(new File("UnexistingTestFile")));
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testProcessFileUnreadable() throws IOException {
         Files.deleteIfExists(new File("NonReadableTestFile").toPath());
@@ -94,14 +79,9 @@ public class TrackFileManagerTest {
         testFile.setReadable(false);
         Track result = TrackFileManager.processFile(testFile);
         Files.deleteIfExists(testFile.toPath());
-        Track exp = null;
-        assertEquals(exp, result);
+        assertNull(result);
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testProcessFileNotMp3() throws IOException {
         final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -110,15 +90,11 @@ public class TrackFileManagerTest {
         final File testFile = new File("NonMp3TestFile.txt");
         testFile.createNewFile();
         Track result = TrackFileManager.processFile(testFile);
-        Track exp = null;
         Files.deleteIfExists(new File("NonMp3TestFile.txt").toPath());
-        assertEquals(exp, result);
+        assertNull(result);
         assertTrue("Didn't notify about wrong filetype", outContent.toString().contains(Phrase.WRONG_FILETYPE + ""));
     }
 
-    /**
-     *
-     */
     @Test
     public void testProcessFileExisting() {
         File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
@@ -130,9 +106,6 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
-    /**
-     *
-     */
     @Test
     public void testGetArtist() {
         File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
@@ -144,10 +117,6 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testGetArtistException() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "ExceptionFolder.mp3").toPath());
@@ -155,19 +124,15 @@ public class TrackFileManagerTest {
         testTrack.mkdir();
         File errors = new File("Errors.txt");
         ErrorManager.toLog("TestGetArtistException");
-        long linesBefore = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesBefore = getLineCount(errors);
         String result = TrackFileManager.getArtist(testTrack);
-        long linesNow = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesNow = getLineCount(errors);
         assertTrue("Did not catch IOException, is folder", linesBefore < linesNow);
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "ExceptionFolder.mp3").toPath());
         String exp = "Artist";
         assertEquals(exp, result);
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testGetArtistNotMp3() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival").toPath());
@@ -179,9 +144,6 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
-    /**
-     *
-     */
     @Test
     public void testGetTrackName() {
         File testTrack = new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3");
@@ -193,10 +155,6 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
-    /**
-     *
-     * @throws IOException
-     */
     @Test
     public void testGetTrackNameException() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "ExceptionFolder.mp3").toPath());
@@ -204,9 +162,9 @@ public class TrackFileManagerTest {
         testTrack.mkdir();
         File errors = new File("Errors.txt");
         ErrorManager.toLog("TestGetTrackNameException");
-        long linesBefore = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesBefore = getLineCount(errors);
         String result = TrackFileManager.getTrackName(testTrack);
-        long linesNow = Files.lines(errors.toPath(), Charset.defaultCharset()).count();
+        long linesNow = getLineCount(errors);
         assertTrue("Did not catch IOException, is folder", linesBefore < linesNow);
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "ExceptionFolder.mp3").toPath());
         String exp = "ExceptionFolder";
@@ -214,10 +172,10 @@ public class TrackFileManagerTest {
         assertEquals(exp, result);
     }
 
-    /**
-     *
-     * @throws IOException
-     */
+    private long getLineCount(File errors) throws IOException {
+        return FileReader.lines(errors).size();
+    }
+
     @Test
     public void testGetTrackNameNotMp3() throws IOException {
         Files.deleteIfExists(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival").toPath());

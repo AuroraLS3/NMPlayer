@@ -7,6 +7,7 @@ package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -86,7 +87,7 @@ public class PlaylistFileManager {
         File playlistFile = new File(playlistFolder, name + ".txt");
         if (playlistFile.exists()) {
             try {
-                List<String> lines = Files.lines(playlistFile.toPath(), Charset.defaultCharset()).collect(Collectors.toList());
+                List<String> lines = FileReader.lines(playlistFile);
                 if (!lines.isEmpty()) {
                     playlist.addAll(lines);
                 }
@@ -110,7 +111,7 @@ public class PlaylistFileManager {
         for (File file : files) {
             if (file.getName().equals("all.txt")) {
                 try {
-                    playlist.addAll(Files.lines(file.toPath(), Charset.defaultCharset()).collect(Collectors.toList()));
+                    playlist.addAll(FileReader.lines(file));
                 } catch (IOException ex) {
                     ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", ex);
                 }
@@ -138,11 +139,10 @@ public class PlaylistFileManager {
      * @param playlist List containing Track objects, which file paths are to be
      * saved.
      * @param name Name of the playlist, and the name of the .txt file.
-     * @param ok A value used to separate the method from the other save method.
      * @return Success of the save.
      */
-    public static boolean save(List<Track> playlist, String name, boolean ok) {
-        return save(playlist.stream().map(track -> track.getFilePath()).collect(Collectors.toList()), name);
+    public static boolean saveTracksAsPlaylist(List<Track> playlist, String name) {
+        return save(playlist.stream().map(Track::getFilePath).collect(Collectors.toList()), name);
     }
 
     /**
@@ -160,7 +160,7 @@ public class PlaylistFileManager {
             }
             int tracks = 0;
             try {
-                tracks = (int) Files.lines(file.toPath(), Charset.defaultCharset()).count();
+                tracks = FileReader.lines(file).size();
             } catch (IOException ex) {
             }
             if (tracks > 0) {

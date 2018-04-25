@@ -8,34 +8,22 @@ package com.djrapitops.nmplayer.functionality;
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.sun.javafx.application.PlatformImpl;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import javafx.scene.media.MediaPlayer;
-import org.junit.After;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Before;
 
-/**
- *
- * @author Rsl1122
- */
+import static org.junit.Assert.*;
+
 public class MusicPlayerTest {
 
     private MusicPlayer mp;
     private boolean calledProgressUpdate;
     private boolean calledUiUpdate;
 
-    /**
-     *
-     */
-    public MusicPlayerTest() {
-    }
-
-    /**
-     *
-     */
     @Before
     public void setUp() throws IOException {
         Files.deleteIfExists(new File(PlaylistFileManager.getPlaylistFolder(), "testplaylist.txt").toPath());
@@ -45,28 +33,17 @@ public class MusicPlayerTest {
         calledProgressUpdate = false;
         calledUiUpdate = false;
         assertEquals("None", mp.getSelectedPlaylist());
-        mp.setProgressBar(() -> {
-            calledProgressUpdate = true;
-        });
-        mp.setEndOfMediaUpdate(() -> {
-            calledUiUpdate = true;
-        });
+        mp.setProgressBar(() -> calledProgressUpdate = true);
+        mp.setEndOfMediaUpdate(() -> calledUiUpdate = true);
     }
 
-    /**
-     *
-     */
     @After
     public void tearDown() {
         mp.stop();
         mp.getPlaylistManager().clearPlaylist();
     }
 
-    /**
-     *
-     */
     @Test
-//    @Ignore("IllegalStateException: Tookit not initialized.")
     public void testInit() {
         mp.init();
         assertEquals("all", mp.getSelectedPlaylist());
@@ -75,18 +52,12 @@ public class MusicPlayerTest {
         assertTrue(mp.getPlaylistManager() != null);
     }
 
-    /**
-     *
-     */
     @Test
     public void testSelectPlaylist() {
         mp.selectPlaylist("testplaylist");
         assertEquals("testplaylist", mp.getSelectedPlaylist());
     }
 
-    /**
-     *
-     */
     @Test
     public void testNextTrack() {
         Track track = TrackFileManager.processFile(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3"));
@@ -117,9 +88,6 @@ public class MusicPlayerTest {
         assertEquals(0, mp.getPlaylistManager().getIndexOf(mp.getCurrentTrack()));
     }
 
-    /**
-     *
-     */
     @Test
     public void testPreviousTrack() {
         Track track = TrackFileManager.processFile(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3"));
@@ -150,9 +118,6 @@ public class MusicPlayerTest {
         assertEquals(mp.getPlaylist().size() - 1, mp.getPlaylistManager().getIndexOf(mp.getCurrentTrack()));
     }
 
-    /**
-     *
-     */
     @Test
     public void testPlay() {
         Track track = TrackFileManager.processFile(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3"));
@@ -165,9 +130,6 @@ public class MusicPlayerTest {
         assertEquals(track, mp.getCurrentTrack());
     }
 
-    /**
-     *
-     */
     @Test
     public void testPause() {
         Track track = TrackFileManager.processFile(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3"));
@@ -181,9 +143,6 @@ public class MusicPlayerTest {
         assertTrue(!mp.isPlaying());
     }
 
-    /**
-     *
-     */
     @Test
     public void testStop() {
         Track track = TrackFileManager.processFile(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3"));
@@ -198,9 +157,6 @@ public class MusicPlayerTest {
 
     }
 
-    /**
-     *
-     */
     @Test
     public void testSelectTrack_int() {
         Track track = TrackFileManager.processFile(new File(TrackFileManager.getFolder(), "Dj Rapitops - Arrival.mp3"));
@@ -210,9 +166,6 @@ public class MusicPlayerTest {
         assertEquals(track, mp.getCurrentTrack());
     }
 
-    /**
-     *
-     */
     @Test
     public void testAddTrackToPlaylist() {
         Track track = new Track("1", "2", "3");
@@ -221,19 +174,11 @@ public class MusicPlayerTest {
         assertTrue(mp.getPlaylistManager().hasTrack(track));
     }
 
-    /**
-     *
-     */
     @Test
     public void testGetMediaPlayer() {
-        MediaPlayer exp = null;
-        MediaPlayer result = MusicPlayer.getInstance().getMediaPlayer();
-        assertEquals(exp, result);
+        assertNull(MusicPlayer.getInstance().getMediaPlayer());
     }
 
-    /**
-     *
-     */
     @Test
     public void testGetInstance() {
         MusicPlayer result = MusicPlayer.getInstance();

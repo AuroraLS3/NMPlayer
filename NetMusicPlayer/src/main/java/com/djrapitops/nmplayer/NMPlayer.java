@@ -1,8 +1,5 @@
 package com.djrapitops.nmplayer;
 
-import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import com.djrapitops.nmplayer.messaging.MessageSender;
-import com.djrapitops.nmplayer.messaging.Phrase;
 import com.djrapitops.nmplayer.ui.UserInterface;
 
 /**
@@ -22,23 +19,7 @@ public class NMPlayer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MusicPlayer mp = MusicPlayer.getInstance();
-
-        new Thread() {
-            @Override
-            public void run() {
-                javafx.application.Application.launch(UserInterface.class);
-            }
-        }.start();
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException ex) {
-//        }
-//        try {
-//            mp.init();
-//        } catch (IllegalStateException e) {
-//            MessageSender.getInstance().send(Phrase.ERROR_JAVAFX + "");
-//        }
+        UserInterface.start(args);
     }
 
 }
