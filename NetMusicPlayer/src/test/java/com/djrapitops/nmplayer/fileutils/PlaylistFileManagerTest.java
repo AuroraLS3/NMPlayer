@@ -65,14 +65,9 @@ public class PlaylistFileManagerTest {
         exceptionFolder.mkdir();
         List<String> expResult = new ArrayList<>();
         expResult.add("testlink");
-        File errors = new File("Errors.txt");
-        ErrorManager.toLog("Test");
-        long linesBefore = getLineCount(errors);
         if (PlaylistFileManager.save(expResult, name)) {
             fail("Succeeded to saveTracksAsPlaylist");
         }
-        long linesNow = getLineCount(errors);
-        assertTrue("Did not catch IOException, is folder", linesBefore < linesNow);
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
         assertTrue("Didn't create playlist file", !new File(PlaylistFileManager.getPlaylistFolder(), name + ".txt").isFile());
         Files.deleteIfExists(new File(PlaylistFileManager.getPlaylistFolder(), name + ".txt").toPath());

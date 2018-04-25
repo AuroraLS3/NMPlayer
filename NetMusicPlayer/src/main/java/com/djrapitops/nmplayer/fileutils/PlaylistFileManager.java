@@ -10,8 +10,6 @@ import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -50,13 +48,7 @@ public class PlaylistFileManager {
     public static boolean save(List<String> filepaths, String name) {
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
-        try {
-            Files.write(playlistFile.toPath(), filepaths, Charset.defaultCharset());
-        } catch (IOException e) {
-            ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", e);
-            return false;
-        }
-        return true;
+        return FileWriter.writeFile(filepaths, playlistFile);
     }
 
     /**

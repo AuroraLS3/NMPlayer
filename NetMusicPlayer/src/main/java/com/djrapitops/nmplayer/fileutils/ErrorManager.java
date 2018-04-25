@@ -9,14 +9,8 @@ import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class is used to write caught <tt>Throwable</tt> objects to Errors.txt
@@ -81,14 +75,7 @@ public class ErrorManager {
 
     private static void toLog(List<String> toWrite) {
         File log = new File("Errors.txt");
-        try {
-            if (!log.exists() && !log.createNewFile()) {
-                throw new IllegalStateException("Errors.txt could not be created");
-            }
-            Files.write(log.toPath(), toWrite, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            Logger.getGlobal().log(Level.WARNING, "Failed to write to Errors.txt", e);
-        }
+        FileWriter.appendToFile(toWrite, log);
     }
 
     /**
