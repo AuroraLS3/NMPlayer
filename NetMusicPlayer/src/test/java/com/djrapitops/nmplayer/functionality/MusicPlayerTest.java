@@ -10,7 +10,6 @@ import com.djrapitops.nmplayer.fileutils.TrackFileManager;
 import com.sun.javafx.application.PlatformImpl;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,7 +18,6 @@ import java.nio.file.Files;
 
 import static org.junit.Assert.*;
 
-@Ignore("Skip MusicPlayerTest, Travis fails")
 public class MusicPlayerTest {
 
     private MusicPlayer mp;
