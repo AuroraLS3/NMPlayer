@@ -84,7 +84,7 @@ public class PlaylistFileManager {
                     playlist.addAll(lines);
                 }
             } catch (Exception ex) {
-                ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", ex);
+                ErrorManager.toLog(PlaylistFileManager.class, ex);
             }
         }
         return playlist;
@@ -105,7 +105,7 @@ public class PlaylistFileManager {
                 try {
                     playlist.addAll(FileReader.lines(file));
                 } catch (IOException ex) {
-                    ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.PlaylistFileManager", ex);
+                    ErrorManager.toLog(PlaylistFileManager.class, ex);
                 }
             }
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {

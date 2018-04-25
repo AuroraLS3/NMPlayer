@@ -111,7 +111,6 @@ public class TrackFileManager {
     /**
      * Used to get the Artist from the .mp3 file metadata.
      *
-     * <p>
      * If the mp3 does not have a ID3v2 or ID3v1 tag, "Artist" will be returned.
      *
      * @param file .mp3 file to read the ID3 tag from.
@@ -132,7 +131,7 @@ public class TrackFileManager {
                     }
                 }
             } catch (IOException | UnsupportedTagException | InvalidDataException ex) {
-                ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.TrackFileManager", ex);
+                ErrorManager.toLog(TrackFileManager.class, ex);
             }
         }
         if (artist == null) {
@@ -152,7 +151,6 @@ public class TrackFileManager {
 
     /**
      * Used to get the Track name from the .mp3 file metadata.
-     *
      * <p>
      * If the mp3 does not have a ID3v2 or ID3v1 tag, "Track" will be returned.
      *
@@ -174,7 +172,7 @@ public class TrackFileManager {
                     }
                 }
             } catch (IOException | UnsupportedTagException | InvalidDataException ex) {
-                ErrorManager.toLog("com.djrapitops.nmplayer.fileutils.TrackFileManager", ex);
+                ErrorManager.toLog(TrackFileManager.class, ex);
             }
         }
         if (title == null) {

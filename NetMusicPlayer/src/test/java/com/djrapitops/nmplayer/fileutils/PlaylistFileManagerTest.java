@@ -6,7 +6,6 @@
 package com.djrapitops.nmplayer.fileutils;
 
 import com.djrapitops.nmplayer.functionality.Track;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,13 +18,6 @@ import static com.djrapitops.nmplayer.fileutils.PlaylistFileManager.getPlaylistF
 import static org.junit.Assert.*;
 
 public class PlaylistFileManagerTest {
-
-    public PlaylistFileManagerTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
 
     @Test
     public void testGetPlaylistFolder() {

@@ -25,13 +25,13 @@ public class ErrorManager {
     /**
      * Logs caught Throwable to Errors.txt.
      *
-     * @param source    Name of the source class.
+     * @param source    Class that caught the exception
      * @param throwable Throwable that was caught by the program.
      */
-    public static void toLog(String source, Throwable throwable) {
+    public static void toLog(Class source, Throwable throwable) {
         MessageSender.getInstance().send(Phrase.ERROR + "");
         List<String> stackTrace = new ArrayList<>();
-        stackTrace.add(source + " Caught " + throwable);
+        stackTrace.add(source.getName() + " Caught " + throwable);
         appendStackTrace(throwable, stackTrace);
         Throwable cause = throwable.getCause();
         while (cause != null) {
@@ -47,18 +47,6 @@ public class ErrorManager {
     private static void appendStackTrace(Throwable throwable, List<String> stackTrace) {
         for (StackTraceElement x : throwable.getStackTrace()) {
             stackTrace.add("  " + x);
-        }
-    }
-
-    /**
-     * Logs multiple caught Throwables to Errors.txt.
-     *
-     * @param source Class name the exception was caught in.
-     * @param e      Collection of caught Throwables, eg NullPointerException
-     */
-    public static void toLog(String source, Collection<Throwable> e) {
-        for (Throwable ex : e) {
-            toLog(source, ex);
         }
     }
 
