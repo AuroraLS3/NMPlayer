@@ -7,10 +7,12 @@ package com.djrapitops.nmplayer.messaging;
 
 import com.djrapitops.nmplayer.ui.TextConsole;
 import com.sun.javafx.application.PlatformImpl;
+import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -52,7 +54,7 @@ public class MessageSenderTest {
         PlatformImpl.startup(() -> {
         });
         TextConsole textConsole = new TextConsole();
-        MessageSender m = new MessageSender();
+        MessageSender m = MessageSender.getInstance();
         m.setOutput(textConsole);
         m.send(exp);
         assertTrue("Sys out included test message", !outContent.toString().contains(exp));

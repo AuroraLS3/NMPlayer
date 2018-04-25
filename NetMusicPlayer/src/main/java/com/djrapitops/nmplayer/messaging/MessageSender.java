@@ -5,6 +5,7 @@
  */
 package com.djrapitops.nmplayer.messaging;
 
+import com.djrapitops.nmplayer.java.MethodRef;
 import com.djrapitops.nmplayer.ui.TextConsole;
 
 /**
@@ -22,12 +23,19 @@ import com.djrapitops.nmplayer.ui.TextConsole;
  */
 public class MessageSender {
 
-    TextConsole con;
+    private MethodRef<String> output;
+
+    private MessageSender() {
+        this.output = System.out::println;
+    }
 
     /**
-     * Creates a new MessageSender object.
+     * Used to Grab the MessageSender to access it's methods.
+     *
+     * @return INSTANCE of MessageSender created in MessageSenderSingletonHolder.
      */
-    public MessageSender() {
+    public static MessageSender getInstance() {
+        return MessageSenderSingletonHolder.INSTANCE;
     }
 
     /**
@@ -36,40 +44,28 @@ public class MessageSender {
      * If a TextConsole has not been set, System.out will be used instead to
      * deliver the message.
      *
-     * @param s Message to be sent.
+     * @param message Message to be sent.
      */
-    public void send(String s) {
-        if (con != null) {
-            if (!con.getText().isEmpty()) {
-                con.appendText(System.getProperty("line.separator"));
-            }
-            con.appendText(s);
-            con.scrollTopProperty().set(Double.MAX_VALUE);
-        } else {
-            System.out.println(s);
-        }
+    public void send(String message) {
+        output.call(message);
     }
 
     /**
      * Used to change the output of the MessageSender.
      * <p>
-     * If given null as a parameter MessageSender will revert back to using
-     * System.out as output.
+     * If given null as a parameter MessageSender will revert back to using System.out as output.
      *
      * @param console TextConsole to output to.
      */
     public void setOutput(TextConsole console) {
-        con = console;
-    }
-
-    /**
-     * Used to Grab the MessageSender to access it's methods.
-     *
-     * @return INSTANCE of MessageSender created in
-     * MessageSenderSingletonHolder.
-     */
-    public static MessageSender getInstance() {
-        return MessageSenderSingletonHolder.INSTANCE;
+        if (console != null) {
+            output = message -> {
+                console.appendText(message + System.getProperty("line.separator"));
+                console.scrollTopProperty().set(Double.MAX_VALUE);
+            };
+        } else {
+            output = System.out::println;
+        }
     }
 
     private static class MessageSenderSingletonHolder {

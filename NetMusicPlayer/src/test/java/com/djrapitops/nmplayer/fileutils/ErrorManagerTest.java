@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ErrorManagerTest {
@@ -38,14 +37,4 @@ public class ErrorManagerTest {
             assertTrue("Made file", errors.isDirectory());
         }
     }
-
-    @Test
-    public void testFormatTimeStamp() {
-        System.out.println("ErrorManager.formatTimeStamp test");
-        long ms = 0L;
-        String expResult = "Jan 01 02:00:00";
-        String result = ErrorManager.formatTimeStamp(ms);
-        assertEquals(expResult, result);
-    }
-
 }
