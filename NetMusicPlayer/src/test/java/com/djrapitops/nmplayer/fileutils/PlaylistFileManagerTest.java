@@ -21,11 +21,9 @@ public class PlaylistFileManagerTest {
 
     @Test
     public void testGetPlaylistFolder() {
-        PlaylistFileManager t = new PlaylistFileManager();
-        System.out.println("  Test getPlaylistFolder");
-        File expResult = new File("playlists");
+        File expected = new File("playlists");
         File result = PlaylistFileManager.getPlaylistFolder();
-        assertEquals(expResult, result);
+        assertEquals(expected, result);
         assertTrue("Didn't create playlists folder", new File("playlists").exists());
     }
 
@@ -66,7 +64,7 @@ public class PlaylistFileManagerTest {
     }
 
     private int getLineCount(File errors) throws IOException {
-        return FileReader.lines(errors).size();
+        return FileUtility.lines(errors).size();
     }
 
     @Test
@@ -117,7 +115,7 @@ public class PlaylistFileManagerTest {
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {
                 continue;
             }
-            assertTrue(loaded.containsAll(FileReader.lines(file)));
+            assertTrue(loaded.containsAll(FileUtility.lines(file)));
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
             boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));
@@ -137,7 +135,7 @@ public class PlaylistFileManagerTest {
             if (file.isDirectory() || !file.canRead() || !file.getName().endsWith(".txt") || file.getName().equals("all.txt")) {
                 continue;
             }
-            assertTrue(loaded.containsAll(FileReader.lines(file)));
+            assertTrue(loaded.containsAll(FileUtility.lines(file)));
         }
         for (File trackF : TrackFileManager.getFolder().listFiles()) {
             boolean isSupportedFileType = (trackF.getName().endsWith(".mp3") || trackF.getName().endsWith(".wav"));

@@ -5,7 +5,7 @@ import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.PlaylistManager;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
-import com.djrapitops.nmplayer.ui.Updateable;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -31,7 +31,7 @@ public class ChangePlaylistButton extends Button {
      * @see UITrack
      * @see PlaylistManager
      */
-    public ChangePlaylistButton(TextField t, Updateable u) {
+    public ChangePlaylistButton(TextField t, Updatable u) {
         super.setText("Change Playlist");
         super.setStyle("-fx-background-color: White");
         super.setAlignment(Pos.CENTER_RIGHT);
@@ -49,7 +49,7 @@ public class ChangePlaylistButton extends Button {
      *          successful)
      * @throws IllegalStateException If JavaFx Application is not running.
      */
-    public void changePlaylist(TextField t, Updateable u) {
+    public void changePlaylist(TextField t, Updatable u) {
         String newPlaylist = t.getText().toLowerCase().trim();
         if (newPlaylist.isEmpty()) {
             MessageSender.getInstance().send(Phrase.EMPTY_NAME.parse(PlaylistFileManager.getKnownPlaylists()));

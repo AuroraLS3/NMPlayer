@@ -1,10 +1,8 @@
 package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import com.djrapitops.nmplayer.functionality.Track;
 import com.djrapitops.nmplayer.functionality.PlaylistManager;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.djrapitops.nmplayer.functionality.Track;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
@@ -31,21 +29,20 @@ public class SelectButton extends Button {
         final MusicPlayer mp = MusicPlayer.getInstance();
         Track track = uiTrack.getTrack();
         if (track.equals(mp.getCurrentTrack())) {
-            super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
+            setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
         } else {
-            super.setStyle("-fx-background-color: White");
+            setStyle("-fx-background-color: White");
         }
-        super.setAlignment(Pos.CENTER_LEFT);
-        super.setText(uiTrack.getTrack().toString().replace("_", " "));
-        super.setPrefWidth(10000);
-        EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
+        setAlignment(Pos.CENTER_LEFT);
+        setText(uiTrack.getTrack().toString().replace("_", " "));
+        setPrefWidth(10000);
+        setOnAction(event -> {
             if (!mp.getCurrentTrack().equals(uiTrack.getTrack()) || !mp.isPlaying()) {
                 mp.selectTrack(track);
                 mp.play();
                 uiTrack.update();
             }
-        };
-        super.setOnAction(h);
+        });
     }
 
 }

@@ -5,15 +5,14 @@
  */
 package com.djrapitops.nmplayer.functionality;
 
-import com.djrapitops.nmplayer.functionality.PlaylistManager;
-import com.djrapitops.nmplayer.functionality.Track;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
- *
  * @author Rsl1122
  */
 public class PlaylistManagerTest {
@@ -85,7 +84,7 @@ public class PlaylistManagerTest {
     public void testSetPlaylist() {
         System.out.println("Test PlaylistManager.setPlaylist");
         PlaylistManager instance = new PlaylistManager();
-        List<Track> expResult = new ArrayList();
+        List<Track> expResult = new ArrayList<>();
         expResult.add(new Track("1", "2", "3"));
         expResult.add(new Track("2", "4", "5"));
         expResult.add(new Track("3", "7", "6"));
@@ -127,9 +126,8 @@ public class PlaylistManagerTest {
         instance.addTrackToPlaylist(new Track("3", "7", "6"));
         instance.addTrackToPlaylist(new Track("5", "32", "345"));
         instance.addTrackToPlaylist(new Track("1", "Unknown", "3437"));
-        Track expResult = null;
         Track result = instance.getTrackByName(trackName);
-        assertEquals(expResult, result);
+        assertNull(result);
     }
 
     /**
@@ -240,7 +238,7 @@ public class PlaylistManagerTest {
         assertTrue(m.hasTrack(o2));
         assertTrue(m.hasTrack(o3));
     }
-    
+
     @Test
     public void testHasTrackFalse() {
         PlaylistManager m = new PlaylistManager();
@@ -250,9 +248,9 @@ public class PlaylistManagerTest {
         m.addTrackToPlaylist(o1);
         m.addTrackToPlaylist(o2);
         m.addTrackToPlaylist(o3);
-        assertTrue(!m.hasTrack(new Track("-","-","-")));
+        assertTrue(!m.hasTrack(new Track("-", "-", "-")));
     }
-    
+
     @Test
     public void testSetRandom() {
         PlaylistManager m = new PlaylistManager();

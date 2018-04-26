@@ -37,17 +37,17 @@ import java.util.List;
  * @see Application
  * @see Stage
  */
-public class UserInterface extends Application implements Updateable {
+public class UserInterface extends Application implements Updatable {
 
-    private final List<Updateable> updateableComponents;
+    private final List<Updatable> updatableComponents;
     private Stage stage;
     private VBox toolbar;
 
     /**
-     * Constructor that initializes updateableComponents List.
+     * Constructor that initializes updatableComponents List.
      */
     public UserInterface() {
-        updateableComponents = new ArrayList<>();
+        updatableComponents = new ArrayList<>();
     }
 
     public static void start(String[] args) {
@@ -64,8 +64,8 @@ public class UserInterface extends Application implements Updateable {
         scroll.setHbarPolicy(ScrollBarPolicy.NEVER);
         box.getChildren().add(changePlaylistBox);
         box.getChildren().add(scroll);
-        updateableComponents.add((Updateable) changePlaylistBox);
-        updateableComponents.add((Updateable) playlist);
+        updatableComponents.add((Updatable) changePlaylistBox);
+        updatableComponents.add((Updatable) playlist);
         return box;
     }
 
@@ -87,20 +87,20 @@ public class UserInterface extends Application implements Updateable {
         controls.setSpacing(5);
         controls.setStyle("-fx-background-color: White");
         final PlayButton play = new PlayButton(this);
-        updateableComponents.add(play);
+        updatableComponents.add(play);
         ObservableList<Node> conponents = controls.getChildren();
         ShuffleButton shuffle = new ShuffleButton();
         conponents.add(shuffle);
-        updateableComponents.add(shuffle);
+        updatableComponents.add(shuffle);
         conponents.add(new PreviousButton(this));
         conponents.add(play);
         conponents.add(new StopButton(this));
         conponents.add(new NextButton(this));
         VolumeSlider volumeSlider = new VolumeSlider();
-        updateableComponents.add(volumeSlider);
+        updatableComponents.add(volumeSlider);
         conponents.add(volumeSlider);
         TrackProgressBar progress = new TrackProgressBar();
-        updateableComponents.add(progress);
+        updatableComponents.add(progress);
         box.getChildren().add(progress);
         box.getChildren().add(controls);
         return box;
@@ -108,7 +108,7 @@ public class UserInterface extends Application implements Updateable {
 
     @Override
     public void update() {
-        for (Updateable u : updateableComponents) {
+        for (Updatable u : updatableComponents) {
             u.update();
         }
         MusicPlayer mp = MusicPlayer.getInstance();

@@ -23,8 +23,6 @@ import static org.junit.Assert.*;
 public class MusicPlayerTest {
 
     private MusicPlayer mp;
-    private boolean calledProgressUpdate;
-    private boolean calledUiUpdate;
 
     @Before
     public void setUp() throws IOException {
@@ -32,11 +30,7 @@ public class MusicPlayerTest {
         PlatformImpl.startup(() -> {
         });
         mp = new MusicPlayer();
-        calledProgressUpdate = false;
-        calledUiUpdate = false;
         assertEquals("None", mp.getSelectedPlaylist());
-        mp.setProgressBar(() -> calledProgressUpdate = true);
-        mp.setEndOfMediaUpdate(() -> calledUiUpdate = true);
     }
 
     @After

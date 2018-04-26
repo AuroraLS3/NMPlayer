@@ -3,9 +3,7 @@ package com.djrapitops.nmplayer.ui.toolbar;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.PlaylistManager;
-import com.djrapitops.nmplayer.ui.Updateable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.scene.control.Button;
 
 /**
@@ -14,7 +12,7 @@ import javafx.scene.control.Button;
  * @author Rsl1122
  * @see MusicPlayer
  */
-public class ShuffleButton extends Button implements Updateable {
+public class ShuffleButton extends Button implements Updatable {
 
     /**
      * Constructor for the Button.
@@ -24,22 +22,21 @@ public class ShuffleButton extends Button implements Updateable {
      * @see MusicPlayer
      */
     public ShuffleButton() {
-        super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
-        super.setPrefWidth(30);
-        EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
+        setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
+        setPrefWidth(30);
+        setOnAction(event -> {
             PlaylistManager manager = MusicPlayer.getInstance().getPlaylistManager();
             manager.setRandom(!manager.isRandom());
             update();
-        };
-        super.setOnAction(h);
+        });
     }
 
     @Override
     public void update() {
         if (!MusicPlayer.getInstance().getPlaylistManager().isRandom()) {
-            super.setText("🔁");
+            setText("🔁");
         } else {
-            super.setText("🔀");
+            setText("🔀");
         }
     }
 

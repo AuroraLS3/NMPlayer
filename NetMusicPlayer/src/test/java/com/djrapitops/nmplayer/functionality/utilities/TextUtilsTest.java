@@ -25,7 +25,6 @@ public class TextUtilsTest {
      */
     @Test
     public void testUppercaseFirst() {
-        TextUtils t = new TextUtils();
         assertEquals("Testuppercasefirst", TextUtils.uppercaseFirst("tEStUppercaseFIRST"));
     }
     

@@ -29,7 +29,6 @@ public class ErrorManagerTest {
 
     @Test
     public void testToLog_IOException() {
-        ErrorManager t = new ErrorManager();
         File errors = new File("Errors.txt");
         errors.mkdir();
         ErrorManager.toLog("TestError");

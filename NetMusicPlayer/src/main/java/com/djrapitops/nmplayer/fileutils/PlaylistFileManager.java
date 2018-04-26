@@ -18,11 +18,9 @@ import java.util.stream.Collectors;
 
 /**
  * This class is used to write .txt files inside the /playlists/ folder.
- *
  * <p>
  * The .txt files contain absolute file paths to the .mp3 files used by the
  * program.
- *
  * <p>
  * All the methods are static.
  *
@@ -32,23 +30,19 @@ public class PlaylistFileManager {
 
     /**
      * Saves the {filepaths} list to a {name}.txt file.
-     *
      * <p>
      * If playlists folder doesn't exist it will be created.
-     *
      * <p>
-     * If a file with the name exists inside the folder, it's contents will be
-     * overwritten.
+     * If a file with the name exists inside the folder, it's contents will be overwritten.
      *
-     * @param filepaths a List containing filepaths to .mp3 files inside the
-     * playlist.
-     * @param name Name of the playlist, and the name of the .txt file
+     * @param filepaths a List containing filepaths to .mp3 files inside the playlist.
+     * @param name      Name of the playlist, and the name of the .txt file
      * @return Success of the save.
      */
     public static boolean save(List<String> filepaths, String name) {
         File playlistFolder = getPlaylistFolder();
         File playlistFile = new File(playlistFolder, name + ".txt");
-        return FileWriter.writeFile(filepaths, playlistFile);
+        return FileUtility.writeFile(filepaths, playlistFile);
     }
 
     /**
@@ -79,7 +73,7 @@ public class PlaylistFileManager {
         File playlistFile = new File(playlistFolder, name + ".txt");
         if (playlistFile.exists()) {
             try {
-                List<String> lines = FileReader.lines(playlistFile);
+                List<String> lines = FileUtility.lines(playlistFile);
                 if (!lines.isEmpty()) {
                     playlist.addAll(lines);
                 }
@@ -103,7 +97,7 @@ public class PlaylistFileManager {
         for (File file : files) {
             if (file.getName().equals("all.txt")) {
                 try {
-                    playlist.addAll(FileReader.lines(file));
+                    playlist.addAll(FileUtility.lines(file));
                 } catch (IOException ex) {
                     ErrorManager.toLog(PlaylistFileManager.class, ex);
                 }
@@ -129,8 +123,8 @@ public class PlaylistFileManager {
      * approppriate file.
      *
      * @param playlist List containing Track objects, which file paths are to be
-     * saved.
-     * @param name Name of the playlist, and the name of the .txt file.
+     *                 saved.
+     * @param name     Name of the playlist, and the name of the .txt file.
      * @return Success of the save.
      */
     public static boolean saveTracksAsPlaylist(List<Track> playlist, String name) {
@@ -152,7 +146,7 @@ public class PlaylistFileManager {
             }
             int tracks = 0;
             try {
-                tracks = FileReader.lines(file).size();
+                tracks = FileUtility.lines(file).size();
             } catch (IOException ex) {
             }
             if (tracks > 0) {

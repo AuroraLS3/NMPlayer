@@ -1,3 +1,4 @@
-/cs/home/ristolah/NetBeansProjects/NMPlayer/NetMusicPlayer/tracks/Dj Rapitops - Evacuate.mp3
-/cs/home/ristolah/NetBeansProjects/NMPlayer/NetMusicPlayer/tracks/Dj Rapitops - Heart in Distress.mp3
-/cs/home/ristolah/NetBeansProjects/NMPlayer/NetMusicPlayer/tracks/Dj Rapitops - Arrival.mp3
+D:\Programming\Java\NMPlayer\NetMusicPlayer\tracks\Dj Rapitops - Arrival.mp3
+D:\Programming\Java\NMPlayer\NetMusicPlayer\tracks\Dj Rapitops - Evacuate.mp3
+D:\Programming\Java\NMPlayer\NetMusicPlayer\tracks\Dj Rapitops - Heart in Distress.mp3
+D:\Dropbox\Dj Rapitops Track folder\Tracks\Dj Rapitops - Asymmetric.mp3

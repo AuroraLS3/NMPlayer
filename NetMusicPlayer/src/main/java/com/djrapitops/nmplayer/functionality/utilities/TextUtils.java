@@ -7,6 +7,10 @@ package com.djrapitops.nmplayer.functionality.utilities;
  */
 public class TextUtils {
 
+    private TextUtils() {
+        /* Hide constructor. */
+    }
+
     /**
      * Formats a string so that the first letter is upper-case and rest is
      * lowercase.

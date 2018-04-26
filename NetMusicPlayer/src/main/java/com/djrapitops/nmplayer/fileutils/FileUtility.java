@@ -5,16 +5,32 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
- * Appends lines to text files.
+ * Utility for reading and writing to text files.
  *
  * @author Rsl1122
  */
-public class FileWriter {
+public class FileUtility {
+
+    private FileUtility() {
+        /* Hide constructor. */
+    }
+
+    public static List<String> lines(File file) throws IOException {
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+        try (Stream<String> fileStream = Files.lines(file.toPath(), Charset.forName("UTF-8"))) {
+            return fileStream.collect(Collectors.toList());
+        }
+    }
 
     public static boolean writeFile(List<String> toWrite, File file) {
         try {
@@ -38,5 +54,4 @@ public class FileWriter {
             return false;
         }
     }
-
 }

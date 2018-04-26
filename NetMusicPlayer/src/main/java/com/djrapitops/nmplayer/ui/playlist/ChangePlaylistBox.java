@@ -5,14 +5,12 @@
  */
 package com.djrapitops.nmplayer.ui.playlist;
 
-import com.djrapitops.nmplayer.ui.Updateable;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 /**
@@ -21,7 +19,7 @@ import javafx.scene.layout.HBox;
  *
  * @author ristolah
  */
-public class ChangePlaylistBox extends HBox implements Updateable {
+public class ChangePlaylistBox extends HBox implements Updatable {
 
     private TextField selector;
 
@@ -32,23 +30,20 @@ public class ChangePlaylistBox extends HBox implements Updateable {
      * KeyEvent listener for the textfield, if Enter is pressed the Change
      * Playlist button's action will be performed.
      *
-     * @param u Updateable which .update() will be called when playlist is
+     * @param u Updatable which .update() will be called when playlist is
      * changed.
      * @param addTrackButton Already created AddTrackButton to add to this box.
      */
-    public ChangePlaylistBox(Updateable u, AddTrackButton addTrackButton) {
+    public ChangePlaylistBox(Updatable u, AddTrackButton addTrackButton) {
         super.setAlignment(Pos.CENTER);
         super.alignmentProperty().isBound();
         super.setSpacing(5);
         selector = new TextField();
         selector.setPromptText("Enter Playlist Name");
         ChangePlaylistButton changePlaylistButton = new ChangePlaylistButton(selector, u);
-        selector.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    changePlaylistButton.changePlaylist(selector, u);
-                }
+        selector.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                changePlaylistButton.changePlaylist(selector, u);
             }
         });
         ObservableList<Node> components = super.getChildren();

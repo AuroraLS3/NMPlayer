@@ -12,12 +12,12 @@ import com.djrapitops.nmplayer.functionality.MusicPlayer;
  *
  * @author Risto
  */
-public interface Updateable {
+public interface Updatable {
 
     /**
      * Updates the UI Component according to the status of MusicPlayer.
      *
      * @see MusicPlayer
      */
-    public void update();
+    void update();
 }

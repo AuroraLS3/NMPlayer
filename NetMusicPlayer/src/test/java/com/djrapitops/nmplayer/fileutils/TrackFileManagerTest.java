@@ -34,7 +34,6 @@ public class TrackFileManagerTest {
      */
     @Test
     public void testGetFolder() {
-        TrackFileManager t = new TrackFileManager();
         File folder = TrackFileManager.getFolder();
         assertTrue("Didn't create folder", folder.exists());
         assertEquals(new File("tracks"), folder);
@@ -175,7 +174,7 @@ public class TrackFileManagerTest {
         if (!errors.exists()) {
             return 0;
         }
-        return FileReader.lines(errors).size();
+        return FileUtility.lines(errors).size();
     }
 
     @Test

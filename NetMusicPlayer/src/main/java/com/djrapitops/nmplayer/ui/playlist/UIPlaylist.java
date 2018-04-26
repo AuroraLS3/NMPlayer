@@ -7,7 +7,7 @@ package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.Track;
-import com.djrapitops.nmplayer.ui.Updateable;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,18 +22,18 @@ import java.util.List;
  *
  * @author ristolah
  */
-public final class UIPlaylist extends VBox implements Updateable {
+public final class UIPlaylist extends VBox implements Updatable {
 
-    private Updateable ui;
+    private Updatable ui;
 
     /**
      * Class constructor.
      * 
-     * Sets the Updateable to give to the UITrack elements' click event.
+     * Sets the Updatable to give to the UITrack elements' click event.
      * 
-     * @param ui Updateable to be called when a UITrack's button is pressed.
+     * @param ui Updatable to be called when a UITrack's button is pressed.
      */
-    public UIPlaylist(Updateable ui) {
+    public UIPlaylist(Updatable ui) {
         this.ui = ui;
         super.setAlignment(Pos.TOP_LEFT);
         super.alignmentProperty().isBound();

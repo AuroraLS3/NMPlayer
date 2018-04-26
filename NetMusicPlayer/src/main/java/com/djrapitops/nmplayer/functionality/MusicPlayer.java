@@ -6,13 +6,11 @@ import com.djrapitops.nmplayer.functionality.utilities.TextUtils;
 import com.djrapitops.nmplayer.functionality.utilities.TrackComparator;
 import com.djrapitops.nmplayer.messaging.MessageSender;
 import com.djrapitops.nmplayer.messaging.Phrase;
-import com.djrapitops.nmplayer.ui.Updateable;
-import javafx.beans.Observable;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,8 +31,8 @@ public class MusicPlayer {
     private final PlaylistManager playlist;
     private final MessageSender msg;
     private MediaPlayer mp;
-    private Updateable progressBar;
-    private Updateable ui;
+    private Updatable progressBar;
+    private Updatable ui;
 
     private String selectedPlaylist;
     private boolean playing;
@@ -95,7 +93,7 @@ public class MusicPlayer {
         selectedPlaylist = playlistName;
         List<Track> newPlaylist = TrackFileManager.translateToTracks(PlaylistFileManager.load(selectedPlaylist));
         if (selectedPlaylist.equals("all")) {
-            Collections.sort(newPlaylist, new TrackComparator());
+            newPlaylist.sort(new TrackComparator());
         }
         playlist.setPlaylist(newPlaylist);
         msg.send(Phrase.SELECTED_PLAYLIST.parse(TextUtils.uppercaseFirst(playlistName)));
@@ -225,19 +223,12 @@ public class MusicPlayer {
             }
             mp = new MediaPlayer(play);
             mp.setVolume(volume);
-            mp.setOnEndOfMedia(new Runnable() {
-                @Override
-                public void run() {
-                    nextTrack();
-                    ui.update();
-                }
+            mp.setOnEndOfMedia(() -> {
+                nextTrack();
+                ui.update();
             });
-            mp.currentTimeProperty().addListener((Observable ov) -> {
-                progressBar.update();
-            });
-            mp.setOnReady(() -> {
-                progressBar.update();
-            });
+            mp.currentTimeProperty().addListener(observable -> progressBar.update());
+            mp.setOnReady(() -> progressBar.update());
             playlist.setCurrentTrack(track);
         }
     }
@@ -406,23 +397,23 @@ public class MusicPlayer {
     }
 
     /**
-     * Used to set the Updateable which .update() method will be called when the
+     * Used to set the Updatable which .update() method will be called when the
      * playback moves forward.
      *
-     * @param progressBar An Object that implements Updateable
+     * @param progressBar An Object that implements Updatable
      */
-    public void setProgressBar(Updateable progressBar) {
+    public void setProgressBar(Updatable progressBar) {
         this.progressBar = progressBar;
     }
 
     /**
-     * Used to set the Updateable which .update method will be called when the
+     * Used to set the Updatable which .update method will be called when the
      * playback ends at the end of file.
      *
-     * @param updateable An Object that implements Updateable
+     * @param updatable An Object that implements Updatable
      */
-    public void setEndOfMediaUpdate(Updateable updateable) {
-        this.ui = updateable;
+    public void setEndOfMediaUpdate(Updatable updatable) {
+        this.ui = updatable;
     }
 
     /**

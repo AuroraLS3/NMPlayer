@@ -63,8 +63,7 @@ public class RandomOrderUtilityTest {
     public void testContainsAllNumbers() {
         RandomOrderUtility r = new RandomOrderUtility(1000, 0);
         List<Integer> test = r.getIndexOrderList();
-        Set<Integer> unique = new HashSet<>();
-        unique.addAll(test);
+        Set<Integer> unique = new HashSet<>(test);
         assertEquals(test.size(), unique.size());
     }
     

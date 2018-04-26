@@ -8,9 +8,7 @@ package com.djrapitops.nmplayer.ui.toolbar;
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.PlaylistManager;
-import com.djrapitops.nmplayer.ui.Updateable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.scene.control.Button;
 
 /**
@@ -32,15 +30,14 @@ public class PreviousButton extends Button {
      * @param u A UI Component to update when the button is pressed.
      * @see MusicPlayer
      */
-    public PreviousButton(Updateable u) {
-        super.setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
-        super.setPrefWidth(30);
-        super.setText("⏪");
-        EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
+    public PreviousButton(Updatable u) {
+        setStyle("-fx-background-color: #8290ed; -fx-text-fill: White");
+        setPrefWidth(30);
+        setText("⏪");
+        setOnAction(event -> {
             MusicPlayer.getInstance().previousTrack();
             u.update();
-        };
-        super.setOnAction(h);
+        });
     }
 
 }

@@ -1,7 +1,7 @@
 package com.djrapitops.nmplayer.ui.toolbar;
 
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
-import com.djrapitops.nmplayer.ui.Updateable;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.beans.Observable;
 import javafx.scene.control.Slider;
 
@@ -11,9 +11,7 @@ import javafx.scene.control.Slider;
  * @author Risto
  * @see MusicPlayer
  */
-public class VolumeSlider extends Slider implements Updateable {
-
-    VolumeSlider bar = this;
+public class VolumeSlider extends Slider implements Updatable {
 
     /**
      * Constructor.
@@ -23,15 +21,16 @@ public class VolumeSlider extends Slider implements Updateable {
      */
     public VolumeSlider() {
         this.update();
+
         super.valueProperty().addListener((Observable ov) -> {
-            if (bar.isValueChanging()) {
-                MusicPlayer.getInstance().setVolume(bar.getValue() / 100);
+            if (isValueChanging()) {
+                MusicPlayer.getInstance().setVolume(getValue() / 100);
             }
         });
     }
 
     @Override
     public void update() {
-        bar.adjustValue(MusicPlayer.getInstance().getVolume() * 100);
+        adjustValue(MusicPlayer.getInstance().getVolume() * 100);
     }
 }

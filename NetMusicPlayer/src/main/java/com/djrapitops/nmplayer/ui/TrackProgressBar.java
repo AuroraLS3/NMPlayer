@@ -10,7 +10,7 @@ import javafx.scene.control.Slider;
  *
  * @author Risto
  */
-public class TrackProgressBar extends Slider implements Updateable {
+public class TrackProgressBar extends Slider implements Updatable {
 
     /**
      * Constructor.

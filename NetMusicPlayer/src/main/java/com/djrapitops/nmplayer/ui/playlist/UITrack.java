@@ -1,7 +1,7 @@
 package com.djrapitops.nmplayer.ui.playlist;
 
 import com.djrapitops.nmplayer.functionality.Track;
-import com.djrapitops.nmplayer.ui.Updateable;
+import com.djrapitops.nmplayer.ui.Updatable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 
@@ -11,10 +11,10 @@ import javafx.scene.layout.HBox;
  *
  * @author ristolah
  */
-public class UITrack extends HBox implements Updateable {
+public class UITrack extends HBox implements Updatable {
 
     private final Track track;
-    private final Updateable u;
+    private final Updatable u;
 
     /**
      * Constructor.
@@ -24,9 +24,9 @@ public class UITrack extends HBox implements Updateable {
      * is pressed.
      *
      * @param track Track this element represents
-     * @param u Updateable to call when a button is pressed.
+     * @param u Updatable to call when a button is pressed.
      */
-    public UITrack(Track track, Updateable u) {
+    public UITrack(Track track, Updatable u) {
         this.u = u;
         this.track = track;
         super.setAlignment(Pos.CENTER_LEFT);

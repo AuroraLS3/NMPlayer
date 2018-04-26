@@ -63,7 +63,7 @@ public class ErrorManager {
 
     private static void toLog(List<String> toWrite) {
         File log = new File("Errors.txt");
-        FileWriter.appendToFile(toWrite, log);
+        FileUtility.appendToFile(toWrite, log);
     }
 
     /**
@@ -72,7 +72,7 @@ public class ErrorManager {
      * @param ms ms since Epoch Date 1970
      * @return String of format (month) (day) (hh:mm:ss)
      */
-    public static String formatTimeStamp(long ms) {
+    private static String formatTimeStamp(long ms) {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd HH:mm:ss", Locale.ENGLISH);
         return formatter.format(ms);
     }

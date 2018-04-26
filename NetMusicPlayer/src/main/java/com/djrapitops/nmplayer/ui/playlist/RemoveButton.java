@@ -8,8 +8,6 @@ package com.djrapitops.nmplayer.ui.playlist;
 import com.djrapitops.nmplayer.fileutils.PlaylistFileManager;
 import com.djrapitops.nmplayer.functionality.MusicPlayer;
 import com.djrapitops.nmplayer.functionality.PlaylistManager;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 
@@ -33,10 +31,10 @@ public class RemoveButton extends Button {
      * @see PlaylistManager
      */
     public RemoveButton(UITrack uiTrack) {
-        super.setStyle("-fx-background-color: DarkRed; -fx-text-fill: White");
-        super.setText("x");
-        super.setAlignment(Pos.CENTER_RIGHT);
-        EventHandler h = (EventHandler<ActionEvent>) (ActionEvent event) -> {
+        setStyle("-fx-background-color: DarkRed; -fx-text-fill: White");
+        setText("x");
+        setAlignment(Pos.CENTER_RIGHT);
+        setOnAction(event -> {
             MusicPlayer musicPlayer = MusicPlayer.getInstance();
             musicPlayer.removeTrackFromPlaylist(uiTrack.getTrack());
             PlaylistManager playlistManager = musicPlayer.getPlaylistManager();
@@ -44,8 +42,7 @@ public class RemoveButton extends Button {
                 playlistManager.setRandom(true);
             }
             uiTrack.update();
-        };
-        super.setOnAction(h);
+        });
     }
 
 }

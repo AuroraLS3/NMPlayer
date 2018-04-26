@@ -8,6 +8,9 @@ package com.djrapitops.nmplayer.messaging;
 import com.djrapitops.nmplayer.java.MethodRef;
 import com.djrapitops.nmplayer.ui.TextConsole;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * This class is used to send information (text) to the user of the program.
  * <p>
@@ -26,7 +29,7 @@ public class MessageSender {
     private MethodRef<String> output;
 
     private MessageSender() {
-        this.output = System.out::println;
+        this.output = msg -> Logger.getGlobal().log(Level.INFO, msg);
     }
 
     /**
@@ -64,7 +67,7 @@ public class MessageSender {
                 console.scrollTopProperty().set(Double.MAX_VALUE);
             };
         } else {
-            output = System.out::println;
+            output = msg -> Logger.getGlobal().log(Level.INFO, msg);
         }
     }
 
